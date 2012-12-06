@@ -24,7 +24,7 @@
     {
         CCSprite *sprite = [CCSprite spriteWithFile: @"Icon.png"];
         sprite.position = ccp(440, 280);
-        [self addChild: sprite];
+        //[self addChild: sprite];
     }
     
     return self;

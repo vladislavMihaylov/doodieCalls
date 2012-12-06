@@ -76,7 +76,7 @@
                      ]
          ];
         
-        openedLevels = 1;
+        openedLevels = 2;
         
         [self createLevelsMenu];
         
@@ -113,6 +113,7 @@
                                                                target: self
                                                              selector: @selector(loadLevel:)
                                  ];
+        
         item.isEnabled = isActive;
         item.tag = i + 1;
         
@@ -134,7 +135,6 @@
     
     levelsMenu.position = ccp(240, 380);
     
-    //[levelsMenu alignItemsHorizontallyWithPadding: 45];
     [levelsMenu alignItemsInColumns: countColumns, countColumns, nil];
     
     [self addChild: levelsMenu];
@@ -150,8 +150,11 @@
 
 - (void) loadLevel: (CCMenuItemImage *) sender
 {
-    CCLOG(@"Item tag: %i", sender.tag);
-    [[CCDirector sharedDirector] replaceScene: [CCTransitionFade transitionWithDuration: 0.5 scene: [GameLayer scene]]];
+    [[CCDirector sharedDirector] replaceScene:
+                                        [CCTransitionFade transitionWithDuration: 0.5
+                                                                           scene: [GameLayer sceneWithLevelNumber: sender.tag]
+                                         ]
+     ];
 }
 
 

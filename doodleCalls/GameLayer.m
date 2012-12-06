@@ -7,17 +7,17 @@
 //
 
 #import "GameLayer.h"
-
+#import "Mower.h"
 
 @implementation GameLayer
 
 @synthesize guiLayer;
 
-+(CCScene *) scene
++(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel
 {
     CCScene *scene = [CCScene node];
     
-    GameLayer *layer = [GameLayer node];
+    GameLayer *layer = [[[GameLayer alloc] initWithLevel: numberOfLevel] autorelease];
     
     GuiLayer *gui = [GuiLayer node];
 
@@ -32,10 +32,22 @@
     [super dealloc];
 }
 
-- (id) init
+- (id) initWithLevel: (NSInteger) level
 {
     if(self = [super init])
     {
+        NSString *currentLevel = [NSString stringWithFormat: @"%i", level];
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource: @"arrays" ofType: @"plist"];
+        
+        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
+        
+        NSString *pointsString = [NSString stringWithString: [dict valueForKey: currentLevel]];      // указываем ключ (номер стадии)
+        
+        NSArray *coordinats = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
+        
+        ///////////////////////////////////////////////////////////////////////
+        
         gameBatch = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
         [self addChild: gameBatch];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
@@ -48,12 +60,15 @@
         backgroundSprite.position = ccp(240, 160);
         [self addChild: backgroundSprite];
         
-        CCSprite *lamnMower = [CCSprite spriteWithSpriteFrameName: @"smallSide0.png"];
-        lamnMower.position = ccp(100, 100);
-        [self addChild: lamnMower];
+        mower = [Mower create];
+        
+        [self addChild: mower];
+        
+        [mower moveWithPath: coordinats];
     }
     
     return self;
 }
+
 
 @end

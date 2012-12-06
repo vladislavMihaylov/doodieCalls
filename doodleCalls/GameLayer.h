@@ -10,15 +10,19 @@
 #import "cocos2d.h"
 #import "GuiLayer.h"
 
+@class Mower;
+
 @interface GameLayer : CCLayer
 {
     GuiLayer *guiLayer;
+    
+    Mower *mower;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;
 }
 
-+(CCScene *) scene;
++(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
 
