@@ -15,6 +15,7 @@
 		F50296F4166F786F00A94AB3 /* game_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F50296F2166F786F00A94AB3 /* game_atlas.png */; };
 		F50296FE166FAFC300A94AB3 /* arrays.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50296FD166FAFC300A94AB3 /* arrays.plist */; };
 		F5029706166FB9FF00A94AB3 /* Mower.m in Sources */ = {isa = PBXBuildFile; fileRef = F5029705166FB9FF00A94AB3 /* Mower.m */; };
+		F506602D16736C59006329F2 /* grass0.png in Resources */ = {isa = PBXBuildFile; fileRef = F506602C16736C59006329F2 /* grass0.png */; };
 		F54748A6167101F80030C43A /* Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = F54748A5167101F80030C43A /* Common.mm */; };
 		F54748A91671086C0030C43A /* moveAnimation.plist in Resources */ = {isa = PBXBuildFile; fileRef = F54748A81671086C0030C43A /* moveAnimation.plist */; };
 		F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54748AC16711BDE0030C43A /* Default-568h@2x.png */; };
@@ -174,6 +175,7 @@
 		F50296FD166FAFC300A94AB3 /* arrays.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = arrays.plist; sourceTree = "<group>"; };
 		F5029704166FB9FE00A94AB3 /* Mower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mower.h; sourceTree = "<group>"; };
 		F5029705166FB9FF00A94AB3 /* Mower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mower.m; sourceTree = "<group>"; };
+		F506602C16736C59006329F2 /* grass0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass0.png; sourceTree = "<group>"; };
 		F54748A4167101F80030C43A /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		F54748A5167101F80030C43A /* Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Common.mm; sourceTree = "<group>"; };
 		F54748A81671086C0030C43A /* moveAnimation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = moveAnimation.plist; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		F58C2CF4166E05CA00D9E094 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F506602C16736C59006329F2 /* grass0.png */,
 				F54748A81671086C0030C43A /* moveAnimation.plist */,
 				F50296FD166FAFC300A94AB3 /* arrays.plist */,
 				F50296D1166F3B9900A94AB3 /* ShopMenuScene.ccbi */,
@@ -1042,6 +1045,7 @@
 				F50296FE166FAFC300A94AB3 /* arrays.plist in Resources */,
 				F54748A91671086C0030C43A /* moveAnimation.plist in Resources */,
 				F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */,
+				F506602D16736C59006329F2 /* grass0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

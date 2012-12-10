@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/Mower.m"
-         timestampString = "376510845.318988"
+         timestampString = "376769937.809125"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135"
+         startingLineNumber = "265"
+         endingLineNumber = "265"
          landmarkName = "-moveRightAnimation"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,24 +73,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/Mower.m"
-         timestampString = "376510739.922772"
+         timestampString = "376769937.809125"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-moveWithPath:"
-         landmarkType = "5">
+         startingLineNumber = "58"
+         endingLineNumber = "58"
+         landmarkName = "@implementation Mower"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/Mower.m"
-         timestampString = "376510845.318988"
+         timestampString = "376769937.809125"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "128"
-         endingLineNumber = "128"
+         startingLineNumber = "258"
+         endingLineNumber = "258"
          landmarkName = "-moveRightAnimation"
          landmarkType = "5">
       </FileBreakpoint>
@@ -119,6 +119,19 @@
          endingLineNumber = "25"
          landmarkName = "+loadAnimationWithPlist:andName:"
          landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/Mower.m"
+         timestampString = "376769937.809125"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
+         landmarkName = "@implementation Mower"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -36,38 +36,71 @@
 {
     if(self = [super init])
     {
-        NSString *currentLevel = [NSString stringWithFormat: @"%i", level];
+        [self loadTextures];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource: @"arrays" ofType: @"plist"];
-        
-        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
-        
-        NSString *pointsString = [NSString stringWithString: [dict valueForKey: currentLevel]];      // указываем ключ (номер стадии)
-        
-        NSArray *coordinats = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
-        
-        ///////////////////////////////////////////////////////////////////////
-        
-        gameBatch = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
-        [self addChild: gameBatch];
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
-        
-        batchNode = [CCSpriteBatchNode batchNodeWithFile: @"bg_atlas.png"];
-        [self addChild: batchNode];
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"bg_atlas.plist"];
-        
-        CCSprite *backgroundSprite = [CCSprite spriteWithSpriteFrameName: @"BG.png"];
-        backgroundSprite.position = ccp(240, 160);
-        [self addChild: backgroundSprite];
-        
-        mower = [Mower create];
-        
-        [self addChild: mower];
-        
-        [mower moveWithPath: coordinats];
+        [self startLevel: level];
     }
     
     return self;
+}
+
+#pragma mark -
+#pragma mark start/pause/restart
+
+- (void) startLevel: (NSInteger) level
+{
+    NSArray *coordinats = [self getCoordinatsForLevel: level];
+    
+    mower = [Mower create];
+    
+    [self addChild: mower z: 5];
+    
+    mower.gameLayer = self;
+    
+    [mower moveWithPath: coordinats];
+}
+
+- (void) pause
+{
+    
+}
+
+- (void) restart
+{
+    
+}
+
+#pragma mark -
+#pragma mark other functions
+
+- (NSArray *) getCoordinatsForLevel: (NSInteger) level // Парсим plist и получаем координаты точек
+{
+    NSString *currentLevel = [NSString stringWithFormat: @"%i", level];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"arrays" ofType: @"plist"];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
+    
+    NSString *pointsString = [NSString stringWithString: [dict valueForKey: currentLevel]];      // указываем ключ (номер стадии)
+    
+    NSArray *coordinats = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
+    
+    return coordinats;
+}
+
+- (void) loadTextures
+{
+    gameBatch = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
+    [self addChild: gameBatch];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
+    
+    batchNode = [CCSpriteBatchNode batchNodeWithFile: @"bg_atlas.png"];
+    [self addChild: batchNode];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"bg_atlas.plist"];
+    
+    CCSprite *backgroundSprite = [CCSprite spriteWithSpriteFrameName: @"BG.png"];
+    backgroundSprite.position = ccp(240, 160);
+    [self addChild: backgroundSprite];
 }
 
 
