@@ -14,6 +14,26 @@
 @interface GuiLayer :CCLayer
 {
     GameLayer *gameLayer;
+    
+    CCSpriteBatchNode *batchNode;
+    CCSpriteBatchNode *gameBatchNode;
+    
+    // Buttons
+    
+    CCSprite *pauseBtnSprite;
+    CCSprite *pauseBtnSpriteOn;
+    
+    // BackGrounds
+    
+    CCSprite *pauseMenuBg;
+    CCSprite *gameOverMenuBg;
+    CCSprite *succeedMenuBg;
+    
+    // Menus
+    
+    CCMenuItemImage *pauseBtn;
+    
+    CCMenu *pauseMenu;
 }
 
 @property (nonatomic, assign) GameLayer *gameLayer;

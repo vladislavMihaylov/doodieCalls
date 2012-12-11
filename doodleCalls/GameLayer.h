@@ -9,20 +9,27 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "GuiLayer.h"
+//#import "Mower.h"
 
 @class Mower;
+@class GardenBed;
 
 @interface GameLayer : CCLayer
 {
     GuiLayer *guiLayer;
     
     Mower *mower;
+    GardenBed *gardenBed;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;
+    
+    NSMutableArray *pooArray;
 }
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;
+
+- (void) addGrassToPoint: (CGPoint) position;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
 

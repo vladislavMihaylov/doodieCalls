@@ -7,7 +7,14 @@
 //
 
 #import "GameLayer.h"
+#import "GameConfig.h"
 #import "Mower.h"
+#import "GardenBed.h"
+#import "Kennel.h"
+#import "WaterPool.h"
+#import "Rock.h"
+#import "Poo.h"
+
 
 @implementation GameLayer
 
@@ -30,6 +37,7 @@
 - (void) dealloc
 {
     [super dealloc];
+    [pooArray release];
 }
 
 - (id) initWithLevel: (NSInteger) level
@@ -39,9 +47,118 @@
         [self loadTextures];
         
         [self startLevel: level];
+        
+        [self setParametersFromLevel: level];
+        
+        Poo *poo = [[[Poo alloc] init] autorelease];
+        poo.position = ccp(GameCenterX, GameCenterY);
+        
+        Poo *poo2 = [[[Poo alloc] init] autorelease];
+        poo2.position = ccp(300, 100);
+        
+        [pooArray addObject: poo];
+        [pooArray addObject: poo2];
+        
+        [self addChild: poo];
+        [self addChild: poo2];
     }
     
     return self;
+}
+
+#pragma mark -
+#pragma mark Touches
+
+- (void) registerWithTouchDispatcher
+{
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate: self priority: 0 swallowsTouches: YES];
+}
+
+- (BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+    
+    for(Poo *currentPoo in pooArray)
+    {
+        //CCLOG(@"curPoo.position = %f, %f", currentPoo.position.x, currentPoo.position.y);
+        
+        if([currentPoo isTapped: location])
+        {
+            currentPoo.tap = YES;
+        }
+    }
+    
+    return YES;
+}
+
+- (void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+    
+    for(Poo *currentPoo in pooArray)
+    {
+        if(currentPoo.tap == YES)
+        {
+            currentPoo.position = location;
+        }
+    }
+}
+
+- (void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+    
+    float Ax = gardenBed.gardenBedSprite.contentSize.width / 2;
+    float Ay = gardenBed.gardenBedSprite.contentSize.height / 2;
+    
+    float Bx = fabsf(location.x - gardenBed.position.x);
+    float By = fabsf(location.y - gardenBed.position.y);
+    
+    BOOL isRemovePoo = Bx <= Ax || By <= Ay;
+    
+    NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
+    
+    if(isRemovePoo)
+    {
+        for(Poo *currentPoo in pooArray)
+        {
+            if(currentPoo.tap == YES)
+            {
+                [pooForRemove addObject: currentPoo];
+                [self removeChild: currentPoo cleanup: YES];
+            }
+        }
+    }
+    else
+    {
+        for(Poo *currentPoo in pooArray)
+        {
+            if(currentPoo.tap == YES)
+            {
+                currentPoo.tap = NO;
+            }
+        }
+    }
+    
+    for(Poo *currentPooForRemove in pooForRemove)
+    {
+        [pooArray removeObject: currentPooForRemove];
+    }
+    
+    [pooForRemove release];
+    
+    //if()
+}
+
+#pragma mark -
+#pragma mark Update
+
+- (void) update: (ccTime) dt
+{
+    CCLOG(@"Mower direction %i", mower.direction);
 }
 
 #pragma mark -
@@ -49,6 +166,10 @@
 
 - (void) startLevel: (NSInteger) level
 {
+    pooArray = [[NSMutableArray alloc] init];
+    
+    self.isTouchEnabled = YES;
+    
     NSArray *coordinats = [self getCoordinatsForLevel: level];
     
     mower = [Mower create];
@@ -58,6 +179,8 @@
     mower.gameLayer = self;
     
     [mower moveWithPath: coordinats];
+    
+    [self scheduleUpdate];
 }
 
 - (void) pause
@@ -71,17 +194,90 @@
 }
 
 #pragma mark -
+#pragma mark setObjectsParameters
+
+- (void) setParametersFromLevel: (NSInteger) level
+{
+    NSString *allObjects = [[NSBundle mainBundle] pathForResource: [NSString stringWithFormat: @"level%i", level] ofType: @"plist"];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: allObjects];
+    
+    NSDictionary *onlyObjects = [NSDictionary dictionaryWithDictionary: [dict valueForKey: @"objects"]];
+    
+    NSArray *allKeysFromObjects = [onlyObjects allKeys];
+    
+    
+    for(int i = 0; i < onlyObjects.count; i++)
+    {
+        NSString *key = [NSString stringWithFormat: @"%@", [allKeysFromObjects objectAtIndex: i]];
+        
+        NSDictionary *curObject = [onlyObjects valueForKey: key];
+        
+        NSInteger identificator = [[curObject valueForKey: @"id"] integerValue];
+        
+        NSString *position = [curObject valueForKey: @"position"];
+        
+        NSArray *coordinats = [position componentsSeparatedByString: @"/"];         // получаем массив с координатами
+        
+        NSInteger posX = [[coordinats objectAtIndex: 0] floatValue];
+        NSInteger posY = [[coordinats objectAtIndex: 1] floatValue];
+        
+        CGPoint objectPosition = CGPointMake(posX, posY);
+        
+        [self createObjectWithID: identificator andPosition: objectPosition];
+        
+    }
+}
+
+- (void) createObjectWithID: (NSInteger) ID andPosition: (CGPoint) position // Вместо позиции передаем дикшинери
+{
+    if(ID == 0)
+    {
+        gardenBed = [GardenBed create];
+        gardenBed.position = position;
+        [self addChild: gardenBed];
+    }
+    else if(ID == 1)
+    {
+        Kennel *kennel = [Kennel create];
+        kennel.position = position;
+        [self addChild: kennel];
+    }
+    else if(ID == 2)
+    {
+        WaterPool *waterPool = [WaterPool create];
+        waterPool.position = position;
+        [self addChild: waterPool];
+    }
+    else if(ID == 3)
+    {
+        Rock *rock = [Rock create];
+        rock.position = position;
+        [self addChild: rock];
+    }
+}
+
+#pragma mark -
 #pragma mark other functions
+
+- (void) addGrassToPoint: (CGPoint) position
+{
+    CCSprite *grass = [CCSprite spriteWithSpriteFrameName: @"grass0.png"];
+    grass.position = position;
+    grass.anchorPoint = ccp(0.5, 0);
+    grass.scale = 1.3;
+    [gameBatch addChild: grass];
+}
 
 - (NSArray *) getCoordinatsForLevel: (NSInteger) level // Парсим plist и получаем координаты точек
 {
     NSString *currentLevel = [NSString stringWithFormat: @"%i", level];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"arrays" ofType: @"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource: [NSString stringWithFormat: @"level%@", currentLevel] ofType: @"plist"];
     
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
     
-    NSString *pointsString = [NSString stringWithString: [dict valueForKey: currentLevel]];      // указываем ключ (номер стадии)
+    NSString *pointsString = [NSString stringWithString: [dict valueForKey: @"path"]];            // берём строку с координатами
     
     NSArray *coordinats = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
     
@@ -91,16 +287,17 @@
 - (void) loadTextures
 {
     gameBatch = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
-    [self addChild: gameBatch];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
     
     batchNode = [CCSpriteBatchNode batchNodeWithFile: @"bg_atlas.png"];
-    [self addChild: batchNode];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"bg_atlas.plist"];
+    
+    [self addChild: batchNode];
+    [self addChild: gameBatch];
     
     CCSprite *backgroundSprite = [CCSprite spriteWithSpriteFrameName: @"BG.png"];
     backgroundSprite.position = ccp(240, 160);
-    [self addChild: backgroundSprite];
+    [batchNode addChild: backgroundSprite];
 }
 
 

@@ -13,6 +13,7 @@
 @implementation Mower
 
 @synthesize gameLayer;
+@synthesize direction;
 
 + (Mower *) create
 {
@@ -51,84 +52,6 @@
     
     return self;
 }
-
-/*- (void) moveWithPath: (NSArray *) points
-{
-    if(pointNumber < ((points.count / 2) - 1))
-    {
-        pointsArray = nil;
-        pointsArray = [NSArray arrayWithArray: points];
-        
-        float currentX = [[pointsArray objectAtIndex: pointIndex] floatValue];
-        float currentY = [[pointsArray objectAtIndex: pointIndex + 1] floatValue];
-        
-        CGPoint currentPoint = CGPointMake(currentX, currentY);
-        
-        self.position = currentPoint;
-        
-        float nextX = [[pointsArray objectAtIndex: pointIndex + 2] floatValue];
-        float nextY = [[pointsArray objectAtIndex: pointIndex + 3] floatValue];
-        
-        CGPoint nextPoint = CGPointMake(nextX, nextY);
-        
-        NSInteger lenghtX = nextPoint.x - currentPoint.x;             // Длина пути по оси Х
-        NSInteger lenghtY = nextPoint.y - currentPoint.y;             // Длина пути по оси Y
-        
-        NSInteger timeOfMove;
-        
-        if(lenghtX != 0)                                              // Если движение по горизонтали
-        {
-            timeOfMove = abs(lenghtX / 25);                           // 25 - ширина спрайта выкошенной земли
-            
-            if(lenghtX > 0)
-            {
-                [self moveRightAnimation];
-                //grassAnchorPoint = ccp(1, 0);
-            }
-            else
-            {
-                [self moveLeftAnimation];
-                //grassAnchorPoint = ccp(0, 0);
-            }
-        }
-        if(lenghtY != 0)                                              // если движение по вертикали
-        {
-            timeOfMove = abs(lenghtY / 25);
-            
-            if(lenghtY > 0)
-            {
-                [self moveUpAnimation];
-            }
-            else
-            {
-                [self moveDownAnimation];
-            }
-        }
-        
-        pointNumber += 1;
-        pointIndex += 2;
-        
-        [self runAction:
-                    [CCSequence actions:
-                                [CCMoveTo actionWithDuration: timeOfMove / 2
-                                                    position: nextPoint],
-                                [CCCallFunc actionWithTarget: self
-                                                    selector: @selector(doNextMove)],
-                                nil]
-         ];
-        
-        
-        
-        [pointsArray retain];
-        
-    }
-    else
-    {
-        pointNumber = 0;
-        pointIndex = 0;
-        [sprite stopAllActions];
-    }
-}*/
 
 - (void) moveWithPath: (NSArray *) points
 {
@@ -191,15 +114,6 @@
     }
 }
 
-- (void) addGrass
-{
-    CCSprite *grass = [CCSprite spriteWithFile: @"grass0.png"];
-    grass.position = ccp(self.position.x, self.position.y);
-    grass.anchorPoint = ccp(0.5, 0);
-    grass.scaleY = 0.625;
-    [gameLayer addChild: grass];
-}
-
 - (CGPoint) calculateLenghtFromArray: (NSArray *) points
 {
     float currentX = [[points objectAtIndex: pointIndex] floatValue];
@@ -227,10 +141,13 @@
 
 - (void) doStep
 {
+    float newPosX = self.position.x + lenghtOfStepX;
+    float newPosY = self.position.y + lenghtOfStepY;
+    
     [self runAction:
                 [CCSequence actions:
                                 [CCMoveTo actionWithDuration: 0.5
-                                                    position: ccp(self.position.x + lenghtOfStepX, self.position.y + lenghtOfStepY)],
+                                                    position: ccp(newPosX, newPosY)],
                                 [CCCallFunc actionWithTarget: self
                                                     selector: @selector(checkStepsCount)],
                                 nil
@@ -243,7 +160,8 @@
 {
     stepsCount--;
     
-    [self addGrass];
+    //[self addGrass];
+    [gameLayer addGrassToPoint: ccp(self.position.x, self.position.y)];
     
     if(stepsCount)
     {
@@ -261,6 +179,7 @@
 - (void) moveRightAnimation
 {
     sprite.scaleX = 1;
+    direction = right;
     
     [sprite stopAllActions];
     
@@ -276,6 +195,7 @@
 - (void) moveLeftAnimation
 {
     sprite.scaleX = -1;
+    direction = left;
     
     [sprite stopAllActions];
     
@@ -291,6 +211,7 @@
 - (void) moveDownAnimation
 {
     sprite.scaleX = 1;
+    direction = down;
     
     [sprite stopAllActions];
     
@@ -306,6 +227,7 @@
 - (void) moveUpAnimation
 {
     sprite.scaleX = 1;
+    direction = up;
     
     [sprite stopAllActions];
     

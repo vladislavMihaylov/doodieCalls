@@ -15,6 +15,9 @@
 		F50296F4166F786F00A94AB3 /* game_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F50296F2166F786F00A94AB3 /* game_atlas.png */; };
 		F50296FE166FAFC300A94AB3 /* arrays.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50296FD166FAFC300A94AB3 /* arrays.plist */; };
 		F5029706166FB9FF00A94AB3 /* Mower.m in Sources */ = {isa = PBXBuildFile; fileRef = F5029705166FB9FF00A94AB3 /* Mower.m */; };
+		F5065D27167734B000682D19 /* GameConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F5065D26167734B000682D19 /* GameConfig.m */; };
+		F5065D2B167777FC00682D19 /* Poo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5065D2A167777FC00682D19 /* Poo.m */; };
+		F5065D2D167779A400682D19 /* poo.png in Resources */ = {isa = PBXBuildFile; fileRef = F5065D2C167779A400682D19 /* poo.png */; };
 		F506602D16736C59006329F2 /* grass0.png in Resources */ = {isa = PBXBuildFile; fileRef = F506602C16736C59006329F2 /* grass0.png */; };
 		F54748A6167101F80030C43A /* Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = F54748A5167101F80030C43A /* Common.mm */; };
 		F54748A91671086C0030C43A /* moveAnimation.plist in Resources */ = {isa = PBXBuildFile; fileRef = F54748A81671086C0030C43A /* moveAnimation.plist */; };
@@ -154,6 +157,11 @@
 		F58C2F10166E367F00D9E094 /* CCBsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F08166E367F00D9E094 /* CCBsequence.m */; };
 		F58C2F11166E367F00D9E094 /* CCBSequenceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0A166E367F00D9E094 /* CCBSequenceProperty.m */; };
 		F58C2F12166E367F00D9E094 /* CCNode+CCBRelativePositioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */; };
+		F5FB2F1C1676171D00133D64 /* level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5FB2F1B1676171D00133D64 /* level1.plist */; };
+		F5FB2F251676339000133D64 /* WaterPool.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F241676339000133D64 /* WaterPool.m */; };
+		F5FB2F291676346000133D64 /* GardenBed.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F281676346000133D64 /* GardenBed.m */; };
+		F5FB2F2C167634FF00133D64 /* Kennel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F2B167634FF00133D64 /* Kennel.m */; };
+		F5FB2F2F1676365900133D64 /* Rock.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F2E1676365900133D64 /* Rock.m */; };
 		F5FE7C24166E4C8E0093D5B8 /* MainMenuScene.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = F5FE7C23166E4C8E0093D5B8 /* MainMenuScene.ccbi */; };
 		F5FE7C28166E50240093D5B8 /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FE7C27166E50240093D5B8 /* GameLayer.m */; };
 		F5FE7C2B166E546A0093D5B8 /* SelectLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FE7C2A166E546A0093D5B8 /* SelectLevelLayer.m */; };
@@ -175,6 +183,11 @@
 		F50296FD166FAFC300A94AB3 /* arrays.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = arrays.plist; sourceTree = "<group>"; };
 		F5029704166FB9FE00A94AB3 /* Mower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mower.h; sourceTree = "<group>"; };
 		F5029705166FB9FF00A94AB3 /* Mower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mower.m; sourceTree = "<group>"; };
+		F5065D25167734B000682D19 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
+		F5065D26167734B000682D19 /* GameConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameConfig.m; sourceTree = "<group>"; };
+		F5065D29167777FC00682D19 /* Poo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Poo.h; sourceTree = "<group>"; };
+		F5065D2A167777FC00682D19 /* Poo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Poo.m; sourceTree = "<group>"; };
+		F5065D2C167779A400682D19 /* poo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poo.png; sourceTree = "<group>"; };
 		F506602C16736C59006329F2 /* grass0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass0.png; sourceTree = "<group>"; };
 		F54748A4167101F80030C43A /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		F54748A5167101F80030C43A /* Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Common.mm; sourceTree = "<group>"; };
@@ -456,6 +469,15 @@
 		F58C2F0A166E367F00D9E094 /* CCBSequenceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBSequenceProperty.m; sourceTree = "<group>"; };
 		F58C2F0B166E367F00D9E094 /* CCNode+CCBRelativePositioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+CCBRelativePositioning.h"; sourceTree = "<group>"; };
 		F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+CCBRelativePositioning.m"; sourceTree = "<group>"; };
+		F5FB2F1B1676171D00133D64 /* level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level1.plist; sourceTree = "<group>"; };
+		F5FB2F231676339000133D64 /* WaterPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterPool.h; sourceTree = "<group>"; };
+		F5FB2F241676339000133D64 /* WaterPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterPool.m; sourceTree = "<group>"; };
+		F5FB2F271676346000133D64 /* GardenBed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GardenBed.h; sourceTree = "<group>"; };
+		F5FB2F281676346000133D64 /* GardenBed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GardenBed.m; sourceTree = "<group>"; };
+		F5FB2F2A167634FF00133D64 /* Kennel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kennel.h; sourceTree = "<group>"; };
+		F5FB2F2B167634FF00133D64 /* Kennel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kennel.m; sourceTree = "<group>"; };
+		F5FB2F2D1676365900133D64 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
+		F5FB2F2E1676365900133D64 /* Rock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rock.m; sourceTree = "<group>"; };
 		F5FE7C23166E4C8E0093D5B8 /* MainMenuScene.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = MainMenuScene.ccbi; path = Resources/MainMenuScene.ccbi; sourceTree = "<group>"; };
 		F5FE7C26166E50240093D5B8 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
 		F5FE7C27166E50240093D5B8 /* GameLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLayer.m; sourceTree = "<group>"; };
@@ -525,23 +547,14 @@
 		F58C2CF3166E05CA00D9E094 /* doodleCalls */ = {
 			isa = PBXGroup;
 			children = (
+				F5FB2F30167636E900133D64 /* Objects */,
 				F58C2EB7166E29E500D9E094 /* CCBREADER */,
-				F58C2E6B166E05CE00D9E094 /* AppDelegate.h */,
-				F58C2E6C166E05CE00D9E094 /* AppDelegate.m */,
-				F58C2EE2166E2C8800D9E094 /* MainMenuScene.h */,
-				F58C2EE3166E2C8800D9E094 /* MainMenuScene.m */,
-				F5FE8703166EE35500AB206B /* ShopMenuScene.h */,
-				F5FE8704166EE35500AB206B /* ShopMenuScene.m */,
-				F5FE7C29166E546A0093D5B8 /* SelectLevelLayer.h */,
-				F5FE7C2A166E546A0093D5B8 /* SelectLevelLayer.m */,
+				F5FB2F211676333A00133D64 /* Application */,
+				F5FB2F221676336100133D64 /* Menus */,
 				F5FE7C26166E50240093D5B8 /* GameLayer.h */,
 				F5FE7C27166E50240093D5B8 /* GameLayer.m */,
 				F50296EE166F744C00A94AB3 /* GuiLayer.h */,
 				F50296EF166F744C00A94AB3 /* GuiLayer.m */,
-				F5029704166FB9FE00A94AB3 /* Mower.h */,
-				F5029705166FB9FF00A94AB3 /* Mower.m */,
-				F54748A4167101F80030C43A /* Common.h */,
-				F54748A5167101F80030C43A /* Common.mm */,
 				F58C2CF4166E05CA00D9E094 /* Resources */,
 				F58C2D0E166E05CB00D9E094 /* libs */,
 				F58C2E67166E05CE00D9E094 /* Supporting Files */,
@@ -552,20 +565,11 @@
 		F58C2CF4166E05CA00D9E094 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5FB2F1F1676173F00133D64 /* Texture atlases */,
+				F5FB2F1E1676172D00133D64 /* Plists */,
+				F58C2EAA166E0C6100D9E094 /* Menus */,
 				F506602C16736C59006329F2 /* grass0.png */,
-				F54748A81671086C0030C43A /* moveAnimation.plist */,
-				F50296FD166FAFC300A94AB3 /* arrays.plist */,
-				F50296D1166F3B9900A94AB3 /* ShopMenuScene.ccbi */,
-				F5FE86FB166EE0AB00AB206B /* bg_atlas.plist */,
-				F5FE86FC166EE0AB00AB206B /* bg_atlas.png */,
-				F50296E9166F702800A94AB3 /* level_atlas.plist */,
-				F50296EA166F702800A94AB3 /* level_atlas.png */,
-				F50296F1166F786F00A94AB3 /* game_atlas.plist */,
-				F50296F2166F786F00A94AB3 /* game_atlas.png */,
-				F5FE86FD166EE0AB00AB206B /* shop_atlas.plist */,
-				F5FE86FE166EE0AB00AB206B /* shop_atlas.png */,
-				F5FE7C2C166E55570093D5B8 /* New Group */,
-				F58C2EAA166E0C6100D9E094 /* mainMenu */,
+				F5065D2C167779A400682D19 /* poo.png */,
 				F58C2CF5166E05CA00D9E094 /* Default.png */,
 				F54748AC16711BDE0030C43A /* Default-568h@2x.png */,
 				F58C2CF7166E05CA00D9E094 /* Default-Landscape~ipad.png */,
@@ -927,16 +931,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F58C2EAA166E0C6100D9E094 /* mainMenu */ = {
+		F58C2EAA166E0C6100D9E094 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
+				F50296D1166F3B9900A94AB3 /* ShopMenuScene.ccbi */,
 				F5FE7C23166E4C8E0093D5B8 /* MainMenuScene.ccbi */,
 				F58C2EA6166E0C5E00D9E094 /* mainmenu_atlas.plist */,
 				F58C2EA7166E0C5E00D9E094 /* mainmenu_atlas.png */,
 				F58C2EEF166E30E300D9E094 /* mainmenu_atlas-hd.plist */,
 				F58C2EF0166E30E300D9E094 /* mainmenu_atlas-hd.png */,
 			);
-			name = mainMenu;
+			name = Menus;
 			sourceTree = "<group>";
 		};
 		F58C2EB7166E29E500D9E094 /* CCBREADER */ = {
@@ -958,11 +963,74 @@
 			name = CCBREADER;
 			sourceTree = "<group>";
 		};
-		F5FE7C2C166E55570093D5B8 /* New Group */ = {
+		F5FB2F1E1676172D00133D64 /* Plists */ = {
 			isa = PBXGroup;
 			children = (
+				F5FB2F1B1676171D00133D64 /* level1.plist */,
+				F54748A81671086C0030C43A /* moveAnimation.plist */,
+				F50296FD166FAFC300A94AB3 /* arrays.plist */,
 			);
-			name = "New Group";
+			name = Plists;
+			sourceTree = "<group>";
+		};
+		F5FB2F1F1676173F00133D64 /* Texture atlases */ = {
+			isa = PBXGroup;
+			children = (
+				F5FE86FB166EE0AB00AB206B /* bg_atlas.plist */,
+				F5FE86FC166EE0AB00AB206B /* bg_atlas.png */,
+				F50296E9166F702800A94AB3 /* level_atlas.plist */,
+				F50296EA166F702800A94AB3 /* level_atlas.png */,
+				F50296F1166F786F00A94AB3 /* game_atlas.plist */,
+				F50296F2166F786F00A94AB3 /* game_atlas.png */,
+				F5FE86FD166EE0AB00AB206B /* shop_atlas.plist */,
+				F5FE86FE166EE0AB00AB206B /* shop_atlas.png */,
+			);
+			name = "Texture atlases";
+			sourceTree = "<group>";
+		};
+		F5FB2F211676333A00133D64 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				F5065D25167734B000682D19 /* GameConfig.h */,
+				F5065D26167734B000682D19 /* GameConfig.m */,
+				F58C2E6B166E05CE00D9E094 /* AppDelegate.h */,
+				F58C2E6C166E05CE00D9E094 /* AppDelegate.m */,
+				F54748A4167101F80030C43A /* Common.h */,
+				F54748A5167101F80030C43A /* Common.mm */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		F5FB2F221676336100133D64 /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				F58C2EE2166E2C8800D9E094 /* MainMenuScene.h */,
+				F58C2EE3166E2C8800D9E094 /* MainMenuScene.m */,
+				F5FE8703166EE35500AB206B /* ShopMenuScene.h */,
+				F5FE8704166EE35500AB206B /* ShopMenuScene.m */,
+				F5FE7C29166E546A0093D5B8 /* SelectLevelLayer.h */,
+				F5FE7C2A166E546A0093D5B8 /* SelectLevelLayer.m */,
+			);
+			name = Menus;
+			sourceTree = "<group>";
+		};
+		F5FB2F30167636E900133D64 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				F5029704166FB9FE00A94AB3 /* Mower.h */,
+				F5029705166FB9FF00A94AB3 /* Mower.m */,
+				F5FB2F231676339000133D64 /* WaterPool.h */,
+				F5FB2F241676339000133D64 /* WaterPool.m */,
+				F5FB2F271676346000133D64 /* GardenBed.h */,
+				F5FB2F281676346000133D64 /* GardenBed.m */,
+				F5FB2F2A167634FF00133D64 /* Kennel.h */,
+				F5FB2F2B167634FF00133D64 /* Kennel.m */,
+				F5FB2F2D1676365900133D64 /* Rock.h */,
+				F5FB2F2E1676365900133D64 /* Rock.m */,
+				F5065D29167777FC00682D19 /* Poo.h */,
+				F5065D2A167777FC00682D19 /* Poo.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1046,6 +1114,8 @@
 				F54748A91671086C0030C43A /* moveAnimation.plist in Resources */,
 				F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */,
 				F506602D16736C59006329F2 /* grass0.png in Resources */,
+				F5FB2F1C1676171D00133D64 /* level1.plist in Resources */,
+				F5065D2D167779A400682D19 /* poo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,6 +1241,12 @@
 				F50296F0166F744C00A94AB3 /* GuiLayer.m in Sources */,
 				F5029706166FB9FF00A94AB3 /* Mower.m in Sources */,
 				F54748A6167101F80030C43A /* Common.mm in Sources */,
+				F5FB2F251676339000133D64 /* WaterPool.m in Sources */,
+				F5FB2F291676346000133D64 /* GardenBed.m in Sources */,
+				F5FB2F2C167634FF00133D64 /* Kennel.m in Sources */,
+				F5FB2F2F1676365900133D64 /* Rock.m in Sources */,
+				F5065D27167734B000682D19 /* GameConfig.m in Sources */,
+				F5065D2B167777FC00682D19 /* Poo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
