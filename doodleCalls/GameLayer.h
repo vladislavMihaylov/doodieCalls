@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "GuiLayer.h"
-//#import "Mower.h"
 
 @class Mower;
 @class GardenBed;
 
 @interface GameLayer : CCLayer
 {
-    GuiLayer *guiLayer;
+    GuiLayer *gui;
     
     Mower *mower;
     GardenBed *gardenBed;
@@ -24,7 +23,11 @@
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;
     
+    CCSprite *scoreBoardSprite;
+    
     NSMutableArray *pooArray;
+    
+    NSInteger score;
 }
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;

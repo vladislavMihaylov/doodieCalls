@@ -14,6 +14,7 @@
 
 @synthesize gameLayer;
 @synthesize direction;
+@synthesize sprite;
 
 + (Mower *) create
 {

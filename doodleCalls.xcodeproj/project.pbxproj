@@ -22,6 +22,7 @@
 		F54748A6167101F80030C43A /* Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = F54748A5167101F80030C43A /* Common.mm */; };
 		F54748A91671086C0030C43A /* moveAnimation.plist in Resources */ = {isa = PBXBuildFile; fileRef = F54748A81671086C0030C43A /* moveAnimation.plist */; };
 		F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54748AC16711BDE0030C43A /* Default-568h@2x.png */; };
+		F583877516787CA700876A1D /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = F583877416787CA700876A1D /* Dog.m */; };
 		F58C2CE2166E05CA00D9E094 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58C2CE1166E05CA00D9E094 /* QuartzCore.framework */; };
 		F58C2CE4166E05CA00D9E094 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58C2CE3166E05CA00D9E094 /* OpenGLES.framework */; };
 		F58C2CE6166E05CA00D9E094 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58C2CE5166E05CA00D9E094 /* OpenAL.framework */; };
@@ -193,6 +194,8 @@
 		F54748A5167101F80030C43A /* Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Common.mm; sourceTree = "<group>"; };
 		F54748A81671086C0030C43A /* moveAnimation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = moveAnimation.plist; sourceTree = "<group>"; };
 		F54748AC16711BDE0030C43A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F583877316787CA700876A1D /* Dog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dog.h; sourceTree = "<group>"; };
+		F583877416787CA700876A1D /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
 		F58C2CDD166E05CA00D9E094 /* doodleCalls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = doodleCalls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F58C2CE1166E05CA00D9E094 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F58C2CE3166E05CA00D9E094 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1029,6 +1032,8 @@
 				F5FB2F2E1676365900133D64 /* Rock.m */,
 				F5065D29167777FC00682D19 /* Poo.h */,
 				F5065D2A167777FC00682D19 /* Poo.m */,
+				F583877316787CA700876A1D /* Dog.h */,
+				F583877416787CA700876A1D /* Dog.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1247,6 +1252,7 @@
 				F5FB2F2F1676365900133D64 /* Rock.m in Sources */,
 				F5065D27167734B000682D19 /* GameConfig.m in Sources */,
 				F5065D2B167777FC00682D19 /* Poo.m in Sources */,
+				F583877516787CA700876A1D /* Dog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

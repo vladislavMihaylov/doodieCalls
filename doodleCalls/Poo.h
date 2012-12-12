@@ -14,6 +14,7 @@
     CCSprite *pooSprite;
     
     BOOL tap;
+    BOOL collised;
 }
 
 + (Poo *) create;
@@ -21,5 +22,7 @@
 - (BOOL) isTapped: (CGPoint) location;
 
 @property (nonatomic, assign) BOOL tap;
+@property (nonatomic, assign) BOOL collised;
+@property (nonatomic, assign) CCSprite *pooSprite;
 
 @end

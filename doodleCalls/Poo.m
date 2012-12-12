@@ -12,6 +12,8 @@
 @implementation Poo
 
 @synthesize tap;
+@synthesize pooSprite;
+@synthesize collised;
 
 + (Poo *) create
 {
@@ -34,6 +36,7 @@
         [self addChild: pooSprite];
         
         tap = NO;
+        collised = NO;
     }
     
     return self;

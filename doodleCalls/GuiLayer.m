@@ -7,6 +7,7 @@
 //
 
 #import "GuiLayer.h"
+#import "GameLayer.h"
 
 #import "GameConfig.h"
 
@@ -59,9 +60,23 @@
         guiMenu.position = ccp(0, 0);
         [self addChild: guiMenu];
         
+        scoreLabel = [CCLabelTTF labelWithString: @"0" fontName: @"Arial" fontSize: 16];
+        scoreLabel.color = ccc3(0, 0, 0);
+        scoreLabel.position = ccp(75, 300);
+        [self addChild: scoreLabel];
+        
     }
     
     return self;
+}
+
+#pragma mark -
+#pragma mark Label 
+
+- (void) updateScoreLabel: (NSInteger) currentScore
+{
+    CCLOG(@"Score %i", currentScore);
+    scoreLabel.string = [NSString stringWithFormat: @"%i", currentScore];
 }
 
 #pragma mark -

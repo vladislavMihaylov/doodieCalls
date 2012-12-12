@@ -31,6 +31,9 @@
     [scene addChild: layer];
     [scene addChild: gui];
     
+    layer.guiLayer = gui;
+    gui.gameLayer = layer;
+    
     return scene;
 }
 
@@ -117,7 +120,7 @@
     float Bx = fabsf(location.x - gardenBed.position.x);
     float By = fabsf(location.y - gardenBed.position.y);
     
-    BOOL isRemovePoo = Bx <= Ax || By <= Ay;
+    BOOL isRemovePoo = Bx <= Ax && By <= Ay;
     
     NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
     
@@ -128,7 +131,8 @@
             if(currentPoo.tap == YES)
             {
                 [pooForRemove addObject: currentPoo];
-                [self removeChild: currentPoo cleanup: YES];
+                [self removeChild: currentPoo cleanup: YES]; // Дописать, чтобы нельзя было класть какаху на какаху
+                [guiLayer updateScoreLabel: score += 100];
             }
         }
     }
@@ -150,7 +154,6 @@
     
     [pooForRemove release];
     
-    //if()
 }
 
 #pragma mark -
@@ -158,7 +161,39 @@
 
 - (void) update: (ccTime) dt
 {
-    CCLOG(@"Mower direction %i", mower.direction);
+    [self checkShitCollision];
+}
+
+- (void) checkShitCollision
+{
+    for(Poo *currentPoo in pooArray)
+    {
+        float Bx = mower.sprite.contentSize.width / 2 + currentPoo.pooSprite.contentSize.width / 2;
+        float By = currentPoo.pooSprite.contentSize.height / 2;
+        
+        float Cx = fabsf(mower.position.x - currentPoo.position.x);
+        float Cy = fabsf((mower.position.y + 30) - currentPoo.position.y);
+
+        BOOL status = Cx <= Bx && Cy <= By;
+        
+        if(currentPoo.collised == NO)
+        {
+            if(status)
+            {
+                currentPoo.collised = YES;
+                
+                score -= 100;
+                
+                if(score <= 0)
+                {
+                    score = 0;
+                }
+                
+                [guiLayer updateScoreLabel: score];
+            }
+        }
+       
+    }
 }
 
 #pragma mark -
@@ -166,6 +201,8 @@
 
 - (void) startLevel: (NSInteger) level
 {
+    score = 0;
+    
     pooArray = [[NSMutableArray alloc] init];
     
     self.isTouchEnabled = YES;
@@ -298,6 +335,10 @@
     CCSprite *backgroundSprite = [CCSprite spriteWithSpriteFrameName: @"BG.png"];
     backgroundSprite.position = ccp(240, 160);
     [batchNode addChild: backgroundSprite];
+    
+    scoreBoardSprite = [CCSprite spriteWithSpriteFrameName: @"scoreboard.png"];
+    scoreBoardSprite.position = ccp(75, 300);
+    [gameBatch addChild: scoreBoardSprite];
 }
 
 

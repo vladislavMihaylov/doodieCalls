@@ -18,6 +18,8 @@
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatchNode;
     
+    CCLabelTTF *scoreLabel;
+    
     // Buttons
     
     CCSprite *pauseBtnSprite;
@@ -35,6 +37,8 @@
     
     CCMenu *pauseMenu;
 }
+
+- (void) updateScoreLabel: (NSInteger) currentScore;
 
 @property (nonatomic, assign) GameLayer *gameLayer;
 

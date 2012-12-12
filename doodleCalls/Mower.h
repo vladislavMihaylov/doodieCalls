@@ -43,5 +43,6 @@ typedef enum
 
 @property (nonatomic, assign) GameLayer *gameLayer;
 @property (nonatomic, assign) Direction direction;
+@property (nonatomic, assign) CCSprite *sprite;
 
 @end
