@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "376994618.071361"
+         timestampString = "377023028.322397"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "242"
-         endingLineNumber = "242"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
          landmarkName = "-setParametersFromLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "376994618.071361"
+         timestampString = "377023028.322397"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
+         startingLineNumber = "330"
+         endingLineNumber = "330"
          landmarkName = "-addGrassToPoint:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "376994183.847604"
+         timestampString = "377023028.322397"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
          landmarkName = "-ccTouchEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -196,6 +196,19 @@
          startingLineNumber = "78"
          endingLineNumber = "78"
          landmarkName = "-updateScoreLabel:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/Dog.m"
+         timestampString = "377020726.35432"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "40"
+         endingLineNumber = "40"
+         landmarkName = "-walk"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -16,7 +16,9 @@
 
 + (Dog *) create;
 
-- (void) walking;
-- (void) toShit;
+- (void) walk;
+
+- (void) walk;
+- (void) poo;
 
 @end

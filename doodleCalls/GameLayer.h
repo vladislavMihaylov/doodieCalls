@@ -12,6 +12,7 @@
 
 @class Mower;
 @class GardenBed;
+@class Dog;
 
 @interface GameLayer : CCLayer
 {
@@ -19,6 +20,7 @@
     
     Mower *mower;
     GardenBed *gardenBed;
+    Dog *dog;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;

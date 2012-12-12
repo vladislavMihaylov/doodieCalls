@@ -14,6 +14,7 @@
 #import "WaterPool.h"
 #import "Rock.h"
 #import "Poo.h"
+#import "Dog.h"
 
 
 @implementation GameLayer
@@ -47,26 +48,37 @@
 {
     if(self = [super init])
     {
+        curLevel = level;
+        
         [self loadTextures];
         
         [self startLevel: level];
         
         [self setParametersFromLevel: level];
         
-        Poo *poo = [[[Poo alloc] init] autorelease];
-        poo.position = ccp(GameCenterX, GameCenterY);
         
-        Poo *poo2 = [[[Poo alloc] init] autorelease];
-        poo2.position = ccp(300, 100);
+        dog = [[[Dog alloc] init] autorelease];
         
-        [pooArray addObject: poo];
-        [pooArray addObject: poo2];
+        dog.position = ccp(240, 160);
         
-        [self addChild: poo];
-        [self addChild: poo2];
+        [self addChild: dog z: zDog];
+        
+        [dog walk];
+        
+        [self schedule: @selector(addPoo) interval: 2];
     }
     
     return self;
+}
+
+- (void) addPoo
+{
+    Poo *poo = [[[Poo alloc] init] autorelease];
+    poo.position = dog.position;
+    
+    [pooArray addObject: poo];
+    
+    [self addChild: poo z: zPoo];
 }
 
 #pragma mark -
@@ -166,6 +178,8 @@
 
 - (void) checkShitCollision
 {
+    NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
+    
     for(Poo *currentPoo in pooArray)
     {
         float Bx = mower.sprite.contentSize.width / 2 + currentPoo.pooSprite.contentSize.width / 2;
@@ -182,6 +196,9 @@
             {
                 currentPoo.collised = YES;
                 
+                [pooForRemove addObject: currentPoo];
+                [self removeChild: currentPoo cleanup: YES];
+                
                 score -= 100;
                 
                 if(score <= 0)
@@ -194,6 +211,13 @@
         }
        
     }
+    
+    for(Poo *currentPoo in pooForRemove)
+    {
+        [pooArray removeObject: currentPoo];
+    }
+    
+    [pooForRemove release];
 }
 
 #pragma mark -
@@ -211,11 +235,13 @@
     
     mower = [Mower create];
     
-    [self addChild: mower z: 5];
+    [self addChild: mower z: zMower];
     
     mower.gameLayer = self;
     
     [mower moveWithPath: coordinats];
+    
+    
     
     [self scheduleUpdate];
 }
@@ -272,19 +298,19 @@
     {
         gardenBed = [GardenBed create];
         gardenBed.position = position;
-        [self addChild: gardenBed];
+        [self addChild: gardenBed z: zGardenBed];
     }
     else if(ID == 1)
     {
         Kennel *kennel = [Kennel create];
         kennel.position = position;
-        [self addChild: kennel];
+        [self addChild: kennel z: zKennel];
     }
     else if(ID == 2)
     {
         WaterPool *waterPool = [WaterPool create];
         waterPool.position = position;
-        [self addChild: waterPool];
+        [self addChild: waterPool z: zWaterPool];
     }
     else if(ID == 3)
     {
@@ -303,7 +329,7 @@
     grass.position = position;
     grass.anchorPoint = ccp(0.5, 0);
     grass.scale = 1.3;
-    [gameBatch addChild: grass];
+    [gameBatch addChild: grass z: zGrass];
 }
 
 - (NSArray *) getCoordinatsForLevel: (NSInteger) level // Парсим plist и получаем координаты точек
