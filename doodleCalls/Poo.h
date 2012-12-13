@@ -12,6 +12,7 @@
 @interface Poo: CCNode
 {
     CCSprite *pooSprite;
+    CCSprite *steamSprite;
     
     BOOL tap;
     BOOL collised;

@@ -171,6 +171,7 @@
 		F5FE8701166EE0AB00AB206B /* shop_atlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5FE86FD166EE0AB00AB206B /* shop_atlas.plist */; };
 		F5FE8702166EE0AB00AB206B /* shop_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FE86FE166EE0AB00AB206B /* shop_atlas.png */; };
 		F5FE8705166EE35500AB206B /* ShopMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FE8704166EE35500AB206B /* ShopMenuScene.m */; };
+		F5FEC4C11679B3C5001174C4 /* Flower.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FEC4C01679B3C5001174C4 /* Flower.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -492,6 +493,8 @@
 		F5FE86FE166EE0AB00AB206B /* shop_atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shop_atlas.png; path = Resources/shop_atlas.png; sourceTree = "<group>"; };
 		F5FE8703166EE35500AB206B /* ShopMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMenuScene.h; sourceTree = "<group>"; };
 		F5FE8704166EE35500AB206B /* ShopMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMenuScene.m; sourceTree = "<group>"; };
+		F5FEC4BF1679B3C5001174C4 /* Flower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flower.h; sourceTree = "<group>"; };
+		F5FEC4C01679B3C5001174C4 /* Flower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flower.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1034,6 +1037,8 @@
 				F5065D2A167777FC00682D19 /* Poo.m */,
 				F583877316787CA700876A1D /* Dog.h */,
 				F583877416787CA700876A1D /* Dog.m */,
+				F5FEC4BF1679B3C5001174C4 /* Flower.h */,
+				F5FEC4C01679B3C5001174C4 /* Flower.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1253,6 +1258,7 @@
 				F5065D27167734B000682D19 /* GameConfig.m in Sources */,
 				F5065D2B167777FC00682D19 /* Poo.m in Sources */,
 				F583877516787CA700876A1D /* Dog.m in Sources */,
+				F5FEC4C11679B3C5001174C4 /* Flower.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,8 @@
 
 @implementation WaterPool
 
+@synthesize waterPoolSprite;
+
 + (WaterPool *) create
 {
     WaterPool *waterPool = [[[WaterPool alloc] init] autorelease];
@@ -31,9 +33,9 @@
         [self addChild: gameBatchNode];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
-        CCSprite *waterPool = [CCSprite spriteWithSpriteFrameName: @"pool.png"];
-        waterPool.position = ccp(0,0);
-        [self addChild: waterPool];
+        waterPoolSprite = [CCSprite spriteWithSpriteFrameName: @"pool.png"];
+        waterPoolSprite.position = ccp(0,0);
+        [self addChild: waterPoolSprite];
     }
     
     return self;

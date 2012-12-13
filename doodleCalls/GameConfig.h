@@ -11,6 +11,7 @@
 #define zMower          10
 #define zDog            9
 #define zPoo            8
+#define zFlower         7
 
 extern NSInteger curLevel;
 

@@ -7,7 +7,7 @@
 //
 
 #import "Poo.h"
-
+#import "Common.h"
 
 @implementation Poo
 
@@ -31,15 +31,36 @@
 {
     if(self = [super init])
     {
-        pooSprite = [CCSprite spriteWithFile: @"poo.png"];
-        //pooSprite.scale = 0.4;
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: [NSString stringWithFormat: @"game_atlas.plist"]];
+        
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"steam"]];
+        
+        pooSprite = [CCSprite spriteWithSpriteFrameName: @"poo.png"];
+        
+        steamSprite = [CCSprite spriteWithSpriteFrameName: @"steam0.png"];
+        steamSprite.position = ccp(pooSprite.position.x, pooSprite.position.y + 30);
+        
         [self addChild: pooSprite];
+        [self addChild: steamSprite];
+        
+        [self playSteamAnimation];
         
         tap = NO;
         collised = NO;
     }
     
     return self;
+}
+
+- (void) playSteamAnimation
+{
+    [steamSprite runAction:
+            [CCRepeatForever actionWithAction:
+                                [CCAnimate actionWithAnimation:
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"steam"]
+                                 ]
+             ]
+     ];
 }
 
 -(BOOL) isTapped: (CGPoint) location

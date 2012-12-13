@@ -13,6 +13,8 @@
 @class Mower;
 @class GardenBed;
 @class Dog;
+@class WaterPool;
+@class Flower;
 
 @interface GameLayer : CCLayer
 {
@@ -21,6 +23,8 @@
     Mower *mower;
     GardenBed *gardenBed;
     Dog *dog;
+    WaterPool *waterPool;
+    Flower *flower;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;
@@ -35,7 +39,10 @@
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;
 
 - (void) addGrassToPoint: (CGPoint) position;
+- (BOOL) checkWaterPoolcollisionWithPoint: (CGPoint) point;
+- (void) addScoreFromFlower;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
+@property (nonatomic, assign) NSMutableArray *pooArray;
 
 @end

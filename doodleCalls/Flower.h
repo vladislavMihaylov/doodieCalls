@@ -1,8 +1,8 @@
 //
-//  Dog.h
+//  Rose.h
 //  doodleCalls
 //
-//  Created by Vlad on 12.12.12.
+//  Created by Vlad on 13.12.12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -11,20 +11,21 @@
 
 @class GameLayer;
 
-@interface Dog: CCNode
+@interface Flower: CCNode
 {
     GameLayer *gameLayer;
     
-    CCSprite *dogSprite;
+    CCSprite *flowerSprite;
+    
+    NSInteger type;
 }
 
-+ (Dog *) create;
++ (Flower *) create;
 
-- (void) walk;
+- (void) updateFlower;
+- (void) tapFlower;
 
-- (void) walk;
-- (void) poo;
-
+@property (nonatomic, assign) CCSprite *flowerSprite;
 @property (nonatomic, assign) GameLayer *gameLayer;
 
 @end

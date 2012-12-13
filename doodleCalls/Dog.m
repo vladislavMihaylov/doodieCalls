@@ -8,8 +8,14 @@
 
 #import "Dog.h"
 #import "GameConfig.h"
+#import "GameLayer.h"
+#import "Common.h"
+
+#import "Poo.h"
 
 @implementation Dog
+
+@synthesize gameLayer;
 
 + (Dog *) create
 {
@@ -27,9 +33,21 @@
 {
     if(self = [super init])
     {
-        CCSprite *dogSprite = [CCSprite spriteWithFile: @"Icon.png"];
+        dogSprite = [CCSprite spriteWithFile: @"Icon.png"];
         
         [self addChild: dogSprite];
+        
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: [NSString stringWithFormat: @"game_atlas.plist"]];
+        
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_down_"]];
+        
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_up_"]];
+        
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_left_"]];
+        
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_right_"]];
+        
+        [self schedule: @selector(poo) interval: 3];
     }
     
     return self;
@@ -54,20 +72,47 @@
     NSInteger movementX;
     NSInteger movementY;
     
-    float timeOfAction;
-    float delayTime = (arc4random() % 30) / 10;
+    movementX = (arc4random() % (maxX - minX)) + minX;
+    movementY = (arc4random() % (maxY - minY)) + minY;
     
-    if(delayTime < 1)
+    CGPoint dogPoint = CGPointMake(movementX, movementY);
+    
+    if([gameLayer checkWaterPoolcollisionWithPoint: dogPoint]) // Тут надо организовать доп функцию, чтобы можно было проверять колизии с бассейном
     {
-        delayTime = 1;
+        [self walk];
+    }
+    else
+    {
+        [self moveDog: dogPoint];
     }
     
-    if([self direction])
+    
+}
+
+- (void) moveDog: (CGPoint) nextPoint
+{
+    float timeOfAction;
+    float delayTime = (arc4random() % 20) / 10;
+    
+    if(delayTime < 0.5)
     {
-        movementX = self.position.x;
-        movementY = (arc4random() % (maxY - minY)) + minY;
+        delayTime = 0.5;
+    }
+    
+    if([self getDirection])
+    {
+        nextPoint.x = self.position.x;
         
-        timeOfAction = movementY / 70;
+        if((nextPoint.y - self.position.y) > 0)
+        {
+            [self moveUpAnimation];
+        }
+        else
+        {
+            [self moveDownAnimation];
+        }
+        
+        timeOfAction = fabs(nextPoint.y - self.position.y) / 70;
         
         if(timeOfAction < 1)
         {
@@ -76,10 +121,18 @@
     }
     else
     {
-        movementX = (arc4random() % (maxX - minX)) + minX;
-        movementY = self.position.y;
+        nextPoint.y = self.position.y;
         
-        timeOfAction = movementX / 70;
+        if((nextPoint.x - self.position.x) > 0)
+        {
+            [self moveRightAnimation];
+        }
+        else
+        {
+            [self moveLeftAnimation];
+        }
+        
+        timeOfAction = fabs(nextPoint.x - self.position.x) / 70;
         
         if(timeOfAction < 1)
         {
@@ -87,9 +140,12 @@
         }
     }
     
-    [self runAction: [CCSequence actions:
+    [self runAction:
+                      [CCSequence actions:
                                     [CCMoveTo actionWithDuration: timeOfAction
-                                                        position: ccp(movementX, movementY)],
+                                                        position: ccp(nextPoint.x, nextPoint.y)],
+                                    [CCCallFunc actionWithTarget: self
+                                                        selector: @selector(stopMoveAnimation)],
                                     [CCDelayTime actionWithDuration: delayTime],
                                     [CCCallFunc actionWithTarget: self
                                                         selector: @selector(walk)],
@@ -98,14 +154,76 @@
     ];
 }
 
-- (NSInteger) direction
+- (NSInteger) getDirection
 {
-    return arc4random()%2;
+    return arc4random() % 2;
+}
+
+- (void) stopMoveAnimation
+{
+    [dogSprite stopAllActions];
+}
+
+- (void) moveRightAnimation
+{
+    [dogSprite stopAllActions];
+    
+    [dogSprite runAction:
+            [CCRepeatForever actionWithAction:
+                                [CCAnimate actionWithAnimation:
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"dog_right_"]
+                                 ]
+             ]
+     ];
+}
+
+- (void) moveLeftAnimation
+{
+    [dogSprite stopAllActions];
+    
+    [dogSprite runAction:
+            [CCRepeatForever actionWithAction:
+                                [CCAnimate actionWithAnimation:
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"dog_left_"]
+                                 ]
+             ]
+     ];
+}
+
+- (void) moveUpAnimation
+{
+    [dogSprite stopAllActions];
+    
+    [dogSprite runAction:
+            [CCRepeatForever actionWithAction:
+                                [CCAnimate actionWithAnimation:
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"dog_up_"]
+                                 ]
+             ]
+     ];
+}
+
+- (void) moveDownAnimation
+{
+    [dogSprite stopAllActions];
+    
+    [dogSprite runAction:
+            [CCRepeatForever actionWithAction:
+                                [CCAnimate actionWithAnimation:
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"dog_down_"]
+                                 ]
+             ]
+     ];
 }
 
 - (void) poo
 {
+    Poo *poo = [[[Poo alloc] init] autorelease];
+    poo.position = self.position;
     
+    [gameLayer.pooArray addObject: poo];
+    
+    [gameLayer addChild: poo z: zPoo];
 }
 
 

@@ -2,6 +2,41 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>steam</key>
+	<dict>
+		<key>delay</key>
+		<real>0.2</real>
+		<key>animationFrames</key>
+		<string>0,1,2,3,4</string>
+	</dict>
+	<key>dog_right_</key>
+	<dict>
+		<key>delay</key>
+		<real>0.1</real>
+		<key>animationFrames</key>
+		<string>1,2,3,4</string>
+	</dict>
+	<key>dog_left_</key>
+	<dict>
+		<key>delay</key>
+		<real>0.1</real>
+		<key>animationFrames</key>
+		<string>1,2,3,4</string>
+	</dict>
+	<key>dog_up_</key>
+	<dict>
+		<key>delay</key>
+		<real>0.1</real>
+		<key>animationFrames</key>
+		<string>1,2,3,4</string>
+	</dict>
+	<key>dog_down_</key>
+	<dict>
+		<key>delay</key>
+		<real>0.1</real>
+		<key>animationFrames</key>
+		<string>1,2,3,4</string>
+	</dict>
 	<key>smallUp</key>
 	<dict>
 		<key>delay</key>

@@ -15,11 +15,13 @@
 #import "Rock.h"
 #import "Poo.h"
 #import "Dog.h"
+#import "Flower.h"
 
 
 @implementation GameLayer
 
 @synthesize guiLayer;
+@synthesize pooArray;
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel
 {
@@ -52,33 +54,13 @@
         
         [self loadTextures];
         
-        [self startLevel: level];
-        
         [self setParametersFromLevel: level];
         
+        [self startLevel: level];
         
-        dog = [[[Dog alloc] init] autorelease];
-        
-        dog.position = ccp(240, 160);
-        
-        [self addChild: dog z: zDog];
-        
-        [dog walk];
-        
-        [self schedule: @selector(addPoo) interval: 2];
     }
     
     return self;
-}
-
-- (void) addPoo
-{
-    Poo *poo = [[[Poo alloc] init] autorelease];
-    poo.position = dog.position;
-    
-    [pooArray addObject: poo];
-    
-    [self addChild: poo z: zPoo];
 }
 
 #pragma mark -
@@ -102,6 +84,12 @@
         {
             currentPoo.tap = YES;
         }
+    }
+    
+    if( ((fabsf(location.x - flower.position.x)) <= (flower.flowerSprite.contentSize.width / 2)) ||
+        ((fabsf(location.y - flower.position.y)) <= (flower.flowerSprite.contentSize.height / 2)))
+    {
+        [flower tapFlower];
     }
     
     return YES;
@@ -145,6 +133,7 @@
                 [pooForRemove addObject: currentPoo];
                 [self removeChild: currentPoo cleanup: YES]; // Дописать, чтобы нельзя было класть какаху на какаху
                 [guiLayer updateScoreLabel: score += 100];
+                [flower updateFlower];
             }
         }
     }
@@ -220,6 +209,27 @@
     [pooForRemove release];
 }
 
+- (BOOL) checkWaterPoolcollisionWithPoint: (CGPoint) point
+{
+    BOOL isCollision = NO;
+    
+    //CCLOG(@"WaterPoolWidth: %f Height: %f", waterPool.waterPoolSprite.contentSize.width/2, waterPool.waterPoolSprite.contentSize.height/2);
+    
+    if( (fabsf(point.x - waterPool.position.x) < (waterPool.waterPoolSprite.contentSize.width / 2)) ||
+        (fabsf(point.y - waterPool.position.y) < (waterPool.waterPoolSprite.contentSize.height / 2)))
+    {
+        isCollision = YES;
+    }
+    
+    return isCollision;
+}
+
+- (void) addScoreFromFlower
+{
+    score += 500;
+    [guiLayer updateScoreLabel: score];
+}
+
 #pragma mark -
 #pragma mark start/pause/restart
 
@@ -234,16 +244,27 @@
     NSArray *coordinats = [self getCoordinatsForLevel: level];
     
     mower = [Mower create];
-    
-    [self addChild: mower z: zMower];
-    
     mower.gameLayer = self;
     
     [mower moveWithPath: coordinats];
     
+    dog = [Dog create];
+    dog.position = ccp(240, 160);
+    dog.gameLayer = self;
     
+    [dog walk];
+    
+    flower = [Flower create];
+    flower.position = gardenBed.position;//ccp(240, 160); //gardenBed.position;
+    flower.gameLayer = self;
+    
+    [self addChild: mower z: zMower];
+    [self addChild: dog z: zDog];
+    [self addChild: flower z: zFlower];
     
     [self scheduleUpdate];
+    
+    
 }
 
 - (void) pause
@@ -308,7 +329,7 @@
     }
     else if(ID == 2)
     {
-        WaterPool *waterPool = [WaterPool create];
+        waterPool = [WaterPool create];
         waterPool.position = position;
         [self addChild: waterPool z: zWaterPool];
     }

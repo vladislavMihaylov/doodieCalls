@@ -11,9 +11,11 @@
 
 @interface WaterPool : CCNode
 {
-    
+    CCSprite *waterPoolSprite;
 }
 
 + (WaterPool *) create;
+
+@property (nonatomic, assign) CCSprite *waterPoolSprite;
 
 @end
