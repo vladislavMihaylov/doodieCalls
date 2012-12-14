@@ -15,7 +15,7 @@
     CCSprite *steamSprite;
     
     BOOL tap;
-    BOOL collised;
+    BOOL onField;
 }
 
 + (Poo *) create;
@@ -23,6 +23,6 @@
 - (BOOL) isTapped: (CGPoint) location;
 
 @property (nonatomic, assign) BOOL tap;
-@property (nonatomic, assign) BOOL collised;
+@property (nonatomic, assign) BOOL onField;
 
 @end

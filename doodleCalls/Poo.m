@@ -12,7 +12,7 @@
 @implementation Poo
 
 @synthesize tap;
-@synthesize collised;
+@synthesize onField;
 
 + (Poo *) create
 {
@@ -45,7 +45,7 @@
         [self playSteamAnimation];
         
         tap = NO;
-        collised = NO; // не нужный параметр;
+        onField = YES;
         
         CGSize spriteSize = [pooSprite contentSize];
         self.contentSize = spriteSize;

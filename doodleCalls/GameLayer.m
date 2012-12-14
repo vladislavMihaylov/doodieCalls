@@ -49,6 +49,7 @@
     [pooArray release];
     [ballsArray release];
     [objectsArray release];
+    [objectsWithDynamicZ release];
 }
 
 - (id) initWithLevel: (NSInteger) level
@@ -56,6 +57,7 @@
     if(self = [super init])
     {
         objectsArray = [[NSMutableArray alloc] init];
+        objectsWithDynamicZ = [[NSMutableArray alloc] init];
         
         curLevel = level;
         
@@ -124,6 +126,7 @@
         if(currentPoo.tap == YES)
         {
             currentPoo.position = location;
+            currentPoo.onField = NO;
         }
     }
     
@@ -201,6 +204,7 @@
             if(currentPoo.tap == YES)
             {
                 currentPoo.tap = NO;
+                currentPoo.onField = YES;
             }
         }
     }
@@ -222,6 +226,16 @@
     [self checkShitCollision];
     [self checkBallCollision];
     [self checkCatAndDogDistance];
+    [self setZtoObjects];
+}
+
+- (void) setZtoObjects
+{
+    for(CCNode *currentObject in objectsWithDynamicZ)
+    {
+        NSInteger z = (320 - currentObject.position.y) / 10;
+        [currentObject setZOrder: z];
+    }
 }
 
 - (void) checkCatAndDogDistance
@@ -320,10 +334,14 @@
 
 - (void) checkShitCollision
 {
+    
+    
     NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
     
     for(Poo *currentPoo in pooArray)
     {
+        CCLOG(@"CurrentPooTap %i CurrentPooOnField %i", currentPoo.tap, currentPoo.onField);
+        
         float Bx = mower.contentSize.width / 2 + currentPoo.contentSize.width / 2;
         float By = currentPoo.contentSize.height / 2;
         
@@ -332,27 +350,28 @@
 
         BOOL status = Cx <= Bx && Cy <= By;
         
-        if(currentPoo.collised == NO)
+        if(currentPoo.onField == YES)
         {
             if(status)
             {
-                currentPoo.collised = YES;
-                
-                [pooForRemove addObject: currentPoo];
-                [self removeChild: currentPoo cleanup: YES];
-                
-                score -= 100;
-                
-                if(score <= 0)
+                if(currentPoo.tap == NO)
                 {
-                    score = 0;
+                    [pooForRemove addObject: currentPoo];
+                    [self removeChild: currentPoo cleanup: YES];
+                    
+                    score -= 100;
+                    
+                    if(score <= 0)
+                    {
+                        score = 0;
+                    }
+                    
+                    [guiLayer updateScoreLabel: score];
+                    
+                    [self blink];
                 }
-                
-                [guiLayer updateScoreLabel: score];
-                [self blink];
             }
         }
-       
     }
     
     for(Poo *currentPoo in pooForRemove)
@@ -454,6 +473,13 @@
     [blinkLayer runAction: [CCFadeOut actionWithDuration: 0]];
     [self addChild: blinkLayer z: zMower + 10];
     
+    [objectsWithDynamicZ addObject: mower];
+    [objectsWithDynamicZ addObject: dog];
+    [objectsWithDynamicZ addObject: flower];
+    [objectsWithDynamicZ addObject: boy];
+    [objectsWithDynamicZ addObject: ball];
+    [objectsWithDynamicZ addObject: cat];
+    
     [objectsArray addObject: mower];
     [objectsArray addObject: dog];
     [objectsArray addObject: flower];
@@ -517,6 +543,7 @@
     }
     
     [objectsArray removeAllObjects];
+    [objectsWithDynamicZ removeAllObjects];
     
     score = 0;
     
@@ -542,7 +569,7 @@
     NSInteger minY = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 1)] integerValue];
     NSInteger maxY = [[coordinatsArray objectAtIndex: 1] integerValue];
     
-    NSInteger catDirection = arc4random() % 3;
+    NSInteger catDirection = arc4random() % 2;
     
     if(catDirection == 3) // кошка идет снизу вверх
     {
@@ -560,7 +587,7 @@
             [cat walkFromPoint: catStartPoint andDirection: catDirection];
         }
     }
-    if(catDirection == 0) // кошка идет cверху вниз
+    if(catDirection == 2) // кошка идет cверху вниз
     {
         NSInteger x = (arc4random() % (maxX - minX)) + minX;
         NSInteger y = 420;
@@ -576,7 +603,7 @@
             [cat walkFromPoint: catStartPoint andDirection: catDirection];
         }
     }
-    if(catDirection == 1) // кошка идет слева направо
+    if(catDirection == 0) // кошка идет слева направо
     {
         NSInteger x = -100;
         NSInteger y = (arc4random() % (maxY - minY)) + minY;
@@ -592,7 +619,7 @@
             [cat walkFromPoint: catStartPoint andDirection: catDirection];
         }
     }
-    if(catDirection == 2) // кошка идет справа налево
+    if(catDirection == 1) // кошка идет справа налево
     {
         NSInteger x = 580;
         NSInteger y = (arc4random() % (maxY - minY)) + minY;
@@ -714,6 +741,7 @@
         [self addChild: kennel z: zKennel];
         
         [objectsArray addObject: kennel];
+        [objectsWithDynamicZ addObject: kennel];
     }
     else if(ID == 2)
     {

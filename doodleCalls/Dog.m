@@ -235,6 +235,7 @@
         [gameLayer.objectsArray addObject: poo];
         
         [gameLayer addChild: poo z: zPoo];
+        
     }
 }
 

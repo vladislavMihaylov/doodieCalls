@@ -43,6 +43,8 @@
     NSMutableArray *ballsArray;
     NSMutableArray *objectsArray;
     
+    NSMutableArray *objectsWithDynamicZ;
+    
     NSInteger score;
 }
 

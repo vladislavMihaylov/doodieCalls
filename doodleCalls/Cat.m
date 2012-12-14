@@ -60,17 +60,17 @@
         [self runAction: [CCMoveTo actionWithDuration: 7 position: ccp( point.x , 420)]];
         [self moveUpAnimation];
     }
-    if(direction == 0)
+    if(direction == 2)
     {
         [self runAction: [CCMoveTo actionWithDuration: 7 position: ccp( point.x , -100)]];
         [self moveDownAnimation];
     }
-    if(direction == 1)
+    if(direction == 0)
     {
         [self runAction: [CCMoveTo actionWithDuration: 10 position: ccp( 580 , point.y)]];
         [self moveRightAnimation];
     }
-    if(direction == 2)
+    if(direction == 1)
     {
         [self runAction: [CCMoveTo actionWithDuration: 10 position: ccp( -100 , point.y)]];
         [self moveLeftAnimation];
