@@ -261,8 +261,22 @@
 
 - (void) getCoordinatsForCatEscape
 {
-    [cat runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-    [dog runToPoint: ccp(cat.position.x, -100) andDirection: 1];
+    if( (cat.position.x < waterPool.position.x + waterPool.contentSize.width / 2) && (cat.position.x > -100) )
+    {
+        [cat runToPoint: ccp(-100, cat.position.y) andDirection: 0];
+        [dog runToPoint: ccp(-100, cat.position.y) andDirection: 0];
+    }
+    else if( (cat.position.x < 580) && (cat.position.x >= kennel.position.x - kennel.contentSize.width / 2) )
+    {
+        [cat runToPoint: ccp(580, cat.position.y) andDirection: 2];
+        [dog runToPoint: ccp(580, cat.position.y) andDirection: 2];
+    }
+    else
+    {
+        [cat runToPoint: ccp(cat.position.x, -100) andDirection: 1];
+        [dog runToPoint: ccp(cat.position.x, -100) andDirection: 1];
+    }
+    
     
     /*NSInteger differenceX = cat.position.x - dog.position.x;  // пока кошка с собакой убегают только вниз
     NSInteger differenceY = cat.position.y - dog.position.y;
@@ -340,8 +354,6 @@
     
     for(Poo *currentPoo in pooArray)
     {
-        CCLOG(@"CurrentPooTap %i CurrentPooOnField %i", currentPoo.tap, currentPoo.onField);
-        
         float Bx = mower.contentSize.width / 2 + currentPoo.contentSize.width / 2;
         float By = currentPoo.contentSize.height / 2;
         
@@ -563,46 +575,14 @@
 {
     NSArray *coordinatsArray = [self getCoordinatsForLevel: curLevel];
     
-    NSInteger minX = [[coordinatsArray objectAtIndex: 0] integerValue];
-    NSInteger maxX = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 2)] integerValue];
+    //NSInteger minX = [[coordinatsArray objectAtIndex: 0] integerValue];
+    //NSInteger maxX = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 2)] integerValue];
     
     NSInteger minY = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 1)] integerValue];
     NSInteger maxY = [[coordinatsArray objectAtIndex: 1] integerValue];
     
     NSInteger catDirection = arc4random() % 2;
     
-    if(catDirection == 3) // кошка идет снизу вверх
-    {
-        NSInteger x = (arc4random() % (maxX - minX)) + minX;
-        NSInteger y = -100;
-        
-        CGPoint catStartPoint = CGPointMake(x, y);
-        
-        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint andDirection: catDirection])
-        {
-            [self getStartCoordinatsForCat];
-        }
-        else
-        {
-            [cat walkFromPoint: catStartPoint andDirection: catDirection];
-        }
-    }
-    if(catDirection == 2) // кошка идет cверху вниз
-    {
-        NSInteger x = (arc4random() % (maxX - minX)) + minX;
-        NSInteger y = 420;
-        
-        CGPoint catStartPoint = CGPointMake(x, y);
-        
-        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint andDirection: catDirection])
-        {
-            [self getStartCoordinatsForCat];
-        }
-        else
-        {
-            [cat walkFromPoint: catStartPoint andDirection: catDirection];
-        }
-    }
     if(catDirection == 0) // кошка идет слева направо
     {
         NSInteger x = -100;
@@ -640,11 +620,13 @@
 - (BOOL) checkWaterPoolCollisionWithCatCoordinats: (CGPoint) catPoint andDirection: (NSInteger) direction
 {
     BOOL isCollision = NO;
+    
+    NSInteger restrictMax = (waterPool.position.y + waterPool.contentSize.height / 2) + cat.contentSize.height / 2;
+    NSInteger restrictMin = (waterPool.position.y - waterPool.contentSize.height / 2) - cat.contentSize.height / 2;
 
     if(direction == 0 || direction == 1) // кошка идет по вертикали
     {
-        if( (catPoint.x <= (waterPool.position.x + waterPool.contentSize.width / 2)) &&
-            (catPoint.x >= (waterPool.position.x - waterPool.contentSize.width / 2)) )
+        if( ((catPoint.y <= restrictMax) && (catPoint.y > restrictMin)) )
         {
             isCollision = YES;
         }
@@ -736,7 +718,7 @@
     }
     else if(ID == 1)
     {
-        Kennel *kennel = [Kennel create];
+        kennel = [Kennel create];
         kennel.position = position;
         [self addChild: kennel z: zKennel];
         

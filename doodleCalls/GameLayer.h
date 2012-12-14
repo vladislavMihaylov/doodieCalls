@@ -18,6 +18,7 @@
 @class Ball;
 @class Boy;
 @class Cat;
+@class Kennel;
 
 @interface GameLayer : CCLayer
 {
@@ -31,6 +32,7 @@
     Ball *ball;
     Boy *boy;
     Cat *cat;
+    Kennel *kennel;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;

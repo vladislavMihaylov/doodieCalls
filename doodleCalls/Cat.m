@@ -55,16 +55,6 @@
 {
     self.position = point;
     
-    if(direction == 3)
-    {
-        [self runAction: [CCMoveTo actionWithDuration: 7 position: ccp( point.x , 420)]];
-        [self moveUpAnimation];
-    }
-    if(direction == 2)
-    {
-        [self runAction: [CCMoveTo actionWithDuration: 7 position: ccp( point.x , -100)]];
-        [self moveDownAnimation];
-    }
     if(direction == 0)
     {
         [self runAction: [CCMoveTo actionWithDuration: 10 position: ccp( 580 , point.y)]];
@@ -90,11 +80,15 @@
     
     if(direction == 0)
     {
-        [self moveUpAnimation];
+        [self moveLeftAnimation];
     }
     if(direction == 1)
     {
         [self moveDownAnimation];
+    }
+    if(direction == 2)
+    {
+        [self moveRightAnimation];
     }
 }
 

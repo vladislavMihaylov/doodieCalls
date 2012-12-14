@@ -30,7 +30,6 @@
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         waterPoolSprite = [CCSprite spriteWithSpriteFrameName: @"pool.png"];
-        waterPoolSprite.position = ccp(0,0);
         [self addChild: waterPoolSprite];
         
         CGSize spriteSize = [waterPoolSprite contentSize];

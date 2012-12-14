@@ -253,11 +253,15 @@
     
     if(direction == 0)
     {
-        [self moveUpAnimation];
+        [self moveLeftAnimation];
     }
     if(direction == 1)
     {
         [self moveDownAnimation];
+    }
+    if(direction == 2)
+    {
+        [self moveRightAnimation];
     }
 }
 
