@@ -11,8 +11,6 @@
 
 @implementation GardenBed
 
-@synthesize gardenBedSprite;
-
 + (GardenBed *) create
 {
     GardenBed *gardenBed = [[[GardenBed alloc] init] autorelease];
@@ -29,13 +27,14 @@
 {
     if(self = [super init])
     {
-        CCSpriteBatchNode *gameBatchNode = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
-        [self addChild: gameBatchNode];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         gardenBedSprite = [CCSprite spriteWithSpriteFrameName: @"field.png"];
         gardenBedSprite.position = ccp(0,0);
-        [gameBatchNode addChild: gardenBedSprite];
+        [self addChild: gardenBedSprite];
+        
+        CGSize spriteSize = [gardenBedSprite contentSize];
+        self.contentSize = spriteSize;
     }
     
     return self;

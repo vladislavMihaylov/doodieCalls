@@ -27,13 +27,14 @@
 {
     if(self = [super init])
     {
-        CCSpriteBatchNode *gameBatchNode = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
-        [self addChild: gameBatchNode];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         CCSprite *kennel = [CCSprite spriteWithSpriteFrameName: @"kennel.png"];
-        kennel.position = ccp(0,0);
+        
         [self addChild: kennel];
+        
+        CGSize spriteSize = [kennel contentSize];
+        self.contentSize = spriteSize;
     }
     
     return self;

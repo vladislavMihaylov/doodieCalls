@@ -40,6 +40,8 @@
 
 - (void) updateScoreLabel: (NSInteger) currentScore;
 
+- (void) showPauseMenu;
+
 @property (nonatomic, assign) GameLayer *gameLayer;
 
 @end

@@ -16,6 +16,7 @@
 @implementation Dog
 
 @synthesize gameLayer;
+@synthesize isRun;
 
 + (Dog *) create
 {
@@ -47,7 +48,12 @@
         
         [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_right_"]];
         
-        [self schedule: @selector(poo) interval: 3];
+        [self schedule: @selector(poo) interval: 5];
+        
+        CGSize spriteSize = [dogSprite contentSize];
+        self.contentSize = spriteSize;
+        
+        self.isRun = NO;
     }
     
     return self;
@@ -164,6 +170,8 @@
     [dogSprite stopAllActions];
 }
 
+
+
 - (void) moveRightAnimation
 {
     [dogSprite stopAllActions];
@@ -218,12 +226,44 @@
 
 - (void) poo
 {
-    Poo *poo = [[[Poo alloc] init] autorelease];
-    poo.position = self.position;
+    if(self.isRun == NO)
+    {
+        Poo *poo = [[[Poo alloc] init] autorelease];
+        poo.position = self.position;
+        
+        [gameLayer.pooArray addObject: poo];
+        [gameLayer.objectsArray addObject: poo];
+        
+        [gameLayer addChild: poo z: zPoo];
+    }
+}
+
+- (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction
+{
+    [self runAction:
+                [CCSequence actions:
+                                [CCMoveTo actionWithDuration: 4
+                                                    position: escapePoint],
+                                [CCDelayTime actionWithDuration: 2],
+                                [CCCallFunc actionWithTarget: self selector: @selector(switchRunStatus)],
+                                nil
+                ]
+    ];
     
-    [gameLayer.pooArray addObject: poo];
-    
-    [gameLayer addChild: poo z: zPoo];
+    if(direction == 0)
+    {
+        [self moveUpAnimation];
+    }
+    if(direction == 1)
+    {
+        [self moveDownAnimation];
+    }
+}
+
+- (void) switchRunStatus
+{
+    self.isRun = NO;
+    [self walk];
 }
 
 

@@ -11,7 +11,6 @@
 
 @implementation Flower
 
-@synthesize flowerSprite;
 @synthesize gameLayer;
 
 + (Flower *) create
@@ -36,6 +35,11 @@
         flowerSprite.anchorPoint = ccp(0.5, 0.2);
         
         [self addChild: flowerSprite];
+        
+        CGSize spriteSize = [flowerSprite contentSize];
+        self.contentSize = spriteSize;
+        
+        
     }
     
     return self;
@@ -51,12 +55,14 @@
     }
     
     [self removeChild: flowerSprite cleanup: YES];
+    
     flowerSprite = [CCSprite spriteWithSpriteFrameName: [NSString stringWithFormat: @"flower%i.png", type]];
     flowerSprite.anchorPoint = ccp(0.5, 0.2);
+    
     [self addChild: flowerSprite];
 }
 
-- (void) tapFlower
+- (void) onTaped
 {
     if(type == 4)
     {
@@ -64,8 +70,10 @@
         [gameLayer addScoreFromFlower];
         
         [self removeChild: flowerSprite cleanup: YES];
+        
         flowerSprite = [CCSprite spriteWithSpriteFrameName: [NSString stringWithFormat: @"flower%i.png", type]];
         flowerSprite.anchorPoint = ccp(0.5, 0.2);
+        
         [self addChild: flowerSprite];
         
     }

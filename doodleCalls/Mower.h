@@ -10,21 +10,11 @@
 #import "cocos2d.h"
 #import "GameLayer.h"
 
-typedef enum
-{
-    right,
-    left,
-    down,
-    up,
-} Direction;
-
 @interface Mower : CCLayer
 {
     GameLayer *gameLayer;
     
     CCSprite *sprite;
-    
-    Direction direction;
     
     NSInteger pointIndex;
     NSInteger pointNumber;
@@ -35,6 +25,8 @@ typedef enum
     
     NSArray *pointsArray;
     
+    
+    
 }
 
 + (Mower *) create;
@@ -42,7 +34,5 @@ typedef enum
 - (void) moveWithPath: (NSArray *) points;
 
 @property (nonatomic, assign) GameLayer *gameLayer;
-@property (nonatomic, assign) Direction direction;
-@property (nonatomic, assign) CCSprite *sprite;
 
 @end

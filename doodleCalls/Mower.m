@@ -13,8 +13,6 @@
 @implementation Mower
 
 @synthesize gameLayer;
-@synthesize direction;
-@synthesize sprite;
 
 + (Mower *) create
 {
@@ -39,7 +37,8 @@
         
         [self addChild: sprite];
         
-        
+        CGSize spriteSize = [sprite contentSize];
+        self.contentSize = spriteSize;
         
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: [NSString stringWithFormat: @"game_atlas.plist"]];
         
@@ -112,6 +111,7 @@
         pointNumber = 0;
         pointIndex = 0;
         [sprite stopAllActions];
+        [gameLayer gameOver];
     }
 }
 
@@ -180,7 +180,6 @@
 - (void) moveRightAnimation
 {
     sprite.scaleX = 1;
-    direction = right;
     
     [sprite stopAllActions];
     
@@ -196,7 +195,6 @@
 - (void) moveLeftAnimation
 {
     sprite.scaleX = -1;
-    direction = left;
     
     [sprite stopAllActions];
     
@@ -212,7 +210,6 @@
 - (void) moveDownAnimation
 {
     sprite.scaleX = 1;
-    direction = down;
     
     [sprite stopAllActions];
     
@@ -228,7 +225,6 @@
 - (void) moveUpAnimation
 {
     sprite.scaleX = 1;
-    direction = up;
     
     [sprite stopAllActions];
     

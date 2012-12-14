@@ -12,7 +12,6 @@
 @implementation Poo
 
 @synthesize tap;
-@synthesize pooSprite;
 @synthesize collised;
 
 + (Poo *) create
@@ -46,7 +45,10 @@
         [self playSteamAnimation];
         
         tap = NO;
-        collised = NO;
+        collised = NO; // не нужный параметр;
+        
+        CGSize spriteSize = [pooSprite contentSize];
+        self.contentSize = spriteSize;
     }
     
     return self;
@@ -63,7 +65,7 @@
      ];
 }
 
--(BOOL) isTapped: (CGPoint) location
+- (BOOL) isTapped: (CGPoint) location
 {
     float Ax = pooSprite.contentSize.width / 2;
     float Ay = pooSprite.contentSize.height / 2;

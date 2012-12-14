@@ -16,6 +16,5 @@
 
 + (WaterPool *) create;
 
-@property (nonatomic, assign) CCSprite *waterPoolSprite;
 
 @end

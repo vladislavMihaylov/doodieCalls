@@ -1,35 +1,26 @@
 //
-//  Dog.h
+//  Cat.h
 //  doodleCalls
 //
-//  Created by Vlad on 12.12.12.
+//  Created by Vlad on 14.12.12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@class GameLayer;
-
-@interface Dog: CCNode
+@interface Cat: CCNode
 {
-    GameLayer *gameLayer;
-    
-    CCSprite *dogSprite;
+    CCSprite *catSprite;
     
     BOOL isRun;
 }
 
-+ (Dog *) create;
++ (Cat *) create;
 
-//- (void) walk;
-
-- (void) walk;
-- (void) poo;
-
+- (void) walkFromPoint: (CGPoint) point andDirection: (NSInteger) direction;
 - (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction;
 
-@property (nonatomic, assign) GameLayer *gameLayer;
 @property (nonatomic, assign) BOOL isRun;
 
 @end

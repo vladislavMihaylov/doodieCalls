@@ -16,6 +16,4 @@
 
 + (GardenBed *) create;
 
-@property (nonatomic, assign) CCSprite *gardenBedSprite;
-
 @end

@@ -15,6 +15,9 @@
 @class Dog;
 @class WaterPool;
 @class Flower;
+@class Ball;
+@class Boy;
+@class Cat;
 
 @interface GameLayer : CCLayer
 {
@@ -25,13 +28,20 @@
     Dog *dog;
     WaterPool *waterPool;
     Flower *flower;
+    Ball *ball;
+    Boy *boy;
+    Cat *cat;
     
     CCSpriteBatchNode *batchNode;
     CCSpriteBatchNode *gameBatch;
     
     CCSprite *scoreBoardSprite;
     
+    CCLayerColor *blinkLayer;
+    
     NSMutableArray *pooArray;
+    NSMutableArray *ballsArray;
+    NSMutableArray *objectsArray;
     
     NSInteger score;
 }
@@ -41,8 +51,15 @@
 - (void) addGrassToPoint: (CGPoint) position;
 - (BOOL) checkWaterPoolcollisionWithPoint: (CGPoint) point;
 - (void) addScoreFromFlower;
+- (void) getCoordinatsForBall;
+
+- (void) pause;
+- (void) unPause;
+- (void) gameOver;
+- (void) restart;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
 @property (nonatomic, assign) NSMutableArray *pooArray;
+@property (nonatomic, assign) NSMutableArray *objectsArray;
 
 @end

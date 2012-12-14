@@ -8,6 +8,7 @@
 
 #import "GuiLayer.h"
 #import "GameLayer.h"
+#import "SelectLevelLayer.h"
 
 #import "GameConfig.h"
 
@@ -63,7 +64,7 @@
         scoreLabel = [CCLabelTTF labelWithString: @"0" fontName: @"Arial" fontSize: 16];
         scoreLabel.color = ccc3(0, 0, 0);
         scoreLabel.position = ccp(75, 300);
-        [self addChild: scoreLabel];
+        [self addChild: scoreLabel z: zScoreBoard + 1];
         
     }
     
@@ -86,14 +87,18 @@
 {
     pauseBtn.isEnabled = NO;
     
-    CCMenuItemImage *playBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay0.png"]
-                                                      selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay1.png"]
+    [gameLayer pause];
+    
+    CCMenuItemImage *playBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithFile: @"btnPlay0.png"]
+                                                      selectedSprite: [CCSprite spriteWithFile: @"btnPlay1.png"]
                                                               target: self
                                                             selector: @selector(play)
                                ];
     
     CCMenuItemImage *restartBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay0.png"]
                                                          selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay1.png"]
+                                                                 target: self
+                                                               selector: @selector(restart)
                                   ];
     
     CCMenuItemImage *soundModeBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnSoundon.png"]
@@ -102,6 +107,8 @@
     
     CCMenuItemImage *exitBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel0.png"]
                                                       selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel1.png"]
+                                                              target: self
+                                                            selector: @selector(backToSelectMenu)
                                ];
     
     playBtn.position = ccp(330, 110);
@@ -148,13 +155,9 @@
 {
     pauseBtn.isEnabled = YES;
     
-    [pauseMenu runAction:
-                    [CCEaseBackInOut actionWithAction:
-                                        [CCMoveTo actionWithDuration: 0.5
-                                                            position: ccp(pauseMenu.position.x, kGameHeight)
-                                        ]
-                    ]
-    ];
+    [gameLayer unPause];
+    
+    [self removeChild: pauseMenu cleanup: YES];
     
     [pauseMenuBg runAction:
                     [CCEaseBackInOut actionWithAction:
@@ -163,6 +166,28 @@
                                         ]
                     ]
     ];
+}
+
+- (void) restart
+{
+    pauseBtn.isEnabled = YES;
+    
+    [gameLayer restart];
+    
+    [self removeChild: pauseMenu cleanup: YES];
+    
+    [pauseMenuBg runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(GameCenterX, kGameHeight + (kGameHeight / 2))
+                                        ]
+                    ]
+    ];
+}
+
+- (void) backToSelectMenu
+{
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionFade transitionWithDuration: 1 scene: [SelectLevelLayer scene]]];
 }
 
 @end

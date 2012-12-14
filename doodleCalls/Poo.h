@@ -24,6 +24,5 @@
 
 @property (nonatomic, assign) BOOL tap;
 @property (nonatomic, assign) BOOL collised;
-@property (nonatomic, assign) CCSprite *pooSprite;
 
 @end

@@ -23,9 +23,8 @@
 + (Flower *) create;
 
 - (void) updateFlower;
-- (void) tapFlower;
+- (void) onTaped;
 
-@property (nonatomic, assign) CCSprite *flowerSprite;
 @property (nonatomic, assign) GameLayer *gameLayer;
 
 @end
