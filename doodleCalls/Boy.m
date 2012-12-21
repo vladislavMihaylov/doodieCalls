@@ -26,7 +26,7 @@
 - (id) init
 {
     if(self = [super init])
-    {
+    {        
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"ballboy"]];
