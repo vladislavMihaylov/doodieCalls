@@ -70,7 +70,7 @@
 
 - (void) didLoadFromCCB
 {
-    //[Settings sharedSettings].money = 0;
+    //[Settings sharedSettings].money = 10000;
     //[Settings sharedSettings].availableMowers = 1000;
     //[Settings sharedSettings].currentMower = 0;
     //[[Settings sharedSettings] save];

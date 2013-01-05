@@ -25,7 +25,7 @@
     
     NSArray *pointsArray;
     
-    
+    NSString *prefix;
     
 }
 

@@ -8,7 +8,7 @@
 
 #import "Mower.h"
 #import "Common.h"
-
+#import "Settings.h"
 
 @implementation Mower
 
@@ -31,6 +31,26 @@
 {
     if(self = [super init])
     {
+        NSInteger curMower = [Settings sharedSettings].currentMower;
+        prefix = @"";
+        
+        if(curMower == 0)
+        {
+            prefix = @"small";
+        }
+        else if(curMower == 1)
+        {
+            prefix = @"large";
+        }
+        else if(curMower == 2)
+        {
+            prefix = @"truck";
+        }
+        else
+        {
+            prefix = @"jet";
+        }
+        
         sprite = [CCSprite spriteWithFile: @"Icon.png"]; // спрайт в дальнейшем заменяется анимацией
         
         sprite.anchorPoint = ccp(0.5, 0);
@@ -42,11 +62,11 @@
         
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: [NSString stringWithFormat: @"game_atlas.plist"]];
         
-        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"smallSide"]];
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@Side", prefix]];
         
-        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"smallDown"]];
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@Down", prefix]];
         
-        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"smallUp"]];
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@smallUp", prefix]];
         
     }
     
@@ -186,7 +206,7 @@
     [sprite runAction:
             [CCRepeatForever actionWithAction:
                                 [CCAnimate actionWithAnimation:
-                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"smallSide"]
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: [NSString stringWithFormat: @"%@Side", prefix]]
                                  ]
              ]
      ];
@@ -201,7 +221,7 @@
     [sprite runAction:
             [CCRepeatForever actionWithAction:
                                 [CCAnimate actionWithAnimation:
-                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"smallSide"]
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: [NSString stringWithFormat: @"%@Side", prefix]]
                                  ]
              ]
      ];
@@ -216,7 +236,7 @@
     [sprite runAction:
             [CCRepeatForever actionWithAction:
                                 [CCAnimate actionWithAnimation:
-                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"smallDown"]
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: [NSString stringWithFormat: @"%@Down", prefix]]
                                  ]
              ]
      ];
@@ -231,7 +251,7 @@
     [sprite runAction:
             [CCRepeatForever actionWithAction:
                                 [CCAnimate actionWithAnimation:
-                                        [[CCAnimationCache sharedAnimationCache] animationByName: @"smallUp"]
+                                        [[CCAnimationCache sharedAnimationCache] animationByName: [NSString stringWithFormat: @"%@Up", prefix]]
                                  ]
              ]
      ];
