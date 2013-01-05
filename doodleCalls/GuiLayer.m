@@ -26,7 +26,7 @@
     if(self = [super init])
     {
         batchNode = [CCSpriteBatchNode batchNodeWithFile: @"bg_atlas.png"];
-        [self addChild: batchNode];
+        [self addChild: batchNode z: zMenuBg];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"bg_atlas.plist"];
         
         gameBatchNode = [CCSpriteBatchNode batchNodeWithFile: @"game_atlas.png"];
@@ -119,7 +119,7 @@
     pauseMenu = [CCMenu menuWithItems: playBtn, restartBtn, soundModeBtn, exitBtn, nil];
     pauseMenu.position = ccp(0, kGameHeight);
     
-    [self addChild: pauseMenu];
+    [self addChild: pauseMenu z: zMenuButtons];
     
     [pauseMenu runAction:
                     [CCEaseBackInOut actionWithAction:
@@ -140,12 +140,93 @@
 
 - (void) showGameOverMenu
 {
+    pauseBtn.isEnabled = NO;
     
+    [gameLayer pause];
+    
+    CCMenuItemImage *restartBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay0.png"]
+                                                         selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay1.png"]
+                                                                 target: self
+                                                               selector: @selector(restart)
+                                  ];
+    
+    CCMenuItemImage *soundModeBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnSoundon.png"]
+                                                           selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnsoundoff.png"]
+                                    ];
+    
+    CCMenuItemImage *exitBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel0.png"]
+                                                      selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel1.png"]
+                                                              target: self
+                                                            selector: @selector(backToSelectMenu)
+                               ];
+    
+    restartBtn.position = ccp(300, 110);
+    soundModeBtn.position = ccp(240, 110);
+    exitBtn.position = ccp(180, 110);
+    
+    pauseMenu = [CCMenu menuWithItems: restartBtn, soundModeBtn, exitBtn, nil];
+    pauseMenu.position = ccp(0, kGameHeight);
+    
+    [self addChild: pauseMenu z: zMenuButtons];
+    
+    [pauseMenu runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(pauseMenu.position.x, 0)
+                                        ]
+                    ]
+    ];
+    
+    [gameOverMenuBg runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(GameCenterX, GameCenterY)
+                                        ]
+                    ]
+    ];
 }
 
 - (void) showSucceedMenu
 {
+    pauseBtn.isEnabled = NO;
     
+    [gameLayer pause];
+    
+    CCMenuItemImage *restartBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay0.png"]
+                                                         selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnReplay1.png"]
+                                                                 target: self
+                                                               selector: @selector(restart)
+                                  ];
+    
+    CCMenuItemImage *exitBtn = [CCMenuItemImage itemWithNormalSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel0.png"]
+                                                      selectedSprite: [CCSprite spriteWithSpriteFrameName: @"btnLevel1.png"]
+                                                              target: self
+                                                            selector: @selector(backToSelectMenu)
+                               ];
+    
+    restartBtn.position = ccp(270, 110);
+    exitBtn.position = ccp(210, 110);
+    
+    pauseMenu = [CCMenu menuWithItems: restartBtn, exitBtn, nil];
+    pauseMenu.position = ccp(0, kGameHeight);
+    
+    [self addChild: pauseMenu z: zMenuButtons];
+    
+    [pauseMenu runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(pauseMenu.position.x, 0)
+                                        ]
+                    ]
+    ];
+    
+    [succeedMenuBg runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(GameCenterX, GameCenterY)
+                                        ]
+                    ]
+    ];
 }
 
 #pragma mark -
@@ -166,6 +247,7 @@
                                         ]
                     ]
     ];
+
 }
 
 - (void) restart
@@ -177,6 +259,22 @@
     [self removeChild: pauseMenu cleanup: YES];
     
     [pauseMenuBg runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(GameCenterX, kGameHeight + (kGameHeight / 2))
+                                        ]
+                    ]
+    ];
+    
+    [gameOverMenuBg runAction:
+                    [CCEaseBackInOut actionWithAction:
+                                        [CCMoveTo actionWithDuration: 0.5
+                                                            position: ccp(GameCenterX, kGameHeight + (kGameHeight / 2))
+                                        ]
+                    ]
+    ];
+    
+    [succeedMenuBg runAction:
                     [CCEaseBackInOut actionWithAction:
                                         [CCMoveTo actionWithDuration: 0.5
                                                             position: ccp(GameCenterX, kGameHeight + (kGameHeight / 2))

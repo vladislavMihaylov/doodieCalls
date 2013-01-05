@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface ShopMenuScene : CCLayer {
+@interface ShopMenuScene: CCLayer
+{
+    CCArray *items;
     
+    CCLabelTTF *moneyLabel;
+    
+    NSString *combination;
+    
+    NSMutableArray *valuesArray;
 }
 
 @end

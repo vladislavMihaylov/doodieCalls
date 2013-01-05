@@ -14,6 +14,13 @@
 #define zPoo            8
 #define zFlower         7
 
+#define zMenuBg         30
+#define zMenuButtons    40
+
+#define kMoneyKey                @"moneyKey"
+#define kMowerKey                @"mowerKey"
+#define kAvailableMowerKey       @"availableMowersKey"
+
 
 extern NSInteger curLevel;
 

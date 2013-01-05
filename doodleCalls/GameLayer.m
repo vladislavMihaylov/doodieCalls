@@ -20,6 +20,8 @@
 #import "Ball.h"
 #import "Cat.h"
 
+#import "Settings.h"
+
 @implementation GameLayer
 
 @synthesize guiLayer;
@@ -511,31 +513,74 @@
     
 }
 
-- (void) gameOver
+- (void) succeedGame
 {
-    [guiLayer showPauseMenu];
+    [guiLayer showSucceedMenu];
+    [Settings sharedSettings].money += score;
+    [[Settings sharedSettings] save];
 }
 
 - (void) pause
 {
-    [blinkLayer stopAllActions];
-    [blinkLayer runAction: [CCFadeOut actionWithDuration: 0]];
-    
     CCArray *arr = [self children];
+    CCArray *mowerArr = [mower children];
+    CCArray *dogArr = [dog children];
+    CCArray *catArr = [cat children];
+    CCArray *boyArr = [boy children];
+    
     for(CCNode *mynode in arr)
     {
         [mynode pauseSchedulerAndActions];
     }
+    for(CCNode *mynode in mowerArr)
+    {
+        [mynode pauseSchedulerAndActions];
+    }
     
+    for(CCNode *mynode in dogArr)
+    {
+        [mynode pauseSchedulerAndActions];
+    }
+    for(CCNode *mynode in catArr)
+    {
+        [mynode pauseSchedulerAndActions];
+    }
+    for(CCNode *mynode in boyArr)
+    {
+        [mynode pauseSchedulerAndActions];
+    }
+    
+    [blinkLayer stopAllActions];
+    //[blinkLayer runAction: [CCFadeOut actionWithDuration: 0]];
     
     [self pauseSchedulerAndActions];
-
 }
 
 - (void) unPause
 {
     CCArray *arr = [self children];
+    CCArray *mowerArr = [mower children];
+    CCArray *dogArr = [dog children];
+    CCArray *catArr = [cat children];
+    CCArray *boyArr = [boy children];
+    
     for(CCNode *mynode in arr)
+    {
+        [mynode resumeSchedulerAndActions];
+    }
+    for(CCNode *mynode in mowerArr)
+    {
+        [mynode resumeSchedulerAndActions];
+    }
+    for(CCNode *mynode in dogArr)
+    {
+        [mynode resumeSchedulerAndActions];
+    }
+    for(CCNode *mynode in catArr)
+    {
+        [mynode resumeSchedulerAndActions];
+    }
+    for(CCNode *mynode in boyArr)
     {
         [mynode resumeSchedulerAndActions];
     }

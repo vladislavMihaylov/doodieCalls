@@ -12,12 +12,15 @@
 
 #import "CCBReader.h"
 
+#import "Settings.h"
+
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[Settings sharedSettings] load];
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -36,7 +39,7 @@
 	director_.wantsFullScreenLayout = YES;
 
 	// Display FSP and SPF
-	[director_ setDisplayStats: NO];
+	[director_ setDisplayStats: YES];
 
 	// set FPS at 60
 	[director_ setAnimationInterval:1.0/60];

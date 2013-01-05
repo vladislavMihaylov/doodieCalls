@@ -111,7 +111,7 @@
         pointNumber = 0;
         pointIndex = 0;
         [sprite stopAllActions];
-        [gameLayer gameOver];
+        [gameLayer succeedGame];
     }
 }
 

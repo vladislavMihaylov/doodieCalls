@@ -41,6 +41,8 @@
 - (void) updateScoreLabel: (NSInteger) currentScore;
 
 - (void) showPauseMenu;
+- (void) showGameOverMenu;
+- (void) showSucceedMenu;
 
 @property (nonatomic, assign) GameLayer *gameLayer;
 

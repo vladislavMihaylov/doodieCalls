@@ -59,7 +59,7 @@
 
 - (void) pause;
 - (void) unPause;
-- (void) gameOver;
+- (void) succeedGame;
 - (void) restart;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
