@@ -37,18 +37,22 @@
         if(curMower == 0)
         {
             prefix = @"small";
+            time = 0.6;
         }
         else if(curMower == 1)
         {
             prefix = @"large";
+            time = 0.5;
         }
         else if(curMower == 2)
         {
             prefix = @"truck";
+            time = 0.4;
         }
         else
         {
             prefix = @"jet";
+            time = 0.3;
         }
         
         sprite = [CCSprite spriteWithFile: @"Icon.png"]; // спрайт в дальнейшем заменяется анимацией
@@ -66,7 +70,7 @@
         
         [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@Down", prefix]];
         
-        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@smallUp", prefix]];
+        [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"%@Up", prefix]];
         
     }
     
@@ -167,7 +171,7 @@
     
     [self runAction:
                 [CCSequence actions:
-                                [CCMoveTo actionWithDuration: 0.5
+                                [CCMoveTo actionWithDuration: time
                                                     position: ccp(newPosX, newPosY)],
                                 [CCCallFunc actionWithTarget: self
                                                     selector: @selector(checkStepsCount)],

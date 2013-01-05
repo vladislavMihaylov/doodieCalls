@@ -172,6 +172,7 @@
             currentBall.tap = NO;
             currentBall.visible = NO;
             [boy playBallBoyAnimation];
+            ballTime = 0;
         }
     }
     else
@@ -194,7 +195,7 @@
             {
                 [pooForRemove addObject: currentPoo];
                 [self removeChild: currentPoo cleanup: YES]; // Дописать, чтобы нельзя было класть какаху на какаху
-                [guiLayer updateScoreLabel: score += 100];
+                [guiLayer updateScoreLabel: score += 50];
                 [flower updateFlower];
             }
         }
@@ -229,6 +230,7 @@
     [self checkBallCollision];
     [self checkCatAndDogDistance];
     [self setZtoObjects];
+    [self runTimerForBall: dt];
 }
 
 - (void) setZtoObjects
@@ -309,6 +311,39 @@
             [dog runToPoint: ccp(cat.position.x, 420) andDirection: 0];
         }
     }*/
+}
+
+- (void) runTimerForBall: (float) dt
+{
+    for(Ball *currentBall in ballsArray)
+    {
+        if(currentBall.status == onField)
+        {
+            ballTime += dt;
+            
+            if(ballTime >= 3)
+            {
+            
+                currentBall.position = waterPool.position;
+                currentBall.status = inPool;
+                currentBall.visible = NO;
+                
+                [boy stopAllActions];
+                [boy playBallBoyAnimation];
+                
+                score -= 100;
+                ballTime = 0;
+                
+                if(score <= 0)
+                {
+                    score = 0;
+                }
+                
+                [guiLayer updateScoreLabel: score];
+                [self blink];
+            }
+        }
+    }
 }
 
 - (void) checkBallCollision
@@ -441,7 +476,7 @@
     score = 0;
     
     pooArray = [[NSMutableArray alloc] init];
-    ballsArray = [[NSMutableArray alloc] init];
+    
     
     self.isTouchEnabled = YES;
     
@@ -462,14 +497,7 @@
     flower.position = gardenBed.position;//ccp(240, 160); //gardenBed.position;
     flower.gameLayer = self;
     
-    boy = [Boy create];
-    boy.position = waterPool.position;
     
-    ball = [Ball create];
-    ball.position = boy.position;
-    ball.gameLayer = self;
-    
-    [ballsArray addObject: ball];
     
     cat = [Cat create];
     cat.position = ccp(-100, -100);
@@ -478,8 +506,6 @@
     [self addChild: mower z: zMower];
     [self addChild: dog z: zDog];
     [self addChild: flower z: zFlower];
-    [self addChild: boy z: zWaterPool + 1];
-    [self addChild: ball z: zWaterPool + 2];
     [self addChild: cat z: zCat];
     
     blinkLayer = [CCLayerColor layerWithColor: ccc4(255, 50, 50, 200)];
@@ -490,16 +516,14 @@
     [objectsWithDynamicZ addObject: mower];
     [objectsWithDynamicZ addObject: dog];
     [objectsWithDynamicZ addObject: flower];
-    [objectsWithDynamicZ addObject: boy];
-    [objectsWithDynamicZ addObject: ball];
     [objectsWithDynamicZ addObject: cat];
     
     [objectsArray addObject: mower];
     [objectsArray addObject: dog];
     [objectsArray addObject: flower];
-    [objectsArray addObject: boy];
-    [objectsArray addObject: ball];
     [objectsArray addObject: cat];
+    
+    
     [objectsArray addObject: blinkLayer];
     
     //CGPoint catPoint = CGPointMake(240, -100);
@@ -777,6 +801,26 @@
         [self addChild: waterPool z: zWaterPool];
         
         [objectsArray addObject: waterPool];
+        
+        ballsArray = [[NSMutableArray alloc] init];
+        
+        boy = [Boy create];
+        boy.position = waterPool.position;
+        
+        ball = [Ball create];
+        ball.position = boy.position;
+        ball.gameLayer = self;
+        
+        [ballsArray addObject: ball];
+        
+        [self addChild: boy z: zWaterPool + 1];
+        [self addChild: ball z: zWaterPool + 2];
+        
+        [objectsWithDynamicZ addObject: boy];
+        [objectsWithDynamicZ addObject: ball];
+        
+        [objectsArray addObject: ball];
+        [objectsArray addObject: boy];
     }
     else if(ID == 3)
     {

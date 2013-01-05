@@ -26,7 +26,8 @@
     NSArray *pointsArray;
     
     NSString *prefix;
-    
+
+    float time;
 }
 
 + (Mower *) create;

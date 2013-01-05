@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>path</key>
-	<string>25/225/350/225/350/200/50/200/50/175/350/175/350/150/50/150/50/125/350/125/350/100/50/100/50/75/350/75/350/50/50/50/50/25/350/25</string>
+	<string>375/25/50/25/50/50/350/50/350/75/200/75/200/100/225/100/225/125/200/125/200/150/225/150/225/175/200/175/200/200/350/200/350/225/50/225/50/200/175/200/175/75/50/75</string>
 	<key>objects</key>
 	<dict>
 		<key>gardenBed</key>
@@ -20,12 +20,26 @@
 			<key>position</key>
 			<string>430/100</string>
 		</dict>
+		<key>waterPool</key>
+		<dict>
+			<key>id</key>
+			<integer>2</integer>
+			<key>position</key>
+			<string>100/150</string>
+		</dict>
 		<key>rock</key>
 		<dict>
 			<key>id</key>
 			<integer>3</integer>
 			<key>position</key>
 			<string>200/200</string>
+		</dict>
+		<key>waterPool2</key>
+		<dict>
+			<key>id</key>
+			<integer>2</integer>
+			<key>position</key>
+			<string>300/150</string>
 		</dict>
 	</dict>
 </dict>

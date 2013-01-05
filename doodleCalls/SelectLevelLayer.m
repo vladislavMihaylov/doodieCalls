@@ -76,7 +76,7 @@
                      ]
          ];
         
-        openedLevels = 1;
+        openedLevels = 10;
         
         [self createLevelsMenu];
         
