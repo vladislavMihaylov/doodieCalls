@@ -47,6 +47,8 @@
     NSMutableArray *objectsWithDynamicZ;
     
     NSInteger score;
+    
+    float ballTime;
 }
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;

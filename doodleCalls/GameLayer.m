@@ -149,7 +149,38 @@
     float Bx = fabsf(location.x - gardenBed.position.x);                // расстояние от точки конца тапа до центра грядки по оси Х
     float By = fabsf(location.y - gardenBed.position.y);                // расстояние от точки конца тапа до центра грядки по оси Y
     
+<<<<<<< HEAD
     BOOL isRemovePoo = Bx <= Ax && By <= Ay;                            // YES, если координаты пересекаются. NO, если не пересекаются
+=======
+    BOOL isRemovePoo = Bx <= Ax && By <= Ay;
+    BOOL isRemoveBall = Dx <= Cx && Dy <= Cy;
+    
+    NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
+    
+    if(isRemoveBall)
+    {
+        for(Ball *currentBall in ballsArray)
+        {
+            currentBall.position = waterPool.position;
+            currentBall.status = inPool;
+            currentBall.tap = NO;
+            currentBall.visible = NO;
+            [boy playBallBoyAnimation];
+            ballTime = 0;
+        }
+    }
+    else
+    {
+        for(Ball *currentBall in ballsArray)
+        {
+            if(currentBall.status == inAir)
+            {
+                currentBall.status = onField;
+                currentBall.tap = NO;
+            }
+        }
+    }
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
     
     if(isRemovePoo)                                                     // если какаха над грядкой
     {
@@ -157,10 +188,17 @@
         {
             if(currentPoo.tap == YES)                                   // если это была какаха, которую тапал игрок
             {
+<<<<<<< HEAD
                 [pooForRemove addObject: currentPoo];                   // какаха отправляется в массив для удаления
                 [self removeChild: currentPoo cleanup: YES];            // удаляем какаху из селфа
                 [guiLayer updateScoreLabel: score += 50];               // даем игроку 50 очков
                 [flower updateFlower];                                  // апдейтим левел у цветка
+=======
+                [pooForRemove addObject: currentPoo];
+                [self removeChild: currentPoo cleanup: YES]; // Дописать, чтобы нельзя было класть какаху на какаху
+                [guiLayer updateScoreLabel: score += 50];
+                [flower updateFlower];
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
             }
         }
     }
@@ -193,6 +231,7 @@
 
 - (void) returnBall: (Ball *) curBall ToPool: (WaterPool *) pool
 {
+<<<<<<< HEAD
     curBall.position = pool.position;            // переносим мячик точно в центр басика
     curBall.status = inPool;                                 // меняем статус мячика на "в бассейне"
     curBall.tap = NO;                                        // помечаем его нетронутым
@@ -203,6 +242,13 @@
     score += 50;
     [guiLayer updateScoreLabel: score];
     [self schedule: @selector(throwBall) interval: 2];
+=======
+    [self checkShitCollision];
+    [self checkBallCollision];
+    [self checkCatAndDogDistance];
+    [self setZtoObjects];
+    [self runTimerForBall: dt];
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 }
 
 - (void) returnBallToField: (Ball *) curBall
@@ -261,7 +307,64 @@
     {
         if(status)
         {
+<<<<<<< HEAD
             if(ball.tag == waterPool.tag)
+=======
+            [cat runToPoint: ccp(cat.position.x, 420) andDirection: 0];
+            [dog runToPoint: ccp(cat.position.x, 420) andDirection: 0];
+        }
+    }*/
+}
+
+- (void) runTimerForBall: (float) dt
+{
+    for(Ball *currentBall in ballsArray)
+    {
+        if(currentBall.status == onField)
+        {
+            ballTime += dt;
+            
+            if(ballTime >= 3)
+            {
+            
+                currentBall.position = waterPool.position;
+                currentBall.status = inPool;
+                currentBall.visible = NO;
+                
+                [boy stopAllActions];
+                [boy playBallBoyAnimation];
+                
+                score -= 100;
+                ballTime = 0;
+                
+                if(score <= 0)
+                {
+                    score = 0;
+                }
+                
+                [guiLayer updateScoreLabel: score];
+                [self blink];
+            }
+        }
+    }
+}
+
+- (void) checkBallCollision
+{
+    for(Ball *currentBall in ballsArray)
+    {
+        float Bx = mower.contentSize.width / 2 + currentBall.contentSize.width / 2;
+        float By = currentBall.contentSize.height / 2;
+        
+        float Cx = fabsf(mower.position.x - currentBall.position.x);
+        float Cy = fabsf((mower.position.y + 15) - currentBall.position.y);
+        
+        BOOL status = Cx <= Bx && Cy <= By;
+        
+        if(currentBall.status == onField)
+        {
+            if(status)
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
             {
                 ball.position = waterPool.position;
                 ball.status = inPool;
@@ -574,6 +677,11 @@
     flower.position = gardenBed.position;//ccp(240, 160); //gardenBed.position;
     flower.gameLayer = self;
     
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
     cat = [Cat create];
     cat.position = ccp(-100, -100);
     
@@ -597,6 +705,12 @@
     [objectsArray addObject: dog];
     [objectsArray addObject: flower];
     [objectsArray addObject: cat];
+<<<<<<< HEAD
+=======
+    
+    
+    [objectsArray addObject: blinkLayer];
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
     
     [objectsArray addObject: blinkLayer];
     
@@ -874,8 +988,37 @@
         [objectsWithDynamicZ addObject: ball];
         
         [objectsArray addObject: waterPool];
+<<<<<<< HEAD
         [objectsArray addObject: ball];
         [objectsArray addObject: boy];
+=======
+        
+        ballsArray = [[NSMutableArray alloc] init];
+        
+        boy = [Boy create];
+        boy.position = waterPool.position;
+        
+        ball = [Ball create];
+        ball.position = boy.position;
+        ball.gameLayer = self;
+        
+        [ballsArray addObject: ball];
+        
+        [self addChild: boy z: zWaterPool + 1];
+        [self addChild: ball z: zWaterPool + 2];
+        
+        [objectsWithDynamicZ addObject: boy];
+        [objectsWithDynamicZ addObject: ball];
+        
+        [objectsArray addObject: ball];
+        [objectsArray addObject: boy];
+    }
+    else if(ID == 3)
+    {
+        //Rock *rock = [Rock create];
+        //rock.position = position;
+        //[self addChild: rock];
+>>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
     }
 }
 
