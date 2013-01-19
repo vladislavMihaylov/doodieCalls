@@ -183,11 +183,8 @@
 		F58C2F11166E367F00D9E094 /* CCBSequenceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0A166E367F00D9E094 /* CCBSequenceProperty.m */; };
 		F58C2F12166E367F00D9E094 /* CCNode+CCBRelativePositioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */; };
 		F5F8C189167A54D5008E5F68 /* Ball.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8C188167A54D5008E5F68 /* Ball.m */; };
-<<<<<<< HEAD
 		F5FA165D16AADE72004A2DBC /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FA165C16AADE72004A2DBC /* heart.png */; };
 		F5FA166416AAFC30004A2DBC /* bg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F5FA166316AAFC30004A2DBC /* bg.mp3 */; };
-=======
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 		F5FB2F1C1676171D00133D64 /* level2.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5FB2F1B1676171D00133D64 /* level2.plist */; };
 		F5FB2F251676339000133D64 /* WaterPool.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F241676339000133D64 /* WaterPool.m */; };
 		F5FB2F291676346000133D64 /* GardenBed.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F281676346000133D64 /* GardenBed.m */; };
@@ -532,11 +529,8 @@
 		F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+CCBRelativePositioning.m"; sourceTree = "<group>"; };
 		F5F8C187167A54D5008E5F68 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		F5F8C188167A54D5008E5F68 /* Ball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		F5FA165C16AADE72004A2DBC /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		F5FA166316AAFC30004A2DBC /* bg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg.mp3; sourceTree = "<group>"; };
-=======
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 		F5FB2F1B1676171D00133D64 /* level2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level2.plist; sourceTree = "<group>"; };
 		F5FB2F231676339000133D64 /* WaterPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterPool.h; sourceTree = "<group>"; };
 		F5FB2F241676339000133D64 /* WaterPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterPool.m; sourceTree = "<group>"; };
@@ -1246,11 +1240,8 @@
 				F50AD1B21698C3D700E9FD16 /* level8.plist in Resources */,
 				F50AD1B41698C60E00E9FD16 /* level9.plist in Resources */,
 				F50AD1B61698C79900E9FD16 /* level10.plist in Resources */,
-<<<<<<< HEAD
 				F5FA165D16AADE72004A2DBC /* heart.png in Resources */,
 				F5FA166416AAFC30004A2DBC /* bg.mp3 in Resources */,
-=======
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
