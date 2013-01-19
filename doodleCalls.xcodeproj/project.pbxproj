@@ -41,6 +41,15 @@
 		F50AAB3E1684F96B008E46BD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F50AAB381684F963008E46BD /* Icon-Small@2x.png */; };
 		F50AAB3F1684F96B008E46BD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F50AAB391684F965008E46BD /* Icon.png */; };
 		F50AAB401684F96B008E46BD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F50AAB3A1684F968008E46BD /* Icon@2x.png */; };
+		F50AD1A51698B53300E9FD16 /* level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1A41698B53300E9FD16 /* level1.plist */; };
+		F50AD1A81698BA7000E9FD16 /* level3.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1A71698BA7000E9FD16 /* level3.plist */; };
+		F50AD1AA1698BC7A00E9FD16 /* level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1A91698BC7A00E9FD16 /* level4.plist */; };
+		F50AD1AC1698BE7C00E9FD16 /* level5.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1AB1698BE7C00E9FD16 /* level5.plist */; };
+		F50AD1AE1698C02C00E9FD16 /* level6.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1AD1698C02C00E9FD16 /* level6.plist */; };
+		F50AD1B01698C1C600E9FD16 /* level7.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1AF1698C1C600E9FD16 /* level7.plist */; };
+		F50AD1B21698C3D700E9FD16 /* level8.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1B11698C3D700E9FD16 /* level8.plist */; };
+		F50AD1B41698C60E00E9FD16 /* level9.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1B31698C60E00E9FD16 /* level9.plist */; };
+		F50AD1B61698C79900E9FD16 /* level10.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50AD1B51698C79900E9FD16 /* level10.plist */; };
 		F54748A6167101F80030C43A /* Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = F54748A5167101F80030C43A /* Common.mm */; };
 		F54748A91671086C0030C43A /* moveAnimation.plist in Resources */ = {isa = PBXBuildFile; fileRef = F54748A81671086C0030C43A /* moveAnimation.plist */; };
 		F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54748AC16711BDE0030C43A /* Default-568h@2x.png */; };
@@ -174,7 +183,9 @@
 		F58C2F11166E367F00D9E094 /* CCBSequenceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0A166E367F00D9E094 /* CCBSequenceProperty.m */; };
 		F58C2F12166E367F00D9E094 /* CCNode+CCBRelativePositioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */; };
 		F5F8C189167A54D5008E5F68 /* Ball.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8C188167A54D5008E5F68 /* Ball.m */; };
-		F5FB2F1C1676171D00133D64 /* level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5FB2F1B1676171D00133D64 /* level1.plist */; };
+		F5FA165D16AADE72004A2DBC /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FA165C16AADE72004A2DBC /* heart.png */; };
+		F5FA166416AAFC30004A2DBC /* bg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F5FA166316AAFC30004A2DBC /* bg.mp3 */; };
+		F5FB2F1C1676171D00133D64 /* level2.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5FB2F1B1676171D00133D64 /* level2.plist */; };
 		F5FB2F251676339000133D64 /* WaterPool.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F241676339000133D64 /* WaterPool.m */; };
 		F5FB2F291676346000133D64 /* GardenBed.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F281676346000133D64 /* GardenBed.m */; };
 		F5FB2F2C167634FF00133D64 /* Kennel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FB2F2B167634FF00133D64 /* Kennel.m */; };
@@ -232,6 +243,15 @@
 		F50AAB381684F963008E46BD /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		F50AAB391684F965008E46BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		F50AAB3A1684F968008E46BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		F50AD1A41698B53300E9FD16 /* level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level1.plist; sourceTree = "<group>"; };
+		F50AD1A71698BA7000E9FD16 /* level3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level3.plist; sourceTree = "<group>"; };
+		F50AD1A91698BC7A00E9FD16 /* level4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level4.plist; sourceTree = "<group>"; };
+		F50AD1AB1698BE7C00E9FD16 /* level5.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level5.plist; sourceTree = "<group>"; };
+		F50AD1AD1698C02C00E9FD16 /* level6.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level6.plist; sourceTree = "<group>"; };
+		F50AD1AF1698C1C600E9FD16 /* level7.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level7.plist; sourceTree = "<group>"; };
+		F50AD1B11698C3D700E9FD16 /* level8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level8.plist; sourceTree = "<group>"; };
+		F50AD1B31698C60E00E9FD16 /* level9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level9.plist; sourceTree = "<group>"; };
+		F50AD1B51698C79900E9FD16 /* level10.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level10.plist; sourceTree = "<group>"; };
 		F54748A4167101F80030C43A /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		F54748A5167101F80030C43A /* Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Common.mm; sourceTree = "<group>"; };
 		F54748A81671086C0030C43A /* moveAnimation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = moveAnimation.plist; sourceTree = "<group>"; };
@@ -509,7 +529,9 @@
 		F58C2F0C166E367F00D9E094 /* CCNode+CCBRelativePositioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+CCBRelativePositioning.m"; sourceTree = "<group>"; };
 		F5F8C187167A54D5008E5F68 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		F5F8C188167A54D5008E5F68 /* Ball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball.m; sourceTree = "<group>"; };
-		F5FB2F1B1676171D00133D64 /* level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level1.plist; sourceTree = "<group>"; };
+		F5FA165C16AADE72004A2DBC /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		F5FA166316AAFC30004A2DBC /* bg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg.mp3; sourceTree = "<group>"; };
+		F5FB2F1B1676171D00133D64 /* level2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level2.plist; sourceTree = "<group>"; };
 		F5FB2F231676339000133D64 /* WaterPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterPool.h; sourceTree = "<group>"; };
 		F5FB2F241676339000133D64 /* WaterPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterPool.m; sourceTree = "<group>"; };
 		F5FB2F271676346000133D64 /* GardenBed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GardenBed.h; sourceTree = "<group>"; };
@@ -609,10 +631,12 @@
 		F58C2CF4166E05CA00D9E094 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5FA166316AAFC30004A2DBC /* bg.mp3 */,
 				F5FB2F1F1676173F00133D64 /* Texture atlases */,
 				F5FB2F1E1676172D00133D64 /* Plists */,
 				F58C2EAA166E0C6100D9E094 /* Menus */,
 				F506602C16736C59006329F2 /* grass0.png */,
+				F5FA165C16AADE72004A2DBC /* heart.png */,
 				F5002733167B6BE6004D3484 /* btnPlay0-hd.png */,
 				F5002734167B6BE6004D3484 /* btnPlay0.png */,
 				F5002735167B6BE6004D3484 /* btnPlay1-hd.png */,
@@ -1015,7 +1039,16 @@
 		F5FB2F1E1676172D00133D64 /* Plists */ = {
 			isa = PBXGroup;
 			children = (
-				F5FB2F1B1676171D00133D64 /* level1.plist */,
+				F50AD1B51698C79900E9FD16 /* level10.plist */,
+				F50AD1B31698C60E00E9FD16 /* level9.plist */,
+				F50AD1B11698C3D700E9FD16 /* level8.plist */,
+				F50AD1AF1698C1C600E9FD16 /* level7.plist */,
+				F50AD1AD1698C02C00E9FD16 /* level6.plist */,
+				F50AD1AB1698BE7C00E9FD16 /* level5.plist */,
+				F50AD1A91698BC7A00E9FD16 /* level4.plist */,
+				F50AD1A71698BA7000E9FD16 /* level3.plist */,
+				F5FB2F1B1676171D00133D64 /* level2.plist */,
+				F50AD1A41698B53300E9FD16 /* level1.plist */,
 				F54748A81671086C0030C43A /* moveAnimation.plist */,
 				F50296FD166FAFC300A94AB3 /* arrays.plist */,
 			);
@@ -1176,7 +1209,7 @@
 				F54748A91671086C0030C43A /* moveAnimation.plist in Resources */,
 				F54748AD16711BDE0030C43A /* Default-568h@2x.png in Resources */,
 				F506602D16736C59006329F2 /* grass0.png in Resources */,
-				F5FB2F1C1676171D00133D64 /* level1.plist in Resources */,
+				F5FB2F1C1676171D00133D64 /* level2.plist in Resources */,
 				F5065D2D167779A400682D19 /* poo.png in Resources */,
 				F5002727167B380D004D3484 /* bg_atlas-hd.plist in Resources */,
 				F5002728167B380D004D3484 /* bg_atlas-hd.png in Resources */,
@@ -1198,6 +1231,17 @@
 				F50AAB3F1684F96B008E46BD /* Icon.png in Resources */,
 				F50AAB401684F96B008E46BD /* Icon@2x.png in Resources */,
 				F5065F6A1685D9A4001C844B /* Default@2x.png in Resources */,
+				F50AD1A51698B53300E9FD16 /* level1.plist in Resources */,
+				F50AD1A81698BA7000E9FD16 /* level3.plist in Resources */,
+				F50AD1AA1698BC7A00E9FD16 /* level4.plist in Resources */,
+				F50AD1AC1698BE7C00E9FD16 /* level5.plist in Resources */,
+				F50AD1AE1698C02C00E9FD16 /* level6.plist in Resources */,
+				F50AD1B01698C1C600E9FD16 /* level7.plist in Resources */,
+				F50AD1B21698C3D700E9FD16 /* level8.plist in Resources */,
+				F50AD1B41698C60E00E9FD16 /* level9.plist in Resources */,
+				F50AD1B61698C79900E9FD16 /* level10.plist in Resources */,
+				F5FA165D16AADE72004A2DBC /* heart.png in Resources */,
+				F5FA166416AAFC30004A2DBC /* bg.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

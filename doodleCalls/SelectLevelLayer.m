@@ -12,6 +12,7 @@
 
 #import "cocos2d.h"
 #import "CCBReader.h"
+#import "Settings.h"
 
 @implementation SelectLevelLayer
 
@@ -76,7 +77,7 @@
                      ]
          ];
         
-        openedLevels = 1;
+        openedLevels = [Settings sharedSettings].openedLevels;
         
         [self createLevelsMenu];
         

@@ -9,6 +9,8 @@ Settings *sharedSettings    = nil;
 @synthesize money;
 @synthesize currentMower;
 @synthesize availableMowers;
+@synthesize soundLevel;
+@synthesize openedLevels;
 
 + (Settings *) sharedSettings
 {
@@ -73,6 +75,26 @@ Settings *sharedSettings    = nil;
         self.availableMowers = 1000;
     }
     
+    NSNumber *soundData = [defaults objectForKey: kSoundKey];
+    if(soundData)
+    {
+        self.soundLevel = [soundData integerValue];
+    }
+    else
+    {
+        self.soundLevel = 1;
+    }
+    
+    NSNumber *levelsData = [defaults objectForKey: kOpenedLevelsKey];
+    if(levelsData)
+    {
+        self.openedLevels = [levelsData integerValue];
+    }
+    else
+    {
+        self.openedLevels = 1;
+    }
+    
 }
 
 - (void) save
@@ -84,6 +106,10 @@ Settings *sharedSettings    = nil;
     [defaults setObject: [NSNumber numberWithInteger: self.currentMower] forKey: kMowerKey];
     
     [defaults setObject: [NSNumber numberWithInteger: self.availableMowers] forKey: kAvailableMowerKey];
+    
+    [defaults setObject: [NSNumber numberWithInteger: self.soundLevel] forKey: kSoundKey];
+    
+    [defaults setObject: [NSNumber numberWithInteger: self.openedLevels] forKey: kOpenedLevelsKey];
     
     [defaults synchronize];
 }

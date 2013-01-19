@@ -14,6 +14,7 @@
 @synthesize gameLayer;
 @synthesize status;
 @synthesize tap;
+@synthesize ballTime;
 
 + (Ball *) create
 {
@@ -32,6 +33,8 @@
 {
     if(self  = [super init])
     {
+        ballTime = 0;
+        
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         ballSprite = [CCSprite spriteWithSpriteFrameName: @"ball0.png"];
@@ -44,8 +47,6 @@
         status = inPool;
         tap = NO;
         self.visible = NO;
-        
-        [self schedule: @selector(getRandomNumberForBall) interval: 1];
     }
     
     return self;
@@ -55,6 +56,8 @@
 {
     status = inAir;
     self.visible = YES;
+    
+    CCLOG(@"pointX: %f PointY: %f", point.x, point.y);
     
     [self runAction: [CCSequence actions: [CCJumpTo actionWithDuration: 2 position: point height: 100 jumps: 1],
                                           [CCCallFunc actionWithTarget: self selector: @selector(setFieldStatus)],
@@ -68,14 +71,11 @@
     status = onField;
 }
 
-- (void) getRandomNumberForBall // обозвать по-другому
+- (NSInteger) getRandomNumberForBall // обозвать по-другому
 {
     NSInteger rNum = arc4random() % 20;
     
-    if(rNum % 3 == 0 && status == inPool)
-    {
-        [gameLayer getCoordinatsForBall];
-    }
+    return rNum;
 }
 
 - (BOOL) isTapped: (CGPoint) location

@@ -42,7 +42,6 @@
     CCLayerColor *blinkLayer;
     
     NSMutableArray *pooArray;
-    NSMutableArray *ballsArray;
     NSMutableArray *objectsArray;
     
     NSMutableArray *objectsWithDynamicZ;
@@ -55,7 +54,9 @@
 - (void) addGrassToPoint: (CGPoint) position;
 - (BOOL) checkWaterPoolcollisionWithPoint: (CGPoint) point;
 - (void) addScoreFromFlower;
-- (void) getCoordinatsForBall;
+- (void) returnBall: (Ball *) curBall ToPool: (WaterPool *) pool;
+- (void) returnBallToField: (Ball *) curBall;
+- (void) startLevel: (NSInteger) level;
 
 - (void) pause;
 - (void) unPause;

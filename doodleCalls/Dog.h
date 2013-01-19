@@ -27,7 +27,7 @@
 - (void) walk;
 - (void) poo;
 
-- (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction;
+- (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction AndReturnPoint: (CGPoint) returnPoint;
 
 @property (nonatomic, assign) GameLayer *gameLayer;
 @property (nonatomic, assign) BOOL isRun;

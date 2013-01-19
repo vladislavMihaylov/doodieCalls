@@ -7,9 +7,12 @@
 //
 
 #import "WaterPool.h"
-
+#import "Ball.h"
+#import "GameLayer.h"
 
 @implementation WaterPool
+
+@synthesize gameLayer;
 
 + (WaterPool *) create
 {
@@ -37,6 +40,27 @@
     }
     
     return self;
+}
+
+- (void) checkCollisionWithPoint: (Ball *) ball
+{
+   
+    
+    float Ax = self.contentSize.width / 2;
+    float Ay = self.contentSize.height / 2;
+    float Tx = fabs(self.position.x - ball.position.x);
+    float Ty = fabsf(self.position.y - ball.position.y);
+    
+    BOOL result = Tx <= Ax && Ty <= Ay;
+    
+    if(result && ball.tag == self.tag)
+    {
+        [gameLayer returnBall: ball ToPool: self];
+    }
+    else
+    {
+        [gameLayer returnBallToField: ball];
+    }
 }
 
 @end

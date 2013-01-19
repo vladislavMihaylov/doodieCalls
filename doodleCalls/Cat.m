@@ -38,7 +38,7 @@
         [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"cat_left_"]];
         
         catSprite = [CCSprite spriteWithSpriteFrameName: @"cat_down_1.png"];
-        catSprite.anchorPoint = ccp(0.5, 0.5);
+        catSprite.anchorPoint = ccp(0.5, 0.05);
         
         [self addChild: catSprite];
         
@@ -57,12 +57,12 @@
     
     if(direction == 0)
     {
-        [self runAction: [CCMoveTo actionWithDuration: 10 position: ccp( 580 , point.y)]];
+        [self runAction: [CCMoveTo actionWithDuration: 8 position: ccp( 580 , point.y)]];
         [self moveRightAnimation];
     }
     if(direction == 1)
     {
-        [self runAction: [CCMoveTo actionWithDuration: 10 position: ccp( -100 , point.y)]];
+        [self runAction: [CCMoveTo actionWithDuration: 8 position: ccp( -100 , point.y)]];
         [self moveLeftAnimation];
     }
 }

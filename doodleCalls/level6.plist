@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dogPosition</key>
+	<string>300/150</string>
+	<key>path</key>
+	<string>50/250/50/25/75/25/75/225/100/225/100/25/350/25/350/50/125/50/125/75/350/75/350/225/325/225/325/100/300/100/300/225/275/225/275/100/250/100/250/225/125/225/125/200/225/200</string>
+	<key>objects</key>
+	<dict>
+		<key>gardenBed</key>
+		<dict>
+			<key>id</key>
+			<integer>0</integer>
+			<key>position</key>
+			<string>430/220</string>
+		</dict>
+		<key>kennel</key>
+		<dict>
+			<key>id</key>
+			<integer>1</integer>
+			<key>position</key>
+			<string>430/75</string>
+		</dict>
+		<key>waterPool</key>
+		<dict>
+			<key>id</key>
+			<integer>2</integer>
+			<key>position</key>
+			<string>175/150</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

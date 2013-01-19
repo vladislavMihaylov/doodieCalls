@@ -35,7 +35,7 @@
     if(self = [super init])
     {
         dogSprite = [CCSprite spriteWithFile: @"Icon.png"];
-        
+        dogSprite.anchorPoint = ccp(0.5, 0.2);
         [self addChild: dogSprite];
         
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: [NSString stringWithFormat: @"game_atlas.plist"]];
@@ -61,42 +61,151 @@
 
 - (void) walk
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource: [NSString stringWithFormat: @"level%i", curLevel] ofType: @"plist"];
+    NSInteger minX = 50;
+    NSInteger maxX = 350;
     
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
+    NSInteger minY = 25;
+    NSInteger maxY = 225;
     
-    NSString *pointsString = [NSString stringWithString: [dict valueForKey: @"path"]];            // берём строку с координатами
+    NSInteger direction = arc4random() % 4;
+    NSInteger distance;
+    NSInteger countPointsInDistance;
+    NSInteger currentDistance;
+    CGPoint dogPoint;
     
-    NSArray *coordinats = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
+    BOOL isCollision = NO;
     
-    NSInteger minX = [[coordinats objectAtIndex: 0] integerValue];
-    NSInteger maxX = [[coordinats objectAtIndex: (coordinats.count - 2)] integerValue];
+    if(direction == 0)
+    {
+        distance = maxY - self.position.y;
+        countPointsInDistance = distance / 25;
+        if(countPointsInDistance == 0)
+        {
+            currentDistance = 0;
+        }
+        else
+        {
+            currentDistance = (arc4random() % (countPointsInDistance)) + 1;
+            
+            for(int i = 1; i <= currentDistance; i++)
+            {
+                CGPoint point = CGPointMake(self.position.x, self.position.y + i * 25);
+                
+                if([gameLayer checkWaterPoolcollisionWithPoint: point])
+                {
+                    CCLOG(@"OLOLO");
+                    isCollision = YES;
+                }
+            }
+        }
+        if(!isCollision)
+        {
+            dogPoint = CGPointMake(self.position.x, self.position.y + currentDistance * 25);
+        }
+    }
+    if(direction == 1)
+    {
+        distance = self.position.y - minY;
+        countPointsInDistance = distance / 25;
+        if(countPointsInDistance == 0)
+        {
+            currentDistance = 0;
+        }
+        else
+        {
+            currentDistance = (arc4random() % (countPointsInDistance)) + 1;
+            
+            for(int i = 1; i <= currentDistance; i++)
+            {
+                CGPoint point = CGPointMake(self.position.x, self.position.y - i * 25);
+                
+                if([gameLayer checkWaterPoolcollisionWithPoint: point])
+                {
+                    CCLOG(@"OLOLO");
+                    isCollision = YES;
+                }
+            }
+        }
+        if(!isCollision)
+        {
+            dogPoint = CGPointMake(self.position.x, self.position.y - currentDistance * 25);
+        }
+    }
+    if(direction == 2)
+    {
+        distance = self.position.x - minX;
+        countPointsInDistance = distance / 25;
+        if(countPointsInDistance == 0)
+        {
+            currentDistance = 0;
+        }
+        else
+        {
+            currentDistance = (arc4random() % (countPointsInDistance)) + 1;
+            
+            for(int i = 1; i <= currentDistance; i++)
+            {
+                CGPoint point = CGPointMake(self.position.x - (i * 25), self.position.y);
+                
+                CCLOG(@"I: %i pointX %f pointY %f", i, point.x, point.y);
+                
+                if([gameLayer checkWaterPoolcollisionWithPoint: point])
+                {
+                    CCLOG(@"OLOLO");
+                    isCollision = YES;
+                }
+            }
+        }
+        if(!isCollision)
+        {
+            dogPoint = CGPointMake(self.position.x - currentDistance * 25, self.position.y);
+        }
+    }
+    if(direction == 3)
+    {
+        distance = maxX - self.position.x;
+        countPointsInDistance = distance / 25;
+        if(countPointsInDistance == 0)
+        {
+            currentDistance = 0;
+        }
+        else
+        {
+            currentDistance = (arc4random() % (countPointsInDistance)) + 1;
+            
+            for(int i = 1; i <= currentDistance; i++)
+            {
+                CGPoint point = CGPointMake(self.position.x + i * 25, self.position.y);
+                
+                if([gameLayer checkWaterPoolcollisionWithPoint: point])
+                {
+                    CCLOG(@"OLOLO");
+                    isCollision = YES;
+                }
+            }
+        }
+        if(!isCollision)
+        {
+            dogPoint = CGPointMake(self.position.x + currentDistance * 25, self.position.y);
+        }
+    }
     
-    NSInteger minY = [[coordinats objectAtIndex: (coordinats.count - 1)] integerValue];
-    NSInteger maxY = [[coordinats objectAtIndex: 1] integerValue];
-    
-    NSInteger movementX;
-    NSInteger movementY;
-    
-    movementX = (arc4random() % (maxX - minX)) + minX;
-    movementY = (arc4random() % (maxY - minY)) + minY;
-    
-    CGPoint dogPoint = CGPointMake(movementX, movementY);
-    
-    if([gameLayer checkWaterPoolcollisionWithPoint: dogPoint]) // Тут надо организовать доп функцию, чтобы можно было проверять колизии с бассейном
+    if(isCollision) // Тут надо организовать доп функцию, чтобы можно было проверять колизии с бассейном
     {
         [self walk];
     }
     else
     {
-        [self moveDog: dogPoint];
+        [self moveDog: dogPoint WithDirection: direction AndDistance: currentDistance];
     }
     
     
 }
 
-- (void) moveDog: (CGPoint) nextPoint
+- (void) moveDog: (CGPoint) nextPoint WithDirection: (NSInteger) direction AndDistance: (NSInteger) distance
 {
+    CCLOG(@"Self.positionX %f position Y %f", nextPoint.x, nextPoint.y);
+    
     float timeOfAction;
     float delayTime = (arc4random() % 20) / 10;
     
@@ -105,45 +214,23 @@
         delayTime = 0.5;
     }
     
-    if([self getDirection])
+    timeOfAction = distance * 0.5;
+    
+    if(direction == 0)
     {
-        nextPoint.x = self.position.x;
-        
-        if((nextPoint.y - self.position.y) > 0)
-        {
-            [self moveUpAnimation];
-        }
-        else
-        {
-            [self moveDownAnimation];
-        }
-        
-        timeOfAction = fabs(nextPoint.y - self.position.y) / 70;
-        
-        if(timeOfAction < 1)
-        {
-            timeOfAction = 1;
-        }
+        [self moveUpAnimation];
     }
-    else
+    if(direction == 1)
     {
-        nextPoint.y = self.position.y;
-        
-        if((nextPoint.x - self.position.x) > 0)
-        {
-            [self moveRightAnimation];
-        }
-        else
-        {
-            [self moveLeftAnimation];
-        }
-        
-        timeOfAction = fabs(nextPoint.x - self.position.x) / 70;
-        
-        if(timeOfAction < 1)
-        {
-            timeOfAction = 1;
-        }
+        [self moveDownAnimation];
+    }
+    if(direction == 2)
+    {
+        [self moveLeftAnimation];
+    }
+    if(direction == 3)
+    {
+        [self moveRightAnimation];
     }
     
     [self runAction:
@@ -160,17 +247,11 @@
     ];
 }
 
-- (NSInteger) getDirection
-{
-    return arc4random() % 2;
-}
 
 - (void) stopMoveAnimation
 {
     [dogSprite stopAllActions];
 }
-
-
 
 - (void) moveRightAnimation
 {
@@ -226,10 +307,10 @@
 
 - (void) poo
 {
-    if(self.isRun == NO)
+    if(self.position.x <= 350 && self.position.x >= 50 && self.position.y <= 225 && self.position.y >= 25)
     {
         Poo *poo = [[[Poo alloc] init] autorelease];
-        poo.position = self.position;
+        poo.position = ccp(self.position.x, self.position.y + 12);
         
         [gameLayer.pooArray addObject: poo];
         [gameLayer.objectsArray addObject: poo];
@@ -239,14 +320,36 @@
     }
 }
 
-- (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction
+- (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction AndReturnPoint: (CGPoint) returnPoint
 {
     [self runAction:
                 [CCSequence actions:
                                 [CCMoveTo actionWithDuration: 4
                                                     position: escapePoint],
                                 [CCDelayTime actionWithDuration: 2],
-                                [CCCallFunc actionWithTarget: self selector: @selector(switchRunStatus)],
+                                [CCCallBlock actionWithBlock:^(id sender){
+                                                                            NSInteger distance = fabs(escapePoint.x - returnPoint.x) / 25;
+                                                                            NSInteger dir;
+                    
+                                                                            if(direction == 0)
+                                                                            {
+                                                                                dir = 3;
+                                                                            }
+                                                                            if(direction == 2)
+                                                                            {
+                                                                                dir = 2;
+                                                                            }
+                    
+                                                                            [self runAction:
+                                                                                        [CCSequence actions:
+                                                                                                    [CCCallBlock actionWithBlock:^(id sender){
+                                                                                            [self moveDog: returnPoint WithDirection: dir AndDistance: distance]; }],
+                                                                                         
+                                                                                         [CCCallBlock actionWithBlock:^(id sender) {self.isRun = NO;}],
+                                                                                    
+                                                                                         nil]];
+                                                                                
+                                                                         }],
                                 nil
                 ]
     ];
@@ -263,12 +366,6 @@
     {
         [self moveRightAnimation];
     }
-}
-
-- (void) switchRunStatus
-{
-    self.isRun = NO;
-    [self walk];
 }
 
 

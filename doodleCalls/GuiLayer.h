@@ -36,13 +36,21 @@
     CCMenuItemImage *pauseBtn;
     
     CCMenu *pauseMenu;
+    CCMenu *soundMenu;
+    
+    NSMutableArray *heartsArray;
+    
+    NSInteger curLvl;
 }
+
+- (id) initWithLevel: (NSInteger) currentLevel;
 
 - (void) updateScoreLabel: (NSInteger) currentScore;
 
 - (void) showPauseMenu;
 - (void) showGameOverMenu;
 - (void) showSucceedMenu;
+- (void) removeHeart;
 
 @property (nonatomic, assign) GameLayer *gameLayer;
 

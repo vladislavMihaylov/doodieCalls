@@ -8,6 +8,8 @@
 
 #import "GameLayer.h"
 #import "GameConfig.h"
+#import "Settings.h"
+
 #import "Mower.h"
 #import "GardenBed.h"
 #import "Kennel.h"
@@ -20,7 +22,6 @@
 #import "Ball.h"
 #import "Cat.h"
 
-#import "Settings.h"
 
 @implementation GameLayer
 
@@ -34,7 +35,7 @@
     
     GameLayer *layer = [[[GameLayer alloc] initWithLevel: numberOfLevel] autorelease];
     
-    GuiLayer *gui = [GuiLayer node];
+    GuiLayer *gui = [[[GuiLayer alloc] initWithLevel: numberOfLevel] autorelease];;
 
     [scene addChild: layer];
     [scene addChild: gui];
@@ -49,7 +50,6 @@
 {
     [super dealloc];
     [pooArray release];
-    [ballsArray release];
     [objectsArray release];
     [objectsWithDynamicZ release];
 }
@@ -58,16 +58,16 @@
 {
     if(self = [super init])
     {
-        objectsArray = [[NSMutableArray alloc] init];
-        objectsWithDynamicZ = [[NSMutableArray alloc] init];
+        objectsArray = [[NSMutableArray alloc] init];           // Массив, содержащий все объекты уровня
+        objectsWithDynamicZ = [[NSMutableArray alloc] init];    // Содержит объекты, которым нужно менять z-индекс
         
-        curLevel = level;
+        curLevel = level;                                       // Номер текущего уровня
         
-        [self loadTextures];
+        [self loadTextures];                                    // Загружаем текстуры
         
-        [self setParametersFromLevel: level];
+        [self setParametersFromLevel: level];                   // Устанавливаем необходимые для текущего уровня параметры
         
-        [self startLevel: level];
+        [self startLevel: level];                               // Начинаем уровень
         
     }
     
@@ -87,32 +87,29 @@
     CGPoint location = [touch locationInView: [touch view]];
     location = [[CCDirector sharedDirector] convertToGL: location];
     
-    for(Poo *currentPoo in pooArray)
+    for(Poo *currentPoo in pooArray)                     // Пробегаемся по масиву какашек
     {
-        //CCLOG(@"curPoo.position = %f, %f", currentPoo.position.x, currentPoo.position.y);
-        
-        if([currentPoo isTapped: location])
+        if([currentPoo isTapped: location])              // Если тап произошел на какашке
         {
-            currentPoo.tap = YES;
+            currentPoo.tap = YES;                        // она помечается как "нажатая"
         }
     }
     
-    for(Ball *currentBall in ballsArray)
+    
+    if([ball isTapped: location])             // Если тап произошел на мячике
     {
-        if([currentBall isTapped: location])
+        if(ball.status == onField)            // Если при этом он находится на поле
         {
-            if(currentBall.status == onField)
-            {
-                currentBall.status = inAir;
-                currentBall.tap = YES;
-            }
+            ball.status = inAir;              // Меняем статус на "в воздухе"
+            ball.tap = YES;                   // Помечаем его "нажатым"
         }
     }
+    
     
     if( ((fabsf(location.x - flower.position.x)) <= (flower.contentSize.width / 2)) ||
-        ((fabsf(location.y - flower.position.y)) <= (flower.contentSize.height / 2)))
+        ((fabsf(location.y - flower.position.y)) <= (flower.contentSize.height / 2)))     // Если тап был на цветочной грядке
     {
-        [flower onTaped];
+        [flower onTaped];                                                                 // Проверяем цветок на созревание 
     }
     
     return YES;
@@ -125,20 +122,18 @@
     
     for(Poo *currentPoo in pooArray)
     {
-        if(currentPoo.tap == YES)
+        if(currentPoo.tap == YES)                                       // если в массиве есть тапнутая какаха
         {
-            currentPoo.position = location;
-            currentPoo.onField = NO;
+            currentPoo.position = location;                             // перемещаем её
+            currentPoo.onField = NO;                                    // помечаем, что она не на земле (?)
         }
+    }
+
+    if(ball.status == inAir && ball.tap == YES)       // Если тапнутый мяч в воздухе
+    {
+        ball.position = location;                            // перемещаем его
     }
     
-    for(Ball *currentBall in ballsArray)
-    {
-        if(currentBall.status == inAir && currentBall.tap == YES)
-        {
-            currentBall.position = location;
-        }
-    }
 }
 
 - (void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
@@ -146,190 +141,132 @@
     CGPoint location = [touch locationInView: [touch view]];
     location = [[CCDirector sharedDirector] convertToGL: location];
     
-    float Ax = gardenBed.contentSize.width / 2;
-    float Ay = gardenBed.contentSize.height / 2;
+    NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];       // Массив содержит в себе какахи, которые надо удалить
     
-    float Bx = fabsf(location.x - gardenBed.position.x);
-    float By = fabsf(location.y - gardenBed.position.y);
+    float Ax = gardenBed.contentSize.width / 2;                         // половина ширины грядки
+    float Ay = gardenBed.contentSize.height / 2;                        // половина высоты грядки
     
-    float Cx = waterPool.contentSize.width / 2;
-    float Cy = waterPool.contentSize.height / 2;
+    float Bx = fabsf(location.x - gardenBed.position.x);                // расстояние от точки конца тапа до центра грядки по оси Х
+    float By = fabsf(location.y - gardenBed.position.y);                // расстояние от точки конца тапа до центра грядки по оси Y
     
-    float Dx = fabsf(location.x - waterPool.position.x);
-    float Dy = fabsf(location.y - waterPool.position.y);
+    BOOL isRemovePoo = Bx <= Ax && By <= Ay;                            // YES, если координаты пересекаются. NO, если не пересекаются
     
-    BOOL isRemovePoo = Bx <= Ax && By <= Ay;
-    BOOL isRemoveBall = Dx <= Cx && Dy <= Cy;
-    
-    NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
-    
-    if(isRemoveBall)
-    {
-        for(Ball *currentBall in ballsArray)
-        {
-            currentBall.position = waterPool.position;
-            currentBall.status = inPool;
-            currentBall.tap = NO;
-            currentBall.visible = NO;
-            [boy playBallBoyAnimation];
-        }
-    }
-    else
-    {
-        for(Ball *currentBall in ballsArray)
-        {
-            if(currentBall.status == inAir)
-            {
-                currentBall.status = onField;
-                currentBall.tap = NO;
-            }
-        }
-    }
-    
-    if(isRemovePoo)
+    if(isRemovePoo)                                                     // если какаха над грядкой
     {
         for(Poo *currentPoo in pooArray)
         {
-            if(currentPoo.tap == YES)
+            if(currentPoo.tap == YES)                                   // если это была какаха, которую тапал игрок
             {
-                [pooForRemove addObject: currentPoo];
-                [self removeChild: currentPoo cleanup: YES]; // Дописать, чтобы нельзя было класть какаху на какаху
-                [guiLayer updateScoreLabel: score += 100];
-                [flower updateFlower];
+                [pooForRemove addObject: currentPoo];                   // какаха отправляется в массив для удаления
+                [self removeChild: currentPoo cleanup: YES];            // удаляем какаху из селфа
+                [guiLayer updateScoreLabel: score += 50];               // даем игроку 50 очков
+                [flower updateFlower];                                  // апдейтим левел у цветка
             }
         }
     }
-    else
+    else                                                                // если какаха не над грядкой
     {
         for(Poo *currentPoo in pooArray)
         {
-            if(currentPoo.tap == YES)
+            if(currentPoo.tap == YES)                                   // если какаха была тапнута игроком
             {
-                currentPoo.tap = NO;
-                currentPoo.onField = YES;
+                currentPoo.tap = NO;                                    // пометить её как не тапнутая
+                currentPoo.onField = YES;                               // поместить её на поле
             }
         }
     }
     
-    for(Poo *currentPooForRemove in pooForRemove)
+    for(Poo *currentPooForRemove in pooForRemove)                       // 
     {
-        [pooArray removeObject: currentPooForRemove];
+        [pooArray removeObject: currentPooForRemove];                   // Удаляем из массива какашек ту какаху, которая была над грядкой
     }
     
-    [pooForRemove release];
+    [pooForRemove release];                                             // Удаляем наш временный
     
+    /////////////////////////////////// далее проверяем мячики ////////////////////////////////////
+    if(ball.tap == YES)
+    {
+        [waterPool checkCollisionWithPoint: ball];
+    }
+}
+
+
+- (void) returnBall: (Ball *) curBall ToPool: (WaterPool *) pool
+{
+    curBall.position = pool.position;            // переносим мячик точно в центр басика
+    curBall.status = inPool;                                 // меняем статус мячика на "в бассейне"
+    curBall.tap = NO;                                        // помечаем его нетронутым
+    curBall.visible = NO;                                    // делаем его невидимым
+    [boy stopAllActions];
+    [boy playBallBoyAnimation];                                  // Мальчик проигрывает анимацию игры с мячом
+    curBall.ballTime = 0;
+    score += 50;
+    [guiLayer updateScoreLabel: score];
+    [self schedule: @selector(throwBall) interval: 2];
+}
+
+- (void) returnBallToField: (Ball *) curBall
+{
+    curBall.status = onField;                            // меняем статус на "на поле"
+    curBall.tap = NO;
 }
 
 #pragma mark -
-#pragma mark Update
-
-- (void) update: (ccTime) dt
-{
-    [self checkShitCollision];
-    [self checkBallCollision];
-    [self checkCatAndDogDistance];
-    [self setZtoObjects];
-}
-
-- (void) setZtoObjects
-{
-    for(CCNode *currentObject in objectsWithDynamicZ)
-    {
-        NSInteger z = (320 - currentObject.position.y) / 10;
-        [currentObject setZOrder: z];
-    }
-}
-
-- (void) checkCatAndDogDistance
-{
-    //CCLOG(@"DogX: %f DogY: %f", dog.position.x, dog.position.y);
-    //CCLOG(@"CatX: %f CatY: %f", cat.position.x, cat.position.y);
-    
-    if( (fabsf(dog.position.x - cat.position.x) < 125) && (fabsf(dog.position.y - cat.position.y) < 125))
-    {
-        if(cat.isRun == NO && dog.isRun == NO)
-        {
-            CCLOG(@"CAT RUN!");
-            cat.isRun = YES;
-            dog.isRun = YES;
-            
-            [cat stopAllActions];
-            [dog stopAllActions];
-            
-            [self getCoordinatsForCatEscape];
-        }
-    }
-}
-
-- (void) getCoordinatsForCatEscape
-{
-    if( (cat.position.x < waterPool.position.x + waterPool.contentSize.width / 2) && (cat.position.x > -100) )
-    {
-        [cat runToPoint: ccp(-100, cat.position.y) andDirection: 0];
-        [dog runToPoint: ccp(-100, cat.position.y) andDirection: 0];
-    }
-    else if( (cat.position.x < 580) && (cat.position.x >= kennel.position.x - kennel.contentSize.width / 2) )
-    {
-        [cat runToPoint: ccp(580, cat.position.y) andDirection: 2];
-        [dog runToPoint: ccp(580, cat.position.y) andDirection: 2];
-    }
-    else
-    {
-        [cat runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-        [dog runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-    }
-    
-    
-    /*NSInteger differenceX = cat.position.x - dog.position.x;  // пока кошка с собакой убегают только вниз
-    NSInteger differenceY = cat.position.y - dog.position.y;
-    
-    if(differenceX <= 0)
-    {
-        if(differenceY <= 0)
-        {
-            [cat runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-            [dog runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-        }
-        else
-        {
-            [cat runToPoint: ccp(cat.position.x, 420) andDirection: 0];
-            [dog runToPoint: ccp(cat.position.x, 420) andDirection: 0];
-        }
-    }
-    else
-    {
-        if(differenceY <= 0)
-        {
-            [cat runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-            [dog runToPoint: ccp(cat.position.x, -100) andDirection: 1];
-        }
-        else
-        {
-            [cat runToPoint: ccp(cat.position.x, 420) andDirection: 0];
-            [dog runToPoint: ccp(cat.position.x, 420) andDirection: 0];
-        }
-    }*/
-}
+#pragma mark Collisions
 
 - (void) checkBallCollision
 {
-    for(Ball *currentBall in ballsArray)
+    float Bx;
+    float By;
+    
+    float Cx;
+    float Cy;
+    
+    if(mower.direction == right)
     {
-        float Bx = mower.contentSize.width / 2 + currentBall.contentSize.width / 2;
-        float By = currentBall.contentSize.height / 2;
+        Bx = mower.contentSize.width / 2 - 15 + ball.contentSize.width / 2;
+        By = ball.contentSize.height / 2;
         
-        float Cx = fabsf(mower.position.x - currentBall.position.x);
-        float Cy = fabsf((mower.position.y + 15) - currentBall.position.y);
+        Cx = fabsf(mower.position.x + 15 - ball.position.x);
+        Cy = fabsf((mower.position.y + 15) - ball.position.y);
+    }
+    if(mower.direction == left)
+    {
+        Bx = mower.contentSize.width / 2 - 15 + ball.contentSize.width / 2;
+        By = ball.contentSize.height / 2;
         
-        BOOL status = Cx <= Bx && Cy <= By;
+        Cx = fabsf(mower.position.x - 15 - ball.position.x);
+        Cy = fabsf((mower.position.y + 15) - ball.position.y);
+    }
+    if(mower.direction == up)
+    {
+        Bx = mower.contentSize.width / 2 - 10 + ball.contentSize.width / 2;
+        By = ball.contentSize.height / 2;
         
-        if(currentBall.status == onField)
+        Cx = fabsf(mower.position.x - ball.position.x);
+        Cy = fabsf((mower.position.y + mower.contentSize.height) - ball.position.y);
+    }
+    if(mower.direction == down)
+    {
+        Bx = mower.contentSize.width / 2 - 10 + ball.contentSize.width / 2;
+        By = ball.contentSize.height / 2;
+        
+        Cx = fabsf(mower.position.x - ball.position.x);
+        Cy = fabsf((mower.position.y) - ball.position.y);
+    }
+    
+    BOOL status = Cx <= Bx && Cy <= By;
+    
+    if(ball.status == onField)
+    {
+        if(status)
         {
-            if(status)
+            if(ball.tag == waterPool.tag)
             {
-                currentBall.position = waterPool.position;
-                currentBall.status = inPool;
-                currentBall.visible = NO;
+                ball.position = waterPool.position;
+                ball.status = inPool;
+                ball.ballTime = 0;
+                ball.visible = NO;
                 
                 [boy stopAllActions];
                 [boy playBallBoyAnimation];
@@ -341,27 +278,64 @@
                     score = 0;
                 }
                 
+                [self schedule: @selector(throwBall) interval: 2];
+                
+                [guiLayer removeHeart];
+                
+                
                 [guiLayer updateScoreLabel: score];
                 [self blink];
             }
+            
         }
     }
 }
 
 - (void) checkShitCollision
 {
-    
-    
     NSMutableArray *pooForRemove = [[NSMutableArray alloc] init];
     
     for(Poo *currentPoo in pooArray)
     {
-        float Bx = mower.contentSize.width / 2 + currentPoo.contentSize.width / 2;
-        float By = currentPoo.contentSize.height / 2;
+        float Bx;
+        float By;
         
-        float Cx = fabsf(mower.position.x - currentPoo.position.x);
-        float Cy = fabsf((mower.position.y + 15) - currentPoo.position.y);
-
+        float Cx;
+        float Cy;
+        
+        if(mower.direction == right)
+        {
+            Bx = mower.contentSize.width / 2 - 15 + currentPoo.contentSize.width / 2;
+            By = currentPoo.contentSize.height / 2;
+            
+            Cx = fabsf(mower.position.x + 15 - currentPoo.position.x);
+            Cy = fabsf((mower.position.y + 15) - currentPoo.position.y);
+        }
+        if(mower.direction == left)
+        {
+            Bx = mower.contentSize.width / 2 - 15 + currentPoo.contentSize.width / 2;
+            By = currentPoo.contentSize.height / 2;
+            
+            Cx = fabsf(mower.position.x - 15 - currentPoo.position.x);
+            Cy = fabsf((mower.position.y + 15) - currentPoo.position.y);
+        }
+        if(mower.direction == up)
+        {
+            Bx = mower.contentSize.width / 2 - 10 + currentPoo.contentSize.width / 2;
+            By = currentPoo.contentSize.height / 2;
+            
+            Cx = fabsf(mower.position.x - currentPoo.position.x);
+            Cy = fabsf((mower.position.y + mower.contentSize.height) - currentPoo.position.y);
+        }
+        if(mower.direction == down)
+        {
+            Bx = mower.contentSize.width / 2 - 10 + currentPoo.contentSize.width / 2;
+            By = currentPoo.contentSize.height / 2;
+            
+            Cx = fabsf(mower.position.x - currentPoo.position.x);
+            Cy = fabsf((mower.position.y) - currentPoo.position.y);
+        }
+        
         BOOL status = Cx <= Bx && Cy <= By;
         
         if(currentPoo.onField == YES)
@@ -379,6 +353,8 @@
                     {
                         score = 0;
                     }
+                    
+                    [guiLayer removeHeart];
                     
                     [guiLayer updateScoreLabel: score];
                     
@@ -400,15 +376,121 @@
 {
     BOOL isCollision = NO;
     
-    //CCLOG(@"WaterPoolWidth: %f Height: %f", waterPool.waterPoolSprite.contentSize.width/2, waterPool.waterPoolSprite.contentSize.height/2);
-    
-    if( (fabsf(point.x - waterPool.position.x) < (waterPool.contentSize.width / 2)) ||
-        (fabsf(point.y - waterPool.position.y) < (waterPool.contentSize.height / 2)))
+    if( (fabsf(point.x - waterPool.position.x) < (waterPool.contentSize.width / 2)) &&
+       (fabsf(point.y - waterPool.position.y) < (waterPool.contentSize.height / 2)))
     {
         isCollision = YES;
     }
     
     return isCollision;
+}
+
+- (BOOL) checkWaterPoolCollisionWithCatCoordinats: (CGPoint) catPoint
+{
+    BOOL isCollision = NO;
+    
+    NSInteger restrictMax = (waterPool.position.y + waterPool.contentSize.height / 2);
+    NSInteger restrictMin = (waterPool.position.y - waterPool.contentSize.height / 2);
+    
+    if( ((catPoint.y <= restrictMax) && (catPoint.y > restrictMin)) )
+    {
+        isCollision = YES;
+    }
+    
+    return isCollision;
+}
+
+#pragma mark -
+#pragma mark Update
+
+- (void) update: (ccTime) dt
+{
+    [self checkShitCollision];
+    [self checkBallCollision];
+    [self checkCatAndDogDistance];
+    [self setZtoObjects];
+    [self runTimerForBall: dt];
+}
+
+- (void) setZtoObjects
+{
+    for(CCNode *currentObject in objectsWithDynamicZ)
+    {
+        NSInteger z = (320 - currentObject.position.y) / 10;
+        [currentObject setZOrder: z];
+    }
+}
+
+- (void) checkCatAndDogDistance
+{
+    if( (fabsf(dog.position.x - cat.position.x) < 100) && (fabsf(dog.position.y - cat.position.y) < 100))
+    {
+        if(cat.isRun == NO && dog.isRun == NO)
+        {
+            cat.isRun = YES;
+            dog.isRun = YES;
+            
+            [cat stopAllActions];
+            [dog stopAllActions];
+            
+            [self getCoordinatsForCatEscape];
+        }
+    }
+}
+
+- (void) getCoordinatsForCatEscape
+{
+    CGPoint returnPointForDog = CGPointMake(dog.position.x, dog.position.y);
+    
+    if( cat.position.x <= dog.position.x )
+    {
+        [cat runToPoint: ccp(-100, cat.position.y) andDirection: 0];
+        [dog runToPoint: ccp(-100, cat.position.y) andDirection: 0 AndReturnPoint: returnPointForDog];
+    }
+    if( cat.position.x > dog.position.x )
+    {
+        [cat runToPoint: ccp(580, cat.position.y) andDirection: 2];
+        [dog runToPoint: ccp(580, cat.position.y) andDirection: 2 AndReturnPoint: returnPointForDog];
+    }
+}
+
+- (void) runTimerForBall: (float) dt
+{
+    if(ball.status == onField)
+    {
+        ball.ballTime += dt;
+        
+        if(ball.ballTime >= 3)
+        {
+            if(ball.tag == waterPool.tag)
+            {
+                ball.position = waterPool.position;
+                ball.status = inPool;
+                ball.visible = NO;
+                
+                [boy stopAllActions];
+                [boy playBallBoyAnimation];
+                
+                score -= 100;
+                ball.ballTime = 0;
+                
+                [self schedule: @selector(throwBall) interval: 2];
+                
+                if(score <= 0)
+                {
+                    score = 0;
+                }
+                
+                [guiLayer removeHeart];
+                
+                //[self schedule: @selector(getNumberForBall) interval: 1];
+                [guiLayer updateScoreLabel: score];
+                [self blink];
+                CCLOG(@"OOPS!");
+            }
+            
+        }
+    }
 }
 
 - (void) addScoreFromFlower
@@ -438,14 +520,44 @@
 
 - (void) startLevel: (NSInteger) level
 {
+    [self unschedule: @selector(runCat)];
+    [self unschedule: @selector(throwBall)];
+    [self unscheduleUpdate];
+    
+    for(CCNode *myNode in objectsArray)
+    {
+        [self removeChild: myNode cleanup: YES];
+    }
+    
+    [objectsArray removeAllObjects];
+    [objectsWithDynamicZ removeAllObjects];
+    
+    score = 0;
+    
+    [guiLayer updateScoreLabel: score];
+    
+    [self loadTextures];
+    
+    [self setParametersFromLevel: level];
+    
     score = 0;
     
     pooArray = [[NSMutableArray alloc] init];
-    ballsArray = [[NSMutableArray alloc] init];
+    
     
     self.isTouchEnabled = YES;
     
     NSArray *coordinats = [self getCoordinatsForLevel: level];
+    
+    NSString *currentLevel = [NSString stringWithFormat: @"%i", level];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource: [NSString stringWithFormat: @"level%@", currentLevel] ofType: @"plist"];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];                       // делаем Dictionary из файла plist
+    
+    NSString *pointsString = [NSString stringWithString: [dict valueForKey: @"dogPosition"]];            // берём строку с координатами
+    
+    NSArray *coordinatsForDog = [pointsString componentsSeparatedByString: @"/"];                       // получаем массив с координатами
     
     mower = [Mower create];
     mower.gameLayer = self;
@@ -453,7 +565,7 @@
     [mower moveWithPath: coordinats];
     
     dog = [Dog create];
-    dog.position = ccp(240, 160);
+    dog.position = ccp([[coordinatsForDog objectAtIndex: 0] floatValue], [[coordinatsForDog objectAtIndex: 1] floatValue]);
     dog.gameLayer = self;
     
     [dog walk];
@@ -462,15 +574,6 @@
     flower.position = gardenBed.position;//ccp(240, 160); //gardenBed.position;
     flower.gameLayer = self;
     
-    boy = [Boy create];
-    boy.position = waterPool.position;
-    
-    ball = [Ball create];
-    ball.position = boy.position;
-    ball.gameLayer = self;
-    
-    [ballsArray addObject: ball];
-    
     cat = [Cat create];
     cat.position = ccp(-100, -100);
     
@@ -478,8 +581,6 @@
     [self addChild: mower z: zMower];
     [self addChild: dog z: zDog];
     [self addChild: flower z: zFlower];
-    [self addChild: boy z: zWaterPool + 1];
-    [self addChild: ball z: zWaterPool + 2];
     [self addChild: cat z: zCat];
     
     blinkLayer = [CCLayerColor layerWithColor: ccc4(255, 50, 50, 200)];
@@ -490,34 +591,18 @@
     [objectsWithDynamicZ addObject: mower];
     [objectsWithDynamicZ addObject: dog];
     [objectsWithDynamicZ addObject: flower];
-    [objectsWithDynamicZ addObject: boy];
-    [objectsWithDynamicZ addObject: ball];
     [objectsWithDynamicZ addObject: cat];
     
     [objectsArray addObject: mower];
     [objectsArray addObject: dog];
     [objectsArray addObject: flower];
-    [objectsArray addObject: boy];
-    [objectsArray addObject: ball];
     [objectsArray addObject: cat];
+    
     [objectsArray addObject: blinkLayer];
     
-    //CGPoint catPoint = CGPointMake(240, -100);
-    
-    //[cat walkFromPoint: catPoint];
-    
-    [self schedule: @selector(getStartCoordinatsForCat) interval: 15];
+    [self schedule: @selector(runCat) interval: 15];
+    [self schedule: @selector(throwBall) interval: 2];
     [self scheduleUpdate];
-    
-    //[self getCoordinatsForBall]; // сюда передаем позицию
-    
-}
-
-- (void) succeedGame
-{
-    [guiLayer showSucceedMenu];
-    [Settings sharedSettings].money += score;
-    [[Settings sharedSettings] save];
 }
 
 - (void) pause
@@ -550,8 +635,7 @@
         [mynode pauseSchedulerAndActions];
     }
     
-    [blinkLayer stopAllActions];
-    //[blinkLayer runAction: [CCFadeOut actionWithDuration: 0]];
+    [blinkLayer pauseSchedulerAndActions];
     
     [self pauseSchedulerAndActions];
 }
@@ -585,13 +669,16 @@
         [mynode resumeSchedulerAndActions];
     }
     
+    [blinkLayer resumeSchedulerAndActions];
+    
     [self resumeSchedulerAndActions];
 }
 
 - (void) restart
 {
     
-    [self unschedule: @selector(getStartCoordinatsForCat)];
+    [self unschedule: @selector(runCat)];
+    [self unschedule: @selector(throwBall)];
     [self unscheduleUpdate];
     
     for(CCNode *myNode in objectsArray)
@@ -613,108 +700,105 @@
     [self startLevel: curLevel];
 }
 
+- (void) succeedGame
+{
+    [guiLayer showSucceedMenu];
+    [Settings sharedSettings].money += score;
+    [[Settings sharedSettings] save];
+}
+
 #pragma mark -
 #pragma mark setObjectsParameters
 
-- (void) getStartCoordinatsForCat
+- (void) throwBall
 {
-    NSArray *coordinatsArray = [self getCoordinatsForLevel: curLevel];
-    
-    //NSInteger minX = [[coordinatsArray objectAtIndex: 0] integerValue];
-    //NSInteger maxX = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 2)] integerValue];
-    
-    NSInteger minY = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 1)] integerValue];
-    NSInteger maxY = [[coordinatsArray objectAtIndex: 1] integerValue];
+    if(ball.status == inPool)
+    {
+        NSInteger minX = 50;
+        NSInteger maxX = 350;
+        
+        NSInteger minY = 25;
+        NSInteger maxY = 225;
+        
+        NSInteger movementX;
+        NSInteger movementY;
+        
+        NSInteger countOfPointsX = (maxX - minX) / 25;
+        movementX = (25 * ((arc4random() % countOfPointsX) + 1) - 1) + 25;
+        NSInteger countOfPointsY = (maxY - minY) / 25;
+        movementY = (25 * ((arc4random() % countOfPointsY) + 1)) + 12.5;
+        
+        CGPoint dogPoint = CGPointMake(movementX, movementY);
+        
+        if(![self checkWaterPoolcollisionWithPoint: dogPoint])
+        {
+            ball.status = inAir;
+            ball.visible = YES;
+            
+            [boy stopAllActions];
+            [boy playThrowBallBoyAnimation];
+            
+            [ball runAction:
+                            [CCSequence actions:
+                                            [CCJumpTo actionWithDuration: 2
+                                                                position: dogPoint
+                                                                  height: 100
+                                                                   jumps: 1],
+                                            [CCCallBlock actionWithBlock:^(id sender) {
+                                                                                            ball.status = onField;
+                                                                                      }],
+                                            nil
+                            ]
+             ];
+            
+            [self unschedule: @selector(throwBall)];
+        }
+    }
+}
+
+- (void) runCat
+{
+    NSInteger minY = 150;
+    NSInteger maxY = 225;
     
     NSInteger catDirection = arc4random() % 2;
     
     if(catDirection == 0) // кошка идет слева направо
     {
         NSInteger x = -100;
-        NSInteger y = (arc4random() % (maxY - minY)) + minY;
         
-        CGPoint catStartPoint = CGPointMake(x, y);
+        NSInteger countOfPointsY = ((maxY - minY) / 25) + 1;
+        NSInteger movementY = (25 * ((arc4random() % countOfPointsY))) + minY;
         
-        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint andDirection: catDirection])
+        CGPoint catStartPoint = CGPointMake(x, movementY);
+        
+        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint])
         {
-            [self getStartCoordinatsForCat];
+            [self runCat];
         }
         else
         {
             [cat walkFromPoint: catStartPoint andDirection: catDirection];
+            CCLOG(@"CatPosY: %f", catStartPoint.y);
         }
     }
     if(catDirection == 1) // кошка идет справа налево
     {
         NSInteger x = 580;
-        NSInteger y = (arc4random() % (maxY - minY)) + minY;
+        NSInteger countOfPointsY = ((maxY - minY) / 25) + 1;
+        NSInteger movementY = (25 * ((arc4random() % countOfPointsY))) + minY;
         
-        CGPoint catStartPoint = CGPointMake(x, y);
+        CGPoint catStartPoint = CGPointMake(x, movementY);
         
-        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint andDirection: catDirection])
+        if([self checkWaterPoolCollisionWithCatCoordinats: catStartPoint])
         {
-            [self getStartCoordinatsForCat];
+            [self runCat];
         }
         else
         {
             [cat walkFromPoint: catStartPoint andDirection: catDirection];
+            CCLOG(@"CatPosY: %f", catStartPoint.y);
         }
-    }
-}
-
-- (BOOL) checkWaterPoolCollisionWithCatCoordinats: (CGPoint) catPoint andDirection: (NSInteger) direction
-{
-    BOOL isCollision = NO;
-    
-    NSInteger restrictMax = (waterPool.position.y + waterPool.contentSize.height / 2) + cat.contentSize.height / 2;
-    NSInteger restrictMin = (waterPool.position.y - waterPool.contentSize.height / 2) - cat.contentSize.height / 2;
-
-    if(direction == 0 || direction == 1) // кошка идет по вертикали
-    {
-        if( ((catPoint.y <= restrictMax) && (catPoint.y > restrictMin)) )
-        {
-            isCollision = YES;
-        }
-    }
-    else
-    {
-        if( (catPoint.y <= (waterPool.position.y + waterPool.contentSize.height / 2)) &&
-            (catPoint.y >= (waterPool.position.y - waterPool.contentSize.height / 2)) )
-        {
-            isCollision = YES;
-        }
-    }
-    
-    return isCollision;
-}
-
-- (void) getCoordinatsForBall
-{
-    NSArray *coordinatsArray = [self getCoordinatsForLevel: curLevel];
-    
-    NSInteger minX = [[coordinatsArray objectAtIndex: 0] integerValue];
-    NSInteger maxX = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 2)] integerValue];
-    
-    NSInteger minY = [[coordinatsArray objectAtIndex: (coordinatsArray.count - 1)] integerValue];
-    NSInteger maxY = [[coordinatsArray objectAtIndex: 1] integerValue];
-    
-    NSInteger movementX;
-    NSInteger movementY;
-    
-    movementX = (arc4random() % (maxX - minX)) + minX;
-    NSInteger countOfPointsY = (maxY - minY) / 25;
-    movementY = (25 * ((arc4random() % countOfPointsY) + 1)) + 12.5;
-    
-    CGPoint dogPoint = CGPointMake(movementX, movementY);
-    
-    if([self checkWaterPoolcollisionWithPoint: dogPoint]) 
-    {
-        [self getCoordinatsForBall];
-    }
-    else
-    {
-        [ball flyToPosition: dogPoint];
-        [boy playThrowBallBoyAnimation];
     }
 }
 
@@ -774,15 +858,24 @@
     {
         waterPool = [WaterPool create];
         waterPool.position = position;
-        [self addChild: waterPool z: zWaterPool];
+        waterPool.gameLayer = self;
+        
+        boy = [Boy create];
+        //boy.position = waterPool.position;
+        
+        ball = [Ball create];
+        ball.position = waterPool.position;
+        ball.gameLayer = self;
+        
+        [self addChild: waterPool z: zWaterPool tag: kWaterPoolTag];
+        [waterPool addChild: boy z: zWaterPool + 1];
+        [self addChild: ball z: zWaterPool + 2 tag: kWaterPoolTag];
+        
+        [objectsWithDynamicZ addObject: ball];
         
         [objectsArray addObject: waterPool];
-    }
-    else if(ID == 3)
-    {
-        //Rock *rock = [Rock create];
-        //rock.position = position;
-        //[self addChild: rock];
+        [objectsArray addObject: ball];
+        [objectsArray addObject: boy];
     }
 }
 

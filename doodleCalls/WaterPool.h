@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+@class Ball;
+@class GameLayer;
+
 @interface WaterPool : CCNode
 {
+    GameLayer *gameLayer;
+    
     CCSprite *waterPoolSprite;
 }
 
 + (WaterPool *) create;
 
+- (void) checkCollisionWithPoint: (Ball *) ball;
+
+@property (nonatomic, assign) GameLayer *gameLayer;
 
 @end

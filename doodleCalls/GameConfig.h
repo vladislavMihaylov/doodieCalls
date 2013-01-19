@@ -17,12 +17,18 @@
 #define zMenuBg         30
 #define zMenuButtons    40
 
+#define kWaterPoolTag   999
+#define kHeartTag       998
+
 #define kMoneyKey                @"moneyKey"
 #define kMowerKey                @"mowerKey"
 #define kAvailableMowerKey       @"availableMowersKey"
+#define kSoundKey                @"soundKey"
+#define kOpenedLevelsKey         @"openedLevelsKey"
 
 
 extern NSInteger curLevel;
+
 
 extern float GameCenterX;
 extern float GameCenterY;
