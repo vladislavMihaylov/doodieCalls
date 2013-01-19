@@ -2,15 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<<<<<<< HEAD
 	<key>dogPosition</key>
 	<string>200/50</string>
 	<key>path</key>
 	<string>25/225/350/225/350/200/275/200/275/175/350/175/350/150/275/150/275/125/350/125/350/25/325/25/325/100/300/100/300/25/275/25/275/100/250/100/250/25/225/25/225/100/200/100/200/25/175/25/175/100/150/100/150/25/50/25/50/50/125/50/125/75/50/75/50/100/125/100/125/125/50/125/50/150/125/150/125/175/50/175/50/200/125/200</string>
-=======
-	<key>path</key>
-	<string>50/0/50/225/75/225/75/25/125/25/125/50/100/50/100/75/125/75/125/100/100/100/100/225/125/225/125/125/275/125/275/25/350/25/350/50/300/50/300/75/350/75/350/100/300/100/300/150/275/150/275/225/350/225/350/125/325/125/325/175/300/175/300/200/325/200</string>
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 	<key>objects</key>
 	<dict>
 		<key>gardenBed</key>
@@ -25,36 +20,14 @@
 			<key>id</key>
 			<integer>1</integer>
 			<key>position</key>
-<<<<<<< HEAD
 			<string>430/75</string>
-=======
-			<string>430/100</string>
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 		</dict>
 		<key>waterPool</key>
 		<dict>
 			<key>id</key>
 			<integer>2</integer>
 			<key>position</key>
-<<<<<<< HEAD
 			<string>200/175</string>
-=======
-			<string>200/200</string>
-		</dict>
-		<key>rock</key>
-		<dict>
-			<key>id</key>
-			<integer>3</integer>
-			<key>position</key>
-			<string>200/200</string>
-		</dict>
-		<key>waterPool2</key>
-		<dict>
-			<key>id</key>
-			<integer>2</integer>
-			<key>position</key>
-			<string>200/75</string>
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 		</dict>
 	</dict>
 </dict>

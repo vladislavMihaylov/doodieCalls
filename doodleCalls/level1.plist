@@ -20,18 +20,7 @@
 			<key>id</key>
 			<integer>1</integer>
 			<key>position</key>
-<<<<<<< HEAD
 			<string>430/75</string>
-=======
-			<string>430/100</string>
-		</dict>
-		<key>rock</key>
-		<dict>
-			<key>id</key>
-			<integer>3</integer>
-			<key>position</key>
-			<string>200/200</string>
->>>>>>> 1f8725aeba2717af26660f55c43f17e39c015286
 		</dict>
 	</dict>
 </dict>
