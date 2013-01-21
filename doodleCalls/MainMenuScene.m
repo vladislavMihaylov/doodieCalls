@@ -14,6 +14,10 @@
 
 #import "SimpleAudioEngine.h"
 
+#import "SHKItem.h"
+#import "SHKFacebook.h"
+#import "SHKTwitter.h"
+
 @implementation MainMenuScene
 
 - (void) pressedPlay: (id) sender
@@ -91,12 +95,14 @@
 
 - (void) sendTweet
 {
-    
+    SHKItem *tweetItem = [SHKItem text: @"Best game ever!!! #doodlecalls"];
+    [SHKTwitter shareItem: tweetItem];
 }
 
 - (void) sendFB
 {
-    
+    SHKItem *facebookItem = [SHKItem text: @"Best game ever!!! #doodlecalls"];
+    [SHKFacebook shareItem: facebookItem];
 }
 
 @end

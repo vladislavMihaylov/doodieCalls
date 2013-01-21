@@ -14,12 +14,21 @@
 
 #import "Settings.h"
 
+#import "SHKConfiguration.h"
+#import "MySHKConfigurator.h"
+
+#import "SHKFacebook.h"
+
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    DefaultSHKConfigurator *configurator = [[[MySHKConfigurator alloc] init] autorelease];
+    
+    [SHKConfiguration sharedInstanceWithConfigurator: configurator];
+    
     [[Settings sharedSettings] load];
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -39,7 +48,7 @@
 	director_.wantsFullScreenLayout = YES;
 
 	// Display FSP and SPF
-	[director_ setDisplayStats: YES];
+	[director_ setDisplayStats: NO];
 
 	// set FPS at 60
 	[director_ setAnimationInterval:1.0/60];
@@ -116,6 +125,8 @@
 {
 	if( [navController_ visibleViewController] == director_ )
 		[director_ resume];
+    
+    [SHKFacebook handleDidBecomeActive]; /////////////////////////////////////////////////////////////////////////////////////////
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application
@@ -134,6 +145,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	CC_DIRECTOR_END();
+    
+    [SHKFacebook handleWillTerminate]; /////////////////////////////////////////////////////////////////////////////////////////
 }
 
 // purge memory
@@ -155,5 +168,29 @@
 
 	[super dealloc];
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)handleOpenURL:(NSURL*)url
+{
+    NSString* scheme = [url scheme];
+    NSString* prefix = [NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)];
+    if ([scheme hasPrefix:prefix])
+        return [SHKFacebook handleOpenURL:url];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [self handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [self handleOpenURL:url];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 @end
 

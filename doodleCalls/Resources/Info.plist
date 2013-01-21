@@ -54,5 +54,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb272830839511953</string>
+				<string>app://flickr</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

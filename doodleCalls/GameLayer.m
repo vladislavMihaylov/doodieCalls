@@ -159,7 +159,7 @@
             {
                 [pooForRemove addObject: currentPoo];                   // какаха отправляется в массив для удаления
                 [self removeChild: currentPoo cleanup: YES];            // удаляем какаху из селфа
-                [guiLayer updateScoreLabel: score += 50];               // даем игроку 50 очков
+                [guiLayer updateScoreLabel: score += kScore];           // даем игроку 5 очков
                 [flower updateFlower];                                  // апдейтим левел у цветка
             }
         }
@@ -200,7 +200,7 @@
     [boy stopAllActions];
     [boy playBallBoyAnimation];                                  // Мальчик проигрывает анимацию игры с мячом
     curBall.ballTime = 0;
-    score += 50;
+    score += kScore;
     [guiLayer updateScoreLabel: score];
     [self schedule: @selector(throwBall) interval: 2];
 }
@@ -271,7 +271,7 @@
                 [boy stopAllActions];
                 [boy playBallBoyAnimation];
                 
-                score -= 100;
+                score -= kScore * 2;
                 
                 if(score <= 0)
                 {
@@ -347,7 +347,7 @@
                     [pooForRemove addObject: currentPoo];
                     [self removeChild: currentPoo cleanup: YES];
                     
-                    score -= 100;
+                    score -= kScore * 2;
                     
                     if(score <= 0)
                     {
@@ -471,7 +471,7 @@
                 [boy stopAllActions];
                 [boy playBallBoyAnimation];
                 
-                score -= 100;
+                score -= kScore * 2;
                 ball.ballTime = 0;
                 
                 [self schedule: @selector(throwBall) interval: 2];
@@ -495,7 +495,7 @@
 
 - (void) addScoreFromFlower
 {
-    score += 500;
+    score += kScore;
     [guiLayer updateScoreLabel: score];
 }
 

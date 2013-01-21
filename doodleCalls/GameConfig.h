@@ -20,6 +20,8 @@
 #define kWaterPoolTag   999
 #define kHeartTag       998
 
+#define kScore          5
+
 #define kMoneyKey                @"moneyKey"
 #define kMowerKey                @"mowerKey"
 #define kAvailableMowerKey       @"availableMowersKey"
