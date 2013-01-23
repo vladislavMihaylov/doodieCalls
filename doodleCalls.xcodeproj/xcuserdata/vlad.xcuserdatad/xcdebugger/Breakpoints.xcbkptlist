@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "878"
-         endingLineNumber = "878"
+         startingLineNumber = "914"
+         endingLineNumber = "914"
          landmarkName = "-createObjectWithID:andPosition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GuiLayer.m"
-         timestampString = "380313250.370431"
+         timestampString = "380651959.88321"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "140"
-         endingLineNumber = "140"
+         startingLineNumber = "142"
+         endingLineNumber = "142"
          landmarkName = "-showPauseMenu"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "963"
-         endingLineNumber = "963">
+         startingLineNumber = "999"
+         endingLineNumber = "999">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -175,11 +175,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "592"
-         endingLineNumber = "592"
+         startingLineNumber = "648"
+         endingLineNumber = "648"
          landmarkName = "-startLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -188,11 +188,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/Flower.m"
-         timestampString = "377084628.647356"
+         timestampString = "380651959.88321"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
          landmarkName = "-updateFlower"
          landmarkType = "5">
       </FileBreakpoint>
@@ -201,11 +201,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "523"
-         endingLineNumber = "523"
+         startingLineNumber = "579"
+         endingLineNumber = "579"
          landmarkName = "-startLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -214,11 +214,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "545"
-         endingLineNumber = "545"
+         startingLineNumber = "601"
+         endingLineNumber = "601"
          landmarkName = "-startLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -227,11 +227,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "547"
-         endingLineNumber = "547"
+         startingLineNumber = "603"
+         endingLineNumber = "603"
          landmarkName = "-startLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -240,11 +240,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "860"
-         endingLineNumber = "860"
+         startingLineNumber = "896"
+         endingLineNumber = "896"
          landmarkName = "-createObjectWithID:andPosition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -253,11 +253,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "843"
-         endingLineNumber = "843"
+         startingLineNumber = "879"
+         endingLineNumber = "879"
          landmarkName = "-createObjectWithID:andPosition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -266,11 +266,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "827"
-         endingLineNumber = "827"
+         startingLineNumber = "863"
+         endingLineNumber = "863"
          landmarkName = "-setParametersFromLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -279,11 +279,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "813"
-         endingLineNumber = "813"
+         startingLineNumber = "849"
+         endingLineNumber = "849"
          landmarkName = "-setParametersFromLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -292,11 +292,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "825"
-         endingLineNumber = "825"
+         startingLineNumber = "861"
+         endingLineNumber = "861"
          landmarkName = "-setParametersFromLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -305,11 +305,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "841"
-         endingLineNumber = "841"
+         startingLineNumber = "877"
+         endingLineNumber = "877"
          landmarkName = "-createObjectWithID:andPosition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -396,11 +396,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "931"
-         endingLineNumber = "931"
+         startingLineNumber = "967"
+         endingLineNumber = "967"
          landmarkName = "-loadTextures"
          landmarkType = "5">
       </FileBreakpoint>
@@ -409,11 +409,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "613"
-         endingLineNumber = "613"
+         startingLineNumber = "671"
+         endingLineNumber = "671"
          landmarkName = "-pause"
          landmarkType = "5">
       </FileBreakpoint>
@@ -422,11 +422,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "779"
-         endingLineNumber = "779"
+         startingLineNumber = "815"
+         endingLineNumber = "815"
          landmarkName = "-runCat"
          landmarkType = "5">
       </FileBreakpoint>
@@ -435,11 +435,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "762"
-         endingLineNumber = "762"
+         startingLineNumber = "798"
+         endingLineNumber = "798"
          landmarkName = "-runCat"
          landmarkType = "5">
       </FileBreakpoint>
@@ -448,22 +448,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "940"
-         endingLineNumber = "940">
+         startingLineNumber = "976"
+         endingLineNumber = "976">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "769"
-         endingLineNumber = "769"
+         startingLineNumber = "805"
+         endingLineNumber = "805"
          landmarkName = "-runCat"
          landmarkType = "5">
       </FileBreakpoint>
@@ -472,22 +472,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "985"
-         endingLineNumber = "985">
+         startingLineNumber = "1021"
+         endingLineNumber = "1021">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "611"
-         endingLineNumber = "611"
+         startingLineNumber = "669"
+         endingLineNumber = "669"
          landmarkName = "-pause"
          landmarkType = "5">
       </FileBreakpoint>
@@ -509,11 +509,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380188153.417481"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "196"
-         endingLineNumber = "196"
+         startingLineNumber = "212"
+         endingLineNumber = "212"
          landmarkName = "-returnBall:ToPool:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -522,11 +522,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380308684.491468"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "467"
-         endingLineNumber = "467"
+         startingLineNumber = "488"
+         endingLineNumber = "488"
          landmarkName = "-runTimerForBall:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -535,11 +535,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311308.262346"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "800"
-         endingLineNumber = "800"
+         startingLineNumber = "836"
+         endingLineNumber = "836"
          landmarkName = "-runCat"
          landmarkType = "5">
       </FileBreakpoint>
@@ -561,11 +561,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "doodleCalls/GameLayer.m"
-         timestampString = "380311423.304227"
+         timestampString = "380653210.072672"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "524"
-         endingLineNumber = "524"
+         startingLineNumber = "580"
+         endingLineNumber = "580"
          landmarkName = "-startLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -697,6 +697,58 @@
          startingLineNumber = "424"
          endingLineNumber = "424"
          landmarkName = "+pushOnFavorites:forType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/GuiLayer.m"
+         timestampString = "380651959.88321"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "421"
+         endingLineNumber = "421"
+         landmarkName = "-restart"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/GameLayer.m"
+         timestampString = "380653210.072672"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "588"
+         endingLineNumber = "588"
+         landmarkName = "-startLevel:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/GameLayer.m"
+         timestampString = "380653210.072672"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "589"
+         endingLineNumber = "589"
+         landmarkName = "-startLevel:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "doodleCalls/GameLayer.m"
+         timestampString = "380653210.072672"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "455"
+         endingLineNumber = "455"
+         landmarkName = "-checkCatAndDogDistance"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

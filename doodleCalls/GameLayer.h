@@ -20,6 +20,8 @@
 @class Cat;
 @class Kennel;
 
+@class CDSoundSource;
+
 @interface GameLayer : CCLayer
 {
     GuiLayer *gui;
@@ -47,6 +49,8 @@
     NSMutableArray *objectsWithDynamicZ;
     
     NSInteger score;
+    
+    CDSoundSource *runningSound;
 }
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;
@@ -61,7 +65,7 @@
 - (void) pause;
 - (void) unPause;
 - (void) succeedGame;
-- (void) restart;
+- (void) restart: (NSInteger) levak;
 
 @property (nonatomic, assign) GuiLayer *guiLayer;
 @property (nonatomic, assign) NSMutableArray *pooArray;

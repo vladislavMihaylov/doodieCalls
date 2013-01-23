@@ -125,7 +125,7 @@
                                                            fontSize: 20
                                          ];
         
-            numberOfLevel.position = ccp(30, 45);
+            numberOfLevel.position = ccp(levelSprite.contentSize.width / 2, levelSprite.contentSize.height * 0.6);
             [item addChild: numberOfLevel];
         }
         

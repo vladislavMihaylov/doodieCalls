@@ -29,6 +29,8 @@
 {
     if(self = [super init])
     {
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"coin.mp3"];
+        
         curLvl = currentLevel;
         
         heartsArray = [[NSMutableArray alloc] init];
@@ -291,6 +293,8 @@
 
 - (void) showSucceedMenu
 {
+    [[SimpleAudioEngine sharedEngine] playEffect: @"coin.mp3"];
+    
     CCMenuItemImage *nextBtn;
     
     if(curLvl == [Settings sharedSettings].openedLevels && [Settings sharedSettings].openedLevels <= 10)
@@ -370,11 +374,13 @@
     {
         [Settings sharedSettings].soundLevel = 2;
         [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 0];
+        [[SimpleAudioEngine sharedEngine] setEffectsVolume: 0];
     }
     else
     {
         [Settings sharedSettings].soundLevel = 1;
         [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 1];
+        [[SimpleAudioEngine sharedEngine] setEffectsVolume: 1];
     }
     
     [[Settings sharedSettings] save];
@@ -416,7 +422,7 @@
     
     pauseBtn.isEnabled = YES;
     
-    [gameLayer restart];
+    [gameLayer restart: curLvl];
     
     [self removeChild: pauseMenu cleanup: YES];
     [self removeChild: soundMenu cleanup: YES];
@@ -453,8 +459,9 @@
 
 - (void) loadNextLevel
 {
+    curLvl += 1;
     
-    [gameLayer startLevel: curLvl + 1];
+    [gameLayer startLevel: curLvl];
     
     [self reloadHearts];
     

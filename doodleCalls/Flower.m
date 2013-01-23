@@ -9,6 +9,8 @@
 #import "Flower.h"
 #import "GameLayer.h"
 
+#import "SimpleAudioEngine.h"
+
 @implementation Flower
 
 @synthesize gameLayer;
@@ -29,6 +31,8 @@
 {
     if(self = [super init])
     {
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"dropPoo.mp3"];
+        
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile: @"game_atlas.plist"];
         
         flowerSprite = [CCSprite spriteWithSpriteFrameName: @"flower0.png"];
@@ -68,6 +72,8 @@
     {
         type = 0;
         [gameLayer addScoreFromFlower];
+        
+        [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
         
         [self removeChild: flowerSprite cleanup: YES];
         

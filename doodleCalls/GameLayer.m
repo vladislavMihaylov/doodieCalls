@@ -22,6 +22,7 @@
 #import "Ball.h"
 #import "Cat.h"
 
+#import "SimpleAudioEngine.h"
 
 @implementation GameLayer
 
@@ -52,12 +53,22 @@
     [pooArray release];
     [objectsArray release];
     [objectsWithDynamicZ release];
+    
+    [runningSound release];
 }
 
 - (id) initWithLevel: (NSInteger) level
 {
     if(self = [super init])
     {
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"gav.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"razmaznya.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"startGame.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"mower.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"dropPoo.mp3"];
+        
+        
+        
         objectsArray = [[NSMutableArray alloc] init];           // Массив, содержащий все объекты уровня
         objectsWithDynamicZ = [[NSMutableArray alloc] init];    // Содержит объекты, которым нужно менять z-индекс
         
@@ -92,6 +103,7 @@
         if([currentPoo isTapped: location])              // Если тап произошел на какашке
         {
             currentPoo.tap = YES;                        // она помечается как "нажатая"
+            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
         }
     }
     
@@ -102,6 +114,7 @@
         {
             ball.status = inAir;              // Меняем статус на "в воздухе"
             ball.tap = YES;                   // Помечаем его "нажатым"
+            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
         }
     }
     
@@ -157,6 +170,7 @@
         {
             if(currentPoo.tap == YES)                                   // если это была какаха, которую тапал игрок
             {
+                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
                 [pooForRemove addObject: currentPoo];                   // какаха отправляется в массив для удаления
                 [self removeChild: currentPoo cleanup: YES];            // удаляем какаху из селфа
                 [guiLayer updateScoreLabel: score += kScore];           // даем игроку 5 очков
@@ -170,6 +184,7 @@
         {
             if(currentPoo.tap == YES)                                   // если какаха была тапнута игроком
             {
+                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
                 currentPoo.tap = NO;                                    // пометить её как не тапнутая
                 currentPoo.onField = YES;                               // поместить её на поле
             }
@@ -193,6 +208,7 @@
 
 - (void) returnBall: (Ball *) curBall ToPool: (WaterPool *) pool
 {
+    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
     curBall.position = pool.position;            // переносим мячик точно в центр басика
     curBall.status = inPool;                                 // меняем статус мячика на "в бассейне"
     curBall.tap = NO;                                        // помечаем его нетронутым
@@ -207,6 +223,7 @@
 
 - (void) returnBallToField: (Ball *) curBall
 {
+    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
     curBall.status = onField;                            // меняем статус на "на поле"
     curBall.tap = NO;
 }
@@ -354,6 +371,8 @@
                         score = 0;
                     }
                     
+                    [[SimpleAudioEngine sharedEngine] playEffect: @"razmaznya.mp3"];
+                    
                     [guiLayer removeHeart];
                     
                     [guiLayer updateScoreLabel: score];
@@ -432,6 +451,8 @@
             
             [cat stopAllActions];
             [dog stopAllActions];
+            
+            [[SimpleAudioEngine sharedEngine] playEffect: @"gav.wav"];
             
             [self getCoordinatsForCatEscape];
         }
@@ -518,8 +539,43 @@
 #pragma mark -
 #pragma mark start/pause/restart
 
+- (void) restart: (NSInteger) levak
+{
+    
+    /*[self unschedule: @selector(runCat)];
+    [self unschedule: @selector(throwBall)];
+    [self unscheduleUpdate];
+    
+    for(CCNode *myNode in objectsArray)
+    {
+        [self removeChild: myNode cleanup: YES];
+    }
+    
+    [objectsArray removeAllObjects];
+    [objectsWithDynamicZ removeAllObjects];
+    
+    score = 0;
+    
+    [guiLayer updateScoreLabel: score];
+    
+    [self loadTextures];
+    
+    [self setParametersFromLevel: curLevel];*/
+    
+    [self startLevel: levak];
+}
+
 - (void) startLevel: (NSInteger) level
 {
+    [[SimpleAudioEngine sharedEngine] playEffect: @"startGame.mp3"];
+    
+    runningSound = nil;
+    runningSound = [[SimpleAudioEngine sharedEngine] soundSourceForFile: @"mower.mp3"];
+    
+    runningSound.looping = YES;
+    [runningSound play];
+    [runningSound retain];
+    
     [self unschedule: @selector(runCat)];
     [self unschedule: @selector(throwBall)];
     [self unscheduleUpdate];
@@ -607,6 +663,8 @@
 
 - (void) pause
 {
+    [runningSound stop];
+    
     CCArray *arr = [self children];
     CCArray *mowerArr = [mower children];
     CCArray *dogArr = [dog children];
@@ -642,6 +700,8 @@
 
 - (void) unPause
 {
+    [runningSound play];
+    
     CCArray *arr = [self children];
     CCArray *mowerArr = [mower children];
     CCArray *dogArr = [dog children];
@@ -674,31 +734,7 @@
     [self resumeSchedulerAndActions];
 }
 
-- (void) restart
-{
-    
-    [self unschedule: @selector(runCat)];
-    [self unschedule: @selector(throwBall)];
-    [self unscheduleUpdate];
-    
-    for(CCNode *myNode in objectsArray)
-    {
-        [self removeChild: myNode cleanup: YES];
-    }
-    
-    [objectsArray removeAllObjects];
-    [objectsWithDynamicZ removeAllObjects];
-    
-    score = 0;
-    
-    [guiLayer updateScoreLabel: score];
-    
-    [self loadTextures];
-    
-    [self setParametersFromLevel: curLevel];
-    
-    [self startLevel: curLevel];
-}
+
 
 - (void) succeedGame
 {
