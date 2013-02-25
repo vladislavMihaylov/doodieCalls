@@ -48,7 +48,11 @@
     
     NSMutableArray *objectsWithDynamicZ;
     
+    NSMutableArray *dogsArray;
+    
     NSInteger score;
+    NSInteger countForBonus;
+    NSInteger countBallsForBonus;
     
     CDSoundSource *runningSound;
 }

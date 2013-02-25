@@ -18,6 +18,9 @@
     CCSprite *dogSprite;
     
     BOOL isRun;
+    
+    float xPoo;
+    float yPoo;
 }
 
 + (Dog *) create;

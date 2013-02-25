@@ -77,7 +77,7 @@
                      ]
          ];
         
-        openedLevels = [Settings sharedSettings].openedLevels;
+        openedLevels = 10;//[Settings sharedSettings].openedLevels;
         
         [self createLevelsMenu];
         

@@ -67,8 +67,8 @@
 
 - (BOOL) isTapped: (CGPoint) location
 {
-    float Ax = pooSprite.contentSize.width / 2;
-    float Ay = pooSprite.contentSize.height / 2;
+    float Ax = pooSprite.contentSize.width + 3 / 2;
+    float Ay = pooSprite.contentSize.height + 3 / 2;
     float Tx = fabs(self.position.x - location.x);
     float Ty = fabsf(self.position.y - location.y);
     

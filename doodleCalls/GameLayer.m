@@ -36,7 +36,7 @@
     
     GameLayer *layer = [[[GameLayer alloc] initWithLevel: numberOfLevel] autorelease];
     
-    GuiLayer *gui = [[[GuiLayer alloc] initWithLevel: numberOfLevel] autorelease];;
+    GuiLayer *gui = [[[GuiLayer alloc] initWithLevel: numberOfLevel] autorelease];
 
     [scene addChild: layer];
     [scene addChild: gui];
@@ -53,6 +53,7 @@
     [pooArray release];
     [objectsArray release];
     [objectsWithDynamicZ release];
+    [dogsArray release];
     
     [runningSound release];
 }
@@ -65,14 +66,16 @@
         [[SimpleAudioEngine sharedEngine] preloadEffect: @"razmaznya.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect: @"startGame.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect: @"mower.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect: @"dropPoo.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect: @"dropPoo.wav"];
         
         
         
         objectsArray = [[NSMutableArray alloc] init];           // Массив, содержащий все объекты уровня
         objectsWithDynamicZ = [[NSMutableArray alloc] init];    // Содержит объекты, которым нужно менять z-индекс
         
+        
         curLevel = level;                                       // Номер текущего уровня
+        
         
         [self loadTextures];                                    // Загружаем текстуры
         
@@ -103,7 +106,7 @@
         if([currentPoo isTapped: location])              // Если тап произошел на какашке
         {
             currentPoo.tap = YES;                        // она помечается как "нажатая"
-            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
         }
     }
     
@@ -114,7 +117,7 @@
         {
             ball.status = inAir;              // Меняем статус на "в воздухе"
             ball.tap = YES;                   // Помечаем его "нажатым"
-            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+            [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
         }
     }
     
@@ -170,10 +173,19 @@
         {
             if(currentPoo.tap == YES)                                   // если это была какаха, которую тапал игрок
             {
-                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+                NSInteger bonus = 0;
+                countForBonus ++;
+                
+                if(countForBonus % 5 == 0)
+                {
+                    bonus = 10;
+                    [[SimpleAudioEngine sharedEngine] playEffect: @"coin.mp3"];
+                }
+                
+                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
                 [pooForRemove addObject: currentPoo];                   // какаха отправляется в массив для удаления
                 [self removeChild: currentPoo cleanup: YES];            // удаляем какаху из селфа
-                [guiLayer updateScoreLabel: score += kScore];           // даем игроку 5 очков
+                [guiLayer updateScoreLabel: score += (kScore + bonus)];           // даем игроку 5 очков
                 [flower updateFlower];                                  // апдейтим левел у цветка
             }
         }
@@ -184,7 +196,19 @@
         {
             if(currentPoo.tap == YES)                                   // если какаха была тапнута игроком
             {
-                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+                if([self checkWaterPoolcollisionWithPoint: currentPoo.position])
+                {
+                    score -= kScore * 2;
+                    
+                    if(score <= 0)
+                    {
+                        score = 0;
+                    }
+                    
+                    [guiLayer updateScoreLabel: score];
+                }
+                countForBonus = 0;
+                [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
                 currentPoo.tap = NO;                                    // пометить её как не тапнутая
                 currentPoo.onField = YES;                               // поместить её на поле
             }
@@ -208,7 +232,17 @@
 
 - (void) returnBall: (Ball *) curBall ToPool: (WaterPool *) pool
 {
-    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+    countBallsForBonus ++;
+    
+    NSInteger bonus = 0;
+    
+    if(countBallsForBonus % 5 == 0)
+    {
+        bonus = 10;
+        [[SimpleAudioEngine sharedEngine] playEffect: @"coin.mp3"];
+    }
+    
+    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
     curBall.position = pool.position;            // переносим мячик точно в центр басика
     curBall.status = inPool;                                 // меняем статус мячика на "в бассейне"
     curBall.tap = NO;                                        // помечаем его нетронутым
@@ -216,14 +250,15 @@
     [boy stopAllActions];
     [boy playBallBoyAnimation];                                  // Мальчик проигрывает анимацию игры с мячом
     curBall.ballTime = 0;
-    score += kScore;
+    score += (kScore + bonus);
     [guiLayer updateScoreLabel: score];
-    [self schedule: @selector(throwBall) interval: 2];
+    [self schedule: @selector(throwBall) interval: (2. - 0.1 * curLevel)];
 }
 
 - (void) returnBallToField: (Ball *) curBall
 {
-    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.mp3"];
+    countBallsForBonus = 0;
+    [[SimpleAudioEngine sharedEngine] playEffect: @"dropPoo.wav"];
     curBall.status = onField;                            // меняем статус на "на поле"
     curBall.tap = NO;
 }
@@ -295,7 +330,7 @@
                     score = 0;
                 }
                 
-                [self schedule: @selector(throwBall) interval: 2];
+                [self schedule: @selector(throwBall) interval: (2. - 0.1 * curLevel)];
                 
                 [guiLayer removeHeart];
                 
@@ -452,7 +487,7 @@
             [cat stopAllActions];
             [dog stopAllActions];
             
-            [[SimpleAudioEngine sharedEngine] playEffect: @"gav.wav"];
+            [[SimpleAudioEngine sharedEngine] playEffect: @"gav.mp3"];
             
             [self getCoordinatsForCatEscape];
         }
@@ -495,7 +530,7 @@
                 score -= kScore * 2;
                 ball.ballTime = 0;
                 
-                [self schedule: @selector(throwBall) interval: 2];
+                [self schedule: @selector(throwBall) interval: (2. - 0.1 * curLevel)];
                 
                 if(score <= 0)
                 {
@@ -585,8 +620,15 @@
         [self removeChild: myNode cleanup: YES];
     }
     
+    for(CCNode *myNode in dogsArray)
+    {
+        [self removeChild: myNode cleanup: YES];
+    }
+    
     [objectsArray removeAllObjects];
     [objectsWithDynamicZ removeAllObjects];
+    
+    [dogsArray removeAllObjects];
     
     score = 0;
     
@@ -599,7 +641,7 @@
     score = 0;
     
     pooArray = [[NSMutableArray alloc] init];
-    
+    dogsArray = [[NSMutableArray alloc] init];
     
     self.isTouchEnabled = YES;
     
@@ -620,11 +662,25 @@
     
     [mower moveWithPath: coordinats];
     
-    dog = [Dog create];
-    dog.position = ccp([[coordinatsForDog objectAtIndex: 0] floatValue], [[coordinatsForDog objectAtIndex: 1] floatValue]);
-    dog.gameLayer = self;
+    NSInteger dogCount = 1;
     
-    [dog walk];
+    if(curLevel == 9 || curLevel == 10)
+    {
+        dogCount = 2;
+    }
+    
+    for(int i = 0; i < dogCount; i++)
+    {
+        dog = [Dog create];
+        dog.position = ccp([[coordinatsForDog objectAtIndex: 0] floatValue], [[coordinatsForDog objectAtIndex: 1] floatValue]);
+        dog.gameLayer = self;
+        
+        [dog walk];
+        
+        [dogsArray addObject: dog];
+        
+        [self addChild: dog z: zDog];
+    }
     
     flower = [Flower create];
     flower.position = gardenBed.position;//ccp(240, 160); //gardenBed.position;
@@ -635,11 +691,11 @@
     
     
     [self addChild: mower z: zMower];
-    [self addChild: dog z: zDog];
+    
     [self addChild: flower z: zFlower];
     [self addChild: cat z: zCat];
     
-    blinkLayer = [CCLayerColor layerWithColor: ccc4(255, 50, 50, 200)];
+    blinkLayer = [CCLayerColor layerWithColor: ccc4(150, 75, 0, 200)];
     blinkLayer.position = ccp(0, 0);
     [blinkLayer runAction: [CCFadeOut actionWithDuration: 0]];
     [self addChild: blinkLayer z: zMower + 10];
@@ -657,7 +713,7 @@
     [objectsArray addObject: blinkLayer];
     
     [self schedule: @selector(runCat) interval: 15];
-    [self schedule: @selector(throwBall) interval: 2];
+    [self schedule: @selector(throwBall) interval: (2. - 0.1 * curLevel)];
     [self scheduleUpdate];
 }
 
@@ -756,17 +812,26 @@
         NSInteger minY = 25;
         NSInteger maxY = 225;
         
+        NSInteger xSDVIG = 25;
+        
+        if(curLevel >= 6)
+        {
+            minX = 150;
+            maxX = 450;
+            xSDVIG = 125;
+        }
+        
         NSInteger movementX;
         NSInteger movementY;
         
         NSInteger countOfPointsX = (maxX - minX) / 25;
-        movementX = (25 * ((arc4random() % countOfPointsX) + 1) - 1) + 25;
+        movementX = (25 * ((arc4random() % countOfPointsX) + 1) - 1) + xSDVIG;
         NSInteger countOfPointsY = (maxY - minY) / 25;
         movementY = (25 * ((arc4random() % countOfPointsY) + 1)) + 12.5;
         
-        CGPoint dogPoint = CGPointMake(movementX, movementY);
+        CGPoint ballPoint = CGPointMake(movementX, movementY);
         
-        if(![self checkWaterPoolcollisionWithPoint: dogPoint])
+        if(![self checkWaterPoolcollisionWithPoint: ballPoint])
         {
             ball.status = inAir;
             ball.visible = YES;
@@ -777,7 +842,7 @@
             [ball runAction:
                             [CCSequence actions:
                                             [CCJumpTo actionWithDuration: 2
-                                                                position: dogPoint
+                                                                position: ballPoint
                                                                   height: 100
                                                                    jumps: 1],
                                             [CCCallBlock actionWithBlock:^(id sender) {

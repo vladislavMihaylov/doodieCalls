@@ -48,7 +48,7 @@
         
         [Common loadAnimationWithPlist: @"moveAnimation" andName: [NSString stringWithFormat: @"dog_right_"]];
         
-        [self schedule: @selector(poo) interval: 5];
+        [self schedule: @selector(poo) interval: 5 - 0.35 * (curLevel - 1)];
         
         CGSize spriteSize = [dogSprite contentSize];
         self.contentSize = spriteSize;
@@ -66,6 +66,12 @@
     
     NSInteger minY = 25;
     NSInteger maxY = 225;
+    
+    if( curLevel >= 6)
+    {
+        minX = 150;
+        maxX = 450;
+    }
     
     NSInteger direction = arc4random() % 4;
     NSInteger distance;
@@ -147,7 +153,7 @@
             {
                 CGPoint point = CGPointMake(self.position.x - (i * 25), self.position.y);
                 
-                CCLOG(@"I: %i pointX %f pointY %f", i, point.x, point.y);
+                
                 
                 if([gameLayer checkWaterPoolcollisionWithPoint: point])
                 {
@@ -204,8 +210,6 @@
 
 - (void) moveDog: (CGPoint) nextPoint WithDirection: (NSInteger) direction AndDistance: (NSInteger) distance
 {
-    CCLOG(@"Self.positionX %f position Y %f", nextPoint.x, nextPoint.y);
-    
     float timeOfAction;
     float delayTime = (arc4random() % 20) / 10;
     
@@ -219,18 +223,26 @@
     if(direction == 0)
     {
         [self moveUpAnimation];
+        xPoo = 0;
+        yPoo = -20;
     }
     if(direction == 1)
     {
         [self moveDownAnimation];
+        xPoo = 0;
+        yPoo = 12;
     }
     if(direction == 2)
     {
         [self moveLeftAnimation];
+        xPoo = 28;
+        yPoo = 0;
     }
     if(direction == 3)
     {
         [self moveRightAnimation];
+        xPoo = -28;
+        yPoo = 0;
     }
     
     [self runAction:
@@ -307,10 +319,22 @@
 
 - (void) poo
 {
-    if(self.position.x <= 350 && self.position.x >= 50 && self.position.y <= 225 && self.position.y >= 25)
+    NSInteger minX = 50;
+    NSInteger maxX = 350;
+    
+    NSInteger minY = 25;
+    NSInteger maxY = 225;
+    
+    if( curLevel >= 6)
+    {
+        minX = 150;
+        maxX = 450;
+    }
+    if(self.position.x <= maxX && self.position.x >= minX && self.position.y <= maxY && self.position.y >= minY)
     {
         Poo *poo = [[[Poo alloc] init] autorelease];
-        poo.position = ccp(self.position.x, self.position.y + 12);
+        
+        poo.position = ccp(self.position.x + xPoo, self.position.y + 12 + yPoo);
         
         [gameLayer.pooArray addObject: poo];
         [gameLayer.objectsArray addObject: poo];
@@ -322,6 +346,9 @@
 
 - (void) runToPoint: (CGPoint) escapePoint andDirection: (NSInteger) direction AndReturnPoint: (CGPoint) returnPoint
 {
+    xPoo = 0;
+    yPoo = 0;
+    
     [self runAction:
                 [CCSequence actions:
                                 [CCMoveTo actionWithDuration: 4

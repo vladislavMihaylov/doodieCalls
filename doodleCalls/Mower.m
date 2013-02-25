@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "Settings.h"
 
+#import "GameConfig.h"
+
 @implementation Mower
 
 @synthesize gameLayer;
@@ -39,22 +41,22 @@
         if(curMower == 0)
         {
             prefix = @"small";
-            time = 0.6;
+            time = 0.6 - 0.03 * (curLevel - 1);
         }
         else if(curMower == 1)
         {
             prefix = @"large";
-            time = 0.5;
+            time = 0.5  - 0.025 * (curLevel - 1);
         }
         else if(curMower == 2)
         {
             prefix = @"truck";
-            time = 0.4;
+            time = 0.4  - 0.02 * (curLevel - 1);
         }
         else
         {
             prefix = @"jet";
-            time = 0.3;
+            time = 0.3  - 0.01 * (curLevel - 1);
         }
         
         sprite = [CCSprite spriteWithFile: @"Icon.png"]; // спрайт в дальнейшем заменяется анимацией

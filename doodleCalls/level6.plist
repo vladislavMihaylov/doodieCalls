@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>dogPosition</key>
-	<string>300/150</string>
+	<string>300/25</string>
 	<key>path</key>
-	<string>50/250/50/25/75/25/75/225/100/225/100/25/350/25/350/50/125/50/125/75/350/75/350/225/325/225/325/100/300/100/300/225/275/225/275/100/250/100/250/225/125/225/125/200/225/200</string>
+	<string>150/250/150/25/175/25/175/225/200/225/200/25/450/25/450/50/225/50/225/75/450/75/450/225/425/225/425/100/400/100/400/225/375/225/375/100/350/100/350/225/225/225/225/200/325/200</string>
 	<key>objects</key>
 	<dict>
 		<key>gardenBed</key>
@@ -13,21 +13,21 @@
 			<key>id</key>
 			<integer>0</integer>
 			<key>position</key>
-			<string>430/220</string>
+			<string>70/220</string>
 		</dict>
 		<key>kennel</key>
 		<dict>
 			<key>id</key>
 			<integer>1</integer>
 			<key>position</key>
-			<string>430/75</string>
+			<string>70/75</string>
 		</dict>
 		<key>waterPool</key>
 		<dict>
 			<key>id</key>
 			<integer>2</integer>
 			<key>position</key>
-			<string>175/150</string>
+			<string>275/150</string>
 		</dict>
 	</dict>
 </dict>
