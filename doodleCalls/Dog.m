@@ -67,7 +67,7 @@
     NSInteger minY = 25;
     NSInteger maxY = 225;
     
-    if( curLevel >= 6)
+    if( curLevel >= 6 && curLevel < 9)
     {
         minX = 150;
         maxX = 450;
@@ -325,7 +325,7 @@
     NSInteger minY = 25;
     NSInteger maxY = 225;
     
-    if( curLevel >= 6)
+    if( curLevel >= 6 && curLevel < 9)
     {
         minX = 150;
         maxX = 450;

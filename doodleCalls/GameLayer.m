@@ -814,7 +814,7 @@
         
         NSInteger xSDVIG = 25;
         
-        if(curLevel >= 6)
+        if(curLevel >= 6 && curLevel < 9)
         {
             minX = 150;
             maxX = 450;
