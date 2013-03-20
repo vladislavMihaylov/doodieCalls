@@ -31,6 +31,11 @@
     [[CCDirector sharedDirector] replaceScene: [CCTransitionFade transitionWithDuration: 0.5 scene: shopScene]];
 }
 
+- (void) dealloc
+{
+    [super dealloc];
+}
+
 - (void) didLoadFromCCB
 {
     

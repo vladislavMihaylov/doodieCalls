@@ -55,6 +55,8 @@
     NSInteger countBallsForBonus;
     
     CDSoundSource *runningSound;
+    
+    BOOL isRunBallAction;
 }
 
 +(CCScene *) sceneWithLevelNumber: (NSInteger) numberOfLevel;

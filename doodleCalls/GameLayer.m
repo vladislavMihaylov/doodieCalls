@@ -68,7 +68,7 @@
         [[SimpleAudioEngine sharedEngine] preloadEffect: @"mower.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect: @"dropPoo.wav"];
         
-        
+        isRunBallAction = NO;
         
         objectsArray = [[NSMutableArray alloc] init];           // Массив, содержащий все объекты уровня
         objectsWithDynamicZ = [[NSMutableArray alloc] init];    // Содержит объекты, которым нужно менять z-индекс
@@ -516,6 +516,26 @@
     {
         ball.ballTime += dt;
         
+        if(ball.ballTime >= 1.5)
+        {
+            if(!isRunBallAction)
+            {
+                isRunBallAction = YES;
+                
+                [ball runAction:
+                            [CCSequence actions:
+                                    [CCHide action],
+                                    [CCDelayTime actionWithDuration: 0.5],
+                                    [CCShow action],
+                                    [CCDelayTime actionWithDuration: 0.5],
+                                    [CCHide action],
+                                    [CCDelayTime actionWithDuration: 0.25],
+                                    [CCShow action],
+                             nil]
+                 ];
+            }
+        }
+        
         if(ball.ballTime >= 3)
         {
             if(ball.tag == waterPool.tag)
@@ -602,6 +622,8 @@
 
 - (void) startLevel: (NSInteger) level
 {
+    isRunBallAction = NO;
+    
     [[SimpleAudioEngine sharedEngine] playEffect: @"startGame.mp3"];
     
     runningSound = nil;

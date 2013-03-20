@@ -76,10 +76,10 @@
         scoreLabel.position = ccp(75, 300);
         [self addChild: scoreLabel z: zScoreBoard + 1];
         
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             CCSprite *heart = [CCSprite spriteWithFile: @"heart.png"];
-            heart.position = ccp(210 - 25 * i, 300);
+            heart.position = ccp(170, 300);
             heart.scale = 0.8;
             [heartsArray addObject: heart];
             [self addChild: heart z: 1 tag: kHeartTag];
@@ -121,10 +121,10 @@
     
     [heartsArray removeAllObjects];
     
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 1; i++)
     {
         CCSprite *heart = [CCSprite spriteWithFile: @"heart.png"];
-        heart.position = ccp(210 - 25 * i, 300);
+        heart.position = ccp(170, 300);
         heart.scale = 0.8;
         [heartsArray addObject: heart];
         [self addChild: heart z: 1 tag: kHeartTag];

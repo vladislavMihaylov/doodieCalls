@@ -80,8 +80,8 @@
 
 - (BOOL) isTapped: (CGPoint) location
 {
-    float Ax = ballSprite.contentSize.width + 3 / 2;
-    float Ay = ballSprite.contentSize.height + 3 / 2;
+    float Ax = ballSprite.contentSize.width + 5 / 2;
+    float Ay = ballSprite.contentSize.height + 5 / 2;
     float Tx = fabs(self.position.x - location.x);
     float Ty = fabsf(self.position.y - location.y);
     
